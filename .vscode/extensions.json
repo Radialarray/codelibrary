@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"naumovs.color-highlight",
+		"pranaygp.vscode-css-peek",
+		"yzhang.markdown-all-in-one",
+		"formulahendry.auto-rename-tag",
+		"formulahendry.auto-close-tag",
+		"Gruntfuggly.todo-tree"
+	]
+}

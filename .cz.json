@@ -1,0 +1,8 @@
+{
+	"commitizen": {
+		"name": "cz_conventional_commits",
+		"version": "0.0.2",
+		"tag_format": "$version",
+		"path": "@commitlint/cz-commitlint"
+	}
+}
