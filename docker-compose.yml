@@ -50,6 +50,12 @@ services:
       - 'traefik.http.routers.api.entrypoints=web'
       - 'traefik.http.routers.api.rule=Host(`traefik.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))'
       - 'traefik.http.routers.api.service=api@internal'
+      - 'traefik.http.routers.redirect-router.entrypoints=web'
+      - 'traefik.http.routers.redirect-router.rule=Host(`frontend.localhost`)'
+      - 'traefik.http.routers.redirect-router.middlewares=redirect-regex'
+      - 'traefik.http.middlewares.redirect-regex.redirectregex.regex=(.)*'
+      - 'traefik.http.middlewares.redirect-regex.redirectregex.replacement=http://localhost:3000'
+      - 'traefik.http.middlewares.redirect-regex.redirectregex.permanent=false'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
       - ./traefik.yml:/traefik.yml:ro
