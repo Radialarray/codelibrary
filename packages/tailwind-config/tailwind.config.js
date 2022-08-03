@@ -1,5 +1,4 @@
 module.exports = {
-	mode: 'jit',
 	content: ['../../apps/**/*.{html,js,jsx,ts, tsx}', '../../packages/**/*.{html,js,jsx,ts, tsx}'],
 
 	theme: {
@@ -19,7 +18,5 @@ module.exports = {
 		},
 
 		extend: {}
-	},
-
-	plugins: [require('@tailwindcss/typography')]
+	}
 };
