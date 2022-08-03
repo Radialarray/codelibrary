@@ -1,8 +1,8 @@
 {
 	"commitizen": {
 		"name": "cz_conventional_commits",
-		"version": "0.0.2",
-		"tag_format": "$version",
-		"path": "@commitlint/cz-commitlint"
+		"version": "0.1.0",
+		"update_changelog_on_bump": true,
+		"path": "./node_modules/cz-conventional-changelog"
 	}
 }

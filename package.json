@@ -11,15 +11,10 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"cm": "cz",
+		"format": "prettier --write \"**/*.{css,html,json,js,jsx,ts,tsx,md}\"",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^17.0.3",
-		"@commitlint/config-conventional": "^17.0.3",
-		"@commitlint/cz-commitlint": "^17.0.3",
-		"@commitlint/prompt-cli": "^17.0.3",
 		"@typescript-eslint/eslint-plugin": "^5.31.0",
 		"@typescript-eslint/parser": "^5.31.0",
 		"commitizen": "^4.2.5",
