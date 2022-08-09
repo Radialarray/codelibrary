@@ -22,7 +22,7 @@ services:
     volumes:
       - ./logs:/var/log/nginx:delegated
       - './apps/cms:/app'
-      - './site_codelibrary.conf:/etc/nginx/conf.d/default.conf'
+      - './apps/cms/site_codelibrary.conf:/etc/nginx/conf.d/default.conf'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.codelibrary.rule=Host(`backend.localhost`)'
