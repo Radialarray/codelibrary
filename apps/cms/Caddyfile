@@ -1,0 +1,79 @@
+# # Global Block
+# {
+# 	email youremail@domain.tld
+# 	local_certs
+# }
+
+# # Snippets
+# # Common server snippet use 'import common'
+# (common) {
+# 	encode gzip
+# 	tls internal
+# 	php_fastcgi php-fpm:9000
+# 	file_server
+# 	# log {
+# 	# 	output file /logs/caddy.log
+# 	# 	level error
+# 	# }
+# 	header * {
+# 		# You may want some other header options...
+# 		X-Frame-Options "DENY"
+# 		X-XSS-Protection "1; mode=block"
+# 		X-Content-Type-Options "nosniff"
+# 		X-Frame-Options "SAMEORIGIN"
+# 	}
+# }
+
+# #---------------------
+# # Kirby 2 & 3 common snippet use 'import kirby'
+# (kirby) {
+# 	@blocked {
+# 		path *.txt *.md *.mdown /site/* /kirby/*
+# 	}
+# 	redir @blocked /
+# 	log {
+# 		output file /data/caddy.log
+# 	}
+# }
+
+# #---------------------
+# # Cachebuster rewrite style.123213.css -> style.css 'import cachebuster'
+# (cachebuster) {
+# 	@cachedFiles {
+# 		not file
+# 		path_regexp cached ~*(.+)\.(?:\d+)\.(js|css|jpg|svg|png)
+# 	}
+# 	rewrite @cachedFiles {http.regexp.cached.1}.{http.regexp.cached.2}
+# }
+
+# #=====================
+# # Virtual Hosts - domains need to be added to your hosts file
+
+# localhost, {$DEVELOPMENT_URL} {
+# 	root * /var/www/html/app
+# 	import common
+# 	import kirby
+# }
+
+# # {$STAGING_URL}, {$PRODUCTION_URL} {
+# #   root * /app/public
+# #   php_fastcgi php-fpm:9000
+# #   # file_server
+# #   file_server browse
+# # }
+
+
+localhost, {$DEVELOPMENT_URL} {
+	root * /var/www/html/app
+  encode gzip
+  php_fastcgi php-fpm:9000
+  tls internal
+  file_server
+  # header * {
+  #   # You may want some other header options...
+  #   X-Frame-Options "DENY"
+  #   X-XSS-Protection "1; mode=block"
+  #   X-Content-Type-Options "nosniff"
+  #   X-Frame-Options "SAMEORIGIN"
+  # }
+}
