@@ -16,7 +16,7 @@ loadenv([
 ]);
 
 return [
-  'url' => [env('KIRBY_URL')],
+  'url' => ['http://' . env('KIRBY_URL'), 'https://' . env('KIRBY_URL')],
   'debug' => env('KIRBY_DEBUG', false),
 
   //------------ Panel ------------
