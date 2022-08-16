@@ -5,3 +5,4 @@ RUN apt-get update && apt-get install -y \
   libpng-dev \
   && docker-php-ext-configure gd \
   && docker-php-ext-install -j$(nproc) gd
+USER 1000

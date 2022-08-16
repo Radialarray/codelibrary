@@ -63,7 +63,7 @@
 # # }
 
 
-localhost, {$KIRBY_URL} {
+localhost, {$KIRBY_HOST} {
 	root * /var/www/html/app
   encode gzip
   php_fastcgi php-fpm:9000
