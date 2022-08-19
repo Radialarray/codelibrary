@@ -14,7 +14,7 @@ columns:
           intro:
             type: text
             help: Insert your intro paragraph here.
-          content:
+          main:
             type: blocks
   sidebar:
     width: 1/3
