@@ -26,9 +26,9 @@ interface PageContent {
 	content: Array;
 }
 
-type Block = {
+interface Block {
 	content: object;
 	id: string;
 	isHidden: boolean;
 	type: string;
-};
+}
