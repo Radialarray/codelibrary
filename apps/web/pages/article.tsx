@@ -5,7 +5,7 @@ import axios from 'axios';
 import htmlReactParser from 'html-react-parser';
 import {parseBlocks} from '../lib/blocks';
 import * as R from 'ramda';
-import Code from '../components/Code';
+import Code from '../components/Blocks/Code';
 
 // article will be populated at build time by getStaticProps()
 const Article: NextPage = props => {
@@ -43,7 +43,7 @@ const requestBody = {
 		categories: true,
 		headline: true,
 		intro: true,
-		content: 'page.content.main'
+		content: 'page.content.article'
 	},
 	pagination: {limit: 10}
 };

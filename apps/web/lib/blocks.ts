@@ -60,17 +60,6 @@ ${x.content.code}
 \`\`\``;
 	console.log(codeString);
 
-	// unified()
-	// 	.use(remarkParse)
-	// 	.use(remarkCodeHike)
-	// 	.use(remarkRehype)
-	// 	.use(rehypeFormat)
-	// 	.use(rehypeStringify)
-	// 	.process(codeString)
-	// 	.then(file => {
-	// 		console.log(file);
-	// 	});
-
 	const reactNode = unified()
 		.use(remarkParse)
 		.use([remarkCodeHike, {theme}])
