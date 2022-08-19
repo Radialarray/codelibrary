@@ -3,9 +3,9 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import {getPageContent, queryContent} from '../lib/api';
 import axios from 'axios';
 import htmlReactParser from 'html-react-parser';
-import {parseBlocks} from '../lib/blocks';
+import {parseBlocks} from '../components/block';
 import * as R from 'ramda';
-import Code from '../components/Blocks/Code';
+import Code from '../components/blocks/code';
 
 // article will be populated at build time by getStaticProps()
 const Article: NextPage = props => {
@@ -57,17 +57,17 @@ const requestOptions = {
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-// export async function getStaticProps() {
-// 	// const data: KQLResponse = await handler(requestOptions);
+export async function getStaticProps() {
+	// const data: KQLResponse = await handler(requestOptions);
 
-// 	const blocks = await getPageContent(requestOptions);
-// 	const htmlElements = await parseBlocks(blocks);
+	const blocks = await getPageContent(requestOptions);
+	const htmlElements = await parseBlocks(blocks);
 
-// 	// const articleContent = data.content;
-// 	// // Props returned will be passed to the page component
-// 	return {
-// 		props: {htmlElements}
-// 	};
-// }
+	// const articleContent = data.content;
+	// // Props returned will be passed to the page component
+	return {
+		props: {htmlElements}
+	};
+}
 
 export default Article;

@@ -27,8 +27,33 @@ interface PageContent {
 }
 
 interface Block {
-	content: object;
+	content: TextContent | ImageContent | CodeContent;
 	id: string;
 	isHidden: boolean;
 	type: string;
+}
+
+/**
+ * Used for TextContents like pure text and also headings,
+ * which have an optional level key.
+ */
+interface TextContent {
+	text: string;
+	level?: string;
+}
+
+interface ImageContent {
+	location: string;
+	image: Array;
+	src: string;
+	alt: string;
+	caption: string;
+	link: string;
+	ration: string;
+	crop: string;
+}
+
+interface CodeContent {
+	code: string;
+	language: string;
 }
