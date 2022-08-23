@@ -2,6 +2,7 @@ interface KQLResponse {
 	code: number;
 	message?: string;
 	result?: {
+		images: array;
 		url: string;
 		title: string;
 		courses?: string;
@@ -23,15 +24,24 @@ interface KQLResponseBlock {
 
 interface PageContent {
 	meta: object;
-	content: Array;
+	content: Block[];
+	images: [];
 }
 
 interface Block {
-	content: TextContent | ImageContent | CodeContent;
+	content: Content;
 	id: string;
 	isHidden: boolean;
 	type: string;
 }
+
+type Content =
+	| TextContent
+	| ImageContent
+	| CodeContent
+	| QuoteContent
+	| VideoContent
+	| GalleryContent;
 
 /**
  * Used for TextContents like pure text and also headings,
@@ -51,9 +61,24 @@ interface ImageContent {
 	link: string;
 	ration: string;
 	crop: string;
+	url: string;
 }
 
 interface CodeContent {
 	code: string;
 	language: string;
+}
+
+interface QuoteContent {
+	text: string;
+	citation: string;
+}
+
+interface VideoContent {
+	url: string;
+	caption: string;
+}
+
+interface GalleryContent {
+	images: [{url; filename}];
 }
