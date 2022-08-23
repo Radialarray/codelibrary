@@ -19,12 +19,13 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), {ssr: false});
 import 'swiper/css';
 /**
  * Parses blocks from block content editor data from KQL response.
- * @param {PageContent} data
+ * @param data
  * @returns {HTMLElement[]}
  */
-export const parseBlocks = (props: PageContent): JSX.Element[] => {
+// export const parseBlocks = ({content}: PageContent): JSX.Element[] => {
+export const parseBlocks = (props: Block[]): JSX.Element[] => {
 	// for every block in blocks paste as parameter to parseBlock()
-	return R.map(parseBlock, props.data);
+	return R.map(parseBlock, props);
 };
 
 // Dompurify Options
@@ -154,11 +155,11 @@ const parseLine = (props: Block): JSX.Element => {
  */
 const parseGallery = (props: Block): JSX.Element => {
 	const slides = (props.content as GalleryContent).images.map(x => {
-		return (
+		return typeof x === 'object' ? (
 			<SwiperSlide key={x.url}>
 				<Image
 					key={`${x.url}-img`}
-					src={x.url}
+					src={x.url ? x.url : ''}
 					alt={x.filename}
 					layout="intrinsic"
 					width="500"
@@ -166,6 +167,8 @@ const parseGallery = (props: Block): JSX.Element => {
 					objectFit="cover"
 				/>
 			</SwiperSlide>
+		) : (
+			<div>Error</div>
 		);
 	});
 
@@ -183,10 +186,10 @@ const parseGallery = (props: Block): JSX.Element => {
  */
 const parseCode = (props: Block): JSX.Element => {
 	// TODO: Syntax Highlighting for everything
-	const basicHighlighting = x => {
-		const codeString = x.content.code;
+	const basicHighlighting = (x: Block) => {
+		const codeString = (x.content as CodeContent).code;
 		return (
-			<SyntaxHighlighter key={props.id} language={x.content.language} style={dark}>
+			<SyntaxHighlighter key={props.id} language={(x.content as CodeContent).language} style={dark}>
 				{codeString}
 			</SyntaxHighlighter>
 		);
@@ -197,7 +200,7 @@ const parseCode = (props: Block): JSX.Element => {
 		return (
 			<div>
 				<Sandpack
-					kkey={props.id}
+					key={props.id}
 					options={{readOnly: true}}
 					theme={sandpackDark}
 					template="vanilla"
@@ -259,7 +262,8 @@ const parseMarkdown = (props: Block) => {
 				code({node, inline, className, children, ...props}) {
 					const match = /language-(\w+)/.exec(className || '');
 					return !inline && match ? (
-						<SyntaxHighlighter style={dark} language={match[1]} PreTag="div" {...props}>
+						// @ts-expect-error
+						<SyntaxHighlighter language={match[1]} PreTag="div" style={dark} {...props}>
 							{String(children).replace(/\n$/, '')}
 						</SyntaxHighlighter>
 					) : (
@@ -278,7 +282,7 @@ const parseMarkdown = (props: Block) => {
 /**
  * Checks for block type and then calls the respective component.
  */
-const parseBlock = R.cond<Block[], JSX.Element | string>([
+const parseBlock = R.cond<Block[], JSX.Element>([
 	[x => R.equals('code', x.type), parseCode],
 	[x => R.equals('gallery', x.type), parseGallery],
 	[x => R.equals('heading', x.type), parseHeading],

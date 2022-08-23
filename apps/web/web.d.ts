@@ -22,10 +22,14 @@ interface KQLResponseBlock {
 	type: string;
 }
 
-interface PageContent {
-	meta: object;
-	content: Block[];
+interface Page {
+	meta: {};
+	content: [];
 	images: [];
+}
+
+interface PageContent {
+	content: Block[];
 }
 
 interface Block {
@@ -80,5 +84,10 @@ interface VideoContent {
 }
 
 interface GalleryContent {
-	images: [{url; filename}];
+	images: [{url: string; filename: string} | string];
+}
+
+interface Image {
+	url: string;
+	filename: string;
 }

@@ -1,17 +1,15 @@
 import type {NextPage} from 'next';
 import type {NextApiRequest, NextApiResponse} from 'next';
+import {GetStaticProps} from 'next';
 import {getPageContent, queryContent} from '../lib/api';
 import axios from 'axios';
 import htmlReactParser from 'html-react-parser';
 import {parseBlocks} from '../components/block';
 import * as R from 'ramda';
-import Code from '../components/blocks/code';
 
 // article will be populated at build time by getStaticProps()
-const Article: NextPage = props => {
-	const htmlElements = parseBlocks(props as PageContent);
-	// console.log(htmlElements);
-
+const Article = (props: PageContent) => {
+	const htmlElements = parseBlocks(props.content);
 	return <>{htmlElements}</>;
 };
 
@@ -47,7 +45,7 @@ const requestOptions = {
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async context => {
 	// const data: KQLResponse = await handler(requestOptions);
 
 	const response = await getPageContent(requestOptions);
@@ -72,17 +70,17 @@ export async function getStaticProps() {
 						images
 					);
 
-					if (imageSrc && imageSrc.url) {
-						const newContent = R.assoc('url', imageSrc.url, content);
+					if (!R.isNil(imageSrc) && (imageSrc as Image).url) {
+						const newContent = R.assoc('url', (imageSrc as Image).url, content);
 						return {...block, content: newContent};
 					} else {
 						throw new Error('No image source found!');
 					}
 				}
 				if (block.type === 'gallery') {
-					const content = block.content.images;
+					const content = block.content as GalleryContent;
 					// 1. Get first image of gallery images array
-					const iterateImages = (fn: unknown, data: Content) => {
+					const iterateImages = (fn: any, data: Content) => {
 						return R.map(fn, data);
 					};
 					// const log = (x: unknown) => console.log(x);
@@ -94,20 +92,12 @@ export async function getStaticProps() {
 						R.find(R.propEq(key, value))(data);
 					// const test2 = findImage('filename', 'smallsimulation3.jpg', images);
 					// console.log(test2);
-
-					const imageSources = content.map(x => {
-						// console.log(x);
-						const image = findImage('filename', x, images);
+					const imageSources = content.images.map(x => {
+						const image = findImage('filename', x as string, images);
 						return image;
 					});
 
 					return {...block, content: {images: imageSources}};
-					// if (imageSrc && imageSrc.url) {
-					// 	const newContent = R.assoc('url', imageSrc.url, content);
-					// 	return {...block, content: newContent};
-					// } else {
-					// 	throw new Error('No image source found!');
-					// }
 				}
 
 				return block;
@@ -115,14 +105,14 @@ export async function getStaticProps() {
 			return blocksWithImagesSrc as Block[];
 		};
 
-	const data = addImageUrls(images)(blocks);
-	// console.log(Array.isArray(data));
-	// console.log(blocks);
-	// const articleContent = data.content;
+	const content = addImageUrls(images)(blocks);
+	// console.log(Array.isArray(content));
+	// console.log(content);
+	// const articleContent = content.content;
 	// // Props returned will be passed to the page component
 	return {
-		props: {data}
+		props: {content}
 	};
-}
+};
 
 export default Article;

@@ -25,7 +25,7 @@ export const queryContent = async (req: AxiosRequestConfig) => {
 	}
 };
 
-export const buildContent = async (data: KQLResponse): Promise<PageContent> => {
+export const buildContent = async (data: KQLResponse): Promise<Page> => {
 	const result = data.result;
 	if (result === undefined) {
 		throw new Error('Page seems empty!');
@@ -60,9 +60,9 @@ export const buildContent = async (data: KQLResponse): Promise<PageContent> => {
 /**
  * Get the complete page content from a normal article page.
  * @param {AxiosRequestConfig} req
- * @returns {PageContent}
+ * @returns {Page}
  */
-export const getPageContent = async (req: AxiosRequestConfig): Promise<PageContent> => {
+export const getPageContent = async (req: AxiosRequestConfig): Promise<Page> => {
 	const data = await queryContent(req);
 	if (data.code !== 200 || data.code === undefined) {
 		console.error('something happened');
@@ -71,14 +71,4 @@ export const getPageContent = async (req: AxiosRequestConfig): Promise<PageConte
 		const pageContent = await buildContent(data);
 		return pageContent;
 	}
-};
-
-/**
- * Parses blocks from block content editor data from KQL response.
- * @param {PageContent} data
- * @returns {HTMLElement[]}
- */
-export const parseBlocks = async (data: PageContent) => {
-	const blocks = data.content;
-	return blocks;
 };
