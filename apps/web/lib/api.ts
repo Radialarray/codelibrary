@@ -1,5 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse, AxiosError, Axios} from 'axios';
 import * as R from 'ramda';
+import {pipeWhileNotNil} from './helper';
 export const queryContent = async (req: AxiosRequestConfig) => {
 	// Call an external API endpoint to get article.
 	// You can use any data fetching library
@@ -43,14 +44,14 @@ export const buildContent = async (data: KQLResponse): Promise<PageContent> => {
 	if (result.content === undefined) {
 		throw new Error('Page content seems empty!');
 	}
-	const pipeWhileNotNil = R.pipeWith((f, res) => (R.isNil(res) ? res : f(res)));
 	const parseContent = pipeWhileNotNil([JSON.parse]);
 
 	const content = parseContent(result.content);
 
 	const pageContent = {
 		meta: meta,
-		content: content
+		content: content,
+		images: result.images
 	};
 
 	return pageContent;
