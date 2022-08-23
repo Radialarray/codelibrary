@@ -5,7 +5,7 @@ export const queryContent = async (req: AxiosRequestConfig) => {
 	// You can use any data fetching library
 	try {
 		const response = await axios({
-			url: process.env.API_URL,
+			url: `https://${process.env.API_HOST}`,
 			auth: {
 				username: process.env.API_USERNAME!,
 				password: process.env.API_PASSWORD!
