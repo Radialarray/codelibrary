@@ -42,6 +42,26 @@ Run `docker-compose up` and work with the files in the `apps/cms/` folder. You c
 
 Run `npm run dev` and open the devserver on [localhost:3000](localhost:3000).
 
+## Deployment
+
+### Backend
+
+The backend is a standard kirby instance, which could be hosted on a server with php support. Or one could use the docker-compose setup + the custom dockerimage and deploy it on a container environment.
+
+### Frontend
+
+The frontend is a static webapp which could be hosted nearly everywhere. Right now there is some stuff set up for hosting on [vercel](vercel.com).
+
+### Turbocache
+
+The whole repository is equipped with turbocache caching for faster build times. So please use it. By using the root level package.json commands, everything will work out of the box.
+
+### PNPM
+
+Using this package manager for faster install times and cached packages.
+
+How to use? `pnpm run <YOUR_COMMAND>`.
+
 ## Features
 
 - [x] TailwindCSS
