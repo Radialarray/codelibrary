@@ -1,9 +1,7 @@
 import type {NextPage} from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import Layout from '../components/layout';
-import Header from '../components/header';
+import Layout from '../lib/components/Layout';
+import Header from '../lib/components/Header';
 
 const Home: NextPage = () => {
 	return (

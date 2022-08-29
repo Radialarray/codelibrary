@@ -1,6 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse, AxiosError, Axios} from 'axios';
-import * as R from 'ramda';
-import {pipeWhileNotNil} from './helper';
+import {pipeWhileNotNil} from '../helper/helper';
 export const queryContent = async (req: AxiosRequestConfig) => {
 	// Call an external API endpoint to get article.
 	// You can use any data fetching library

@@ -1,10 +1,6 @@
-import type {NextPage} from 'next';
-import type {NextApiRequest, NextApiResponse} from 'next';
 import {GetStaticProps} from 'next';
-import {getPageContent, queryContent} from '../lib/api';
-import axios from 'axios';
-import htmlReactParser from 'html-react-parser';
-import {parseBlocks} from '../components/block';
+import {getPageContent} from '../lib/api/api';
+import {parseBlocks} from '../lib/components/block';
 import * as R from 'ramda';
 
 // article will be populated at build time by getStaticProps()
