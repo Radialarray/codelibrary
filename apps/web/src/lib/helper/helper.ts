@@ -1,0 +1,20 @@
+import * as R from 'ramda';
+import DOMPurify from 'isomorphic-dompurify';
+
+export const pipeWhileNotNil = R.pipeWith((f, res) => (R.isNil(res) ? res : f(res)));
+
+// Dompurify Options
+const dompurifyDefaultOptions = {
+	ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'code', 'li', 'br', 'p'],
+	ALLOWED_ATTR: ['href']
+};
+
+/**
+ * Given dirty html, returns sanitized html.
+ * @param dirty
+ * @param options
+ * @returns
+ */
+export const sanitize = (dirty: string, options?: object) => ({
+	__html: DOMPurify.sanitize(dirty, {...dompurifyDefaultOptions, ...options})
+});

@@ -8,16 +8,24 @@
  * All config options: https://getkirby.com/docs/reference/system/options
  */
 
+require_once __DIR__ . '/../plugins/kirby3-dotenv/global.php';
+
+loadenv([
+  'dir' => realpath(__DIR__ . '/../../'),
+  'file' => '.env',
+]);
 
 return [
-  'debug' => false,
+  'url' => ['https://' . env('KIRBY_HOST')],
+  'debug' => env('KIRBY_DEBUG', false),
+
   //------------ Panel ------------
   'panel' => [
     'language' => 'en',
-    'install' => true
+    'install' => env('KIRBY_PANEL_INSTALL', false),
   ],
   'api' => [
-    'basicAuth' => false,
+    'basicAuth' => true,
     'allowInsecure' => false
-  ],
+  ]
 ];

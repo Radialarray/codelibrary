@@ -1,5 +1,37 @@
 title: Site
 
-sections:
-  pages:
-    type: pages
+columns:
+  main:
+    width: 2/3
+    sections:
+      pages:
+        type: pages
+      navigation:
+        type: fields
+        fields:
+          navigation:
+            label: Navigation
+            type: navigation
+            levels: 5
+            help: Description of menu or where it is used
+  meta:
+    width: 1/3
+    type: fields
+    fields:
+      tags: # a list of all tags
+        type: tags
+        label: Tags/Kategorien
+      languages:
+        type: tags
+        label: Programming Languages
+        # even if its not used to change via the backend, its needed for the search.php controller
+      courses:
+        type: structure
+        label: Courses
+        fields:
+          course:
+            label: Coursename
+            type: text
+          url:
+            label: URL
+            type: url

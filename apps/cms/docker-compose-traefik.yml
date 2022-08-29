@@ -1,0 +1,62 @@
+version: '3.7'
+services:
+  composer_installation:
+    container_name: composer_installation
+    image: composer
+    user: '1000:1000'
+    volumes:
+      - ./:/app
+    command: composer install --ignore-platform-reqs
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: unless-stopped
+    volumes:
+      - $PWD/Caddyfile-Traefik:/etc/caddy/Caddyfile
+      - ./:/var/www/html/app
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./logs:/logs
+    depends_on:
+      - php-fpm
+    env_file:
+      - .env
+    networks:
+      - default
+      - proxy
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.kirby.entrypoints=web'
+      - 'traefik.http.routers.kirby.rule=Host(`${KIRBY_HOST}`)'
+      - 'traefik.http.middlewares.kirby-https-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.kirby.middlewares=kirby-https-redirect'
+      - 'traefik.http.routers.kirby-secure.entrypoints=websecure'
+      - 'traefik.http.routers.kirby-secure.rule=Host(`${KIRBY_HOST}`)'
+      - 'traefik.http.routers.kirby-secure.tls=true'
+      - 'traefik.http.routers.kirby-secure.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.kirby-secure.service=kirby'
+      - 'traefik.http.services.kirby.loadbalancer.server.port=80'
+      - 'traefik.docker.network=proxy'
+      # No indexation eg. google
+      - 'traefik.http.middlewares.traefik-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex'
+
+  php-fpm:
+    container_name: php-fpm
+    build: .
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - ./:/var/www/html/app
+      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
+    depends_on:
+      - composer_installation
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  default:
+  proxy:
+    external: true

@@ -1,0 +1,67 @@
+title: Single-Column Page
+
+
+options:
+  preview: "{{ page.frontendUrl }}"
+
+
+columns:
+  main:
+    width: 2/3
+    sections:
+      content:
+        type: fields
+        fields:
+          headline:
+            type: text
+            placeholder: '{{ page.title }}'
+            help: Leave empty to use the title as headline.
+          intro:
+            type: text
+            help: Insert your intro paragraph here.
+          main:
+            type: blocks
+  sidebar:
+    width: 1/3
+    sections:
+      pages:
+        type: pages
+        template: default
+      files:
+        type: files
+      meta:
+        type: fields
+        fields:
+          courses:
+            label: Kurse
+            type: multiselect
+            options: query
+            query: site.cour1ses.split('- ')
+            # TODO: split courses here
+            text: '{{ arrayItem.split('course:') }}'
+            value: '{{ course }}'
+            search: false
+          codeLanguages:
+            type: multiselect
+            label: Sprache
+            accept: options
+            options: query
+            query: site.languages.split
+          level:
+            required: true
+            label: Level
+            type: toggles
+            options:
+              - low
+              - medium
+              - high
+            default: low
+          categories:
+            label: Kategorien
+            type: multiselect
+            accept: options
+            options: query
+            query: site.tags.split
+          url:
+            label: URL
+            type: url

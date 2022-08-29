@@ -14,9 +14,13 @@ out/
 build
 dist
 
+# nextjs typescript types
+next-env.d.ts
+
 # misc
 .DS_Store
 *.pem
+.eslintcache
 
 # debug
 npm-debug.log*
@@ -26,20 +30,17 @@ yarn-error.log*
 
 # local env files
 .env
+.env.*
 .env.development
 .env.test
 .env.production
+!.env.example
+!.env.*.example
 
 # turbo
 .turbo
 
-# Composer & Kirby PHP
-**/kirby
-**/vendor
-**/logs
-
 # System files
-
 Icon
 .DS_Store
 
@@ -49,28 +50,4 @@ Icon
 **!media/index.html
 
 # Lock files
-
 .lock
-
-# -------------SECURITY-------------
-# NEVER publish these files via Git!
-# -------------SECURITY-------------
-
-# Cache Files
-
-**/site/cache/*
-**!/site/cache/index.html
-
-# Accounts
-
-**/site/accounts/*
-!**/site/accounts/index.html
-
-# Sessions
-
-**/site/sessions/*
-**!/site/sessions/index.html
-
-# License
-
-**/site/config/.license

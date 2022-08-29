@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - $PWD/Caddyfile-Local:/etc/caddy/Caddyfile
+      - ./:/var/www/html/app
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./logs:/logs
+    depends_on:
+      - php-fpm
+    env_file:
+      - .env
+  php-fpm:
+    container_name: php-fpm
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html/app
+      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  default:
+    name: main
