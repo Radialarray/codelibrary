@@ -1,0 +1,25 @@
+# excludes from the docker image/build
+
+# 1. Ignore everything (ensures don't upload .git, .env etc)
+**
+
+# 2. Allow files and directories
+!app/**
+!site/**
+!bootstrap/**
+!config/**
+!database/**
+!docker/**
+!public/**
+!index.php
+!composer.json
+!composer.lock
+!package.json
+!package-lock.json
+!webpack.mix.js
+
+# 3. Ignore unnecessary files that may be inside those allowed directories
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db

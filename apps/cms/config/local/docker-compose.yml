@@ -8,22 +8,22 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - $PWD/Caddyfile-Local:/etc/caddy/Caddyfile
-      - ./:/var/www/html/app
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./logs:/logs
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ../../site:/var/www/html/app
+      - ../../index.php:/var/www/html/app
+      - ../../logs:/logs
     depends_on:
       - php-fpm
     env_file:
-      - .env
+      - ../../.env
   php-fpm:
     container_name: php-fpm
     build: .
     restart: unless-stopped
     volumes:
-      - ./:/var/www/html/app
-      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ../../site:/var/www/html/app
+      - ../../index.php:/var/www/html/app
+      - ../../.user.ini:/usr/local/etc/php/conf.d/.user.ini
 volumes:
   caddy_data:
   caddy_config:

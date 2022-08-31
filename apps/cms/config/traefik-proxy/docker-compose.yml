@@ -5,22 +5,21 @@ services:
     image: composer
     user: '1000:1000'
     volumes:
-      - ./:/app
+      - ../../:/app
     command: composer install --ignore-platform-reqs
   caddy:
     container_name: caddy
     image: caddy
     restart: unless-stopped
     volumes:
-      - $PWD/Caddyfile-Traefik:/etc/caddy/Caddyfile
-      - ./:/var/www/html/app
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./logs:/logs
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ../../site:/var/www/html/app
+      - ../../index.php:/var/www/html/app
+      - ../../logs:/logs
     depends_on:
       - php-fpm
     env_file:
-      - .env
+      - ../../.env
     networks:
       - default
       - proxy
@@ -47,8 +46,9 @@ services:
     networks:
       - default
     volumes:
-      - ./:/var/www/html/app
-      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ../../site:/var/www/html/app
+      - ../../index.php:/var/www/html/app
+      - ../../.user.ini:/usr/local/etc/php/conf.d/.user.ini
     depends_on:
       - composer_installation
 
