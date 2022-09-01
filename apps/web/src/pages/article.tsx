@@ -16,7 +16,7 @@ const Article = (props: PageContent) => {
 };
 
 const requestBody = {
-	query: 'page("test")',
+	query: 'page("article")',
 	select: {
 		url: true,
 		title: true,
@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps = async context => {
 					}
 				}
 				if (block.type === 'gallery') {
-					const content = block.content as GalleryContent;
+					const content = block.content as KQLGalleryBlock;
 					// 1. Get first image of gallery images array
 					// 2.	Find image by name in data images array
 					// 2.1. R.propEq(): Check if image property exists in data images array.
@@ -97,8 +97,8 @@ export const getStaticProps: GetStaticProps = async context => {
 					// const test2 = findImage('filename', 'smallsimulation3.jpg', images);
 					// console.log(test2);
 
-					const imageSources = content.images.map(x => {
-						const image = findImage('filename', x as string, images);
+					const imageSources = content.images.map(filename => {
+						const image = findImage('filename', filename, images);
 						const newContent: ImageContent = {
 							location: '',
 							image: [(image as Image).filename],

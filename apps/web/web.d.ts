@@ -45,7 +45,8 @@ type Content =
 	| CodeContent
 	| QuoteContent
 	| VideoContent
-	| GalleryContent;
+	| GalleryContent
+	| KQLGalleryBlock;
 
 /**
  * Used for TextContents like pure text and also headings,
@@ -87,6 +88,10 @@ interface VideoContent {
 
 interface GalleryContent {
 	images: Block[];
+}
+
+interface KQLGalleryBlock {
+	images: string[];
 }
 
 interface Image {
