@@ -45,7 +45,8 @@ type Content =
 	| CodeContent
 	| QuoteContent
 	| VideoContent
-	| GalleryContent;
+	| GalleryContent
+	| KQLGalleryBlock;
 
 /**
  * Used for TextContents like pure text and also headings,
@@ -63,9 +64,11 @@ interface ImageContent {
 	alt: string;
 	caption: string;
 	link: string;
-	ration: string;
 	crop: string;
-	url: string;
+	width: number;
+	height: number;
+	ratio: number;
+	orientation: string;
 }
 
 interface CodeContent {
@@ -84,10 +87,20 @@ interface VideoContent {
 }
 
 interface GalleryContent {
-	images: [{url: string; filename: string} | string];
+	images: Block[];
+}
+
+interface KQLGalleryBlock {
+	images: string[];
 }
 
 interface Image {
+	dimensions: {
+		width: number;
+		height: number;
+		ratio: number;
+		orientation: string;
+	};
 	url: string;
 	filename: string;
 }

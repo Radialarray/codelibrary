@@ -27,39 +27,34 @@ const Code = (props: Block): JSX.Element => {
 	// TODO: Basic readonly code viewer for HTML,CSS,JS
 	const basicInteractiveSandbox = (props: Block) => {
 		return (
-			<div>
-				<Sandpack
-					key={props.id}
-					options={{readOnly: true}}
-					theme={githubLight}
-					template="vanilla"
-					files={{
-						'/src/index.cpp': (props.content as CodeContent).code,
-						'/src/index2.ts': (props.content as CodeContent).code,
-						[`/src/index4.${(props.content as CodeContent).language}`]: (
-							props.content as CodeContent
-						).code
-					}}
-				/>
-			</div>
+			<Sandpack
+				key={props.id}
+				options={{readOnly: true}}
+				theme={githubLight}
+				template="vanilla"
+				files={{
+					'/src/index.cpp': (props.content as CodeContent).code,
+					'/src/index2.ts': (props.content as CodeContent).code,
+					[`/src/index4.${(props.content as CodeContent).language}`]: (props.content as CodeContent)
+						.code
+				}}
+			/>
 		);
 	};
 
 	// TODO: Interactive viewer: P5JS usw.
 	const fullInteractiveSandbox = (props: Block) => {
 		return (
-			<div>
-				<Sandpack
-					key={props.id}
-					options={{readOnly: true}}
-					// theme={sandpackDark}
-					theme={githubLight}
-					template="vanilla"
-					files={{
-						'/src/index.js': (props.content as CodeContent).code
-					}}
-				/>
-			</div>
+			<Sandpack
+				key={props.id}
+				options={{readOnly: true}}
+				// theme={sandpackDark}
+				theme={githubLight}
+				template="vanilla"
+				files={{
+					'/src/index.js': (props.content as CodeContent).code
+				}}
+			/>
 		);
 	};
 

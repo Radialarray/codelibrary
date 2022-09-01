@@ -2,11 +2,8 @@ module.exports = {
 	content: ['src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		fontFamily: {
-			sans: ['AtlasGrotesk', 'sans-serif'],
-			serif: ['serif']
-		},
-		colors: {},
-
-		extend: {}
-	}
+			sans: ['AtlasGrotesk', 'sans-serif']
+		}
+	},
+	plugins: [require('@tailwindcss/typography')]
 };

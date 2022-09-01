@@ -11,6 +11,7 @@ const Markdown = (props: Block) => {
 	// return <ReactMarkdown key={props.id}>{(props.content as TextContent).text}</ReactMarkdown>;
 	return (
 		<ReactMarkdown
+			key={props.id}
 			components={{
 				code({node, inline, className, children, ...props}) {
 					const match = /language-(\w+)/.exec(className || '');
