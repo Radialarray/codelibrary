@@ -1,0 +1,10 @@
+# Add 'repo' label to any root file changes
+repo:
+  - '*'
+
+# Add 'web` label to any change to *.js files as long as the `main.js` hasn't changed
+web:
+  - any: ['apps/web/**/*.js']
+
+cms:
+  - any: ['apps/cms/**/*.js']
