@@ -2,6 +2,9 @@
 **/kirby
 **/vendor
 **/logs
+node_modules
+.env
+.lock
 # **/site/plugins/
 
 # -------------SECURITY-------------
@@ -26,3 +29,16 @@
 # License
 
 **/site/config/.license
+
+/public/media/*
+!/public/media/index.html
+/storage/accounts/*
+!/storage/accounts/.gitkeep
+/storage/cache/*
+!/storage/cache/.gitkeep
+# /storage/content/*
+# !/storage/content/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/sessions/*
+!/storage/sessions/.gitkeep

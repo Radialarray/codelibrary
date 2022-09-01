@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ../../deploy/local/Caddyfile:/etc/caddy/Caddyfile
+      - ../../site/:/srv/site/
+      - ../../kirby/:/srv/kirby/
+      - ../../vendor/:/srv/vendor/
+      - ../../storage/:/srv/storage/
+      - ../../public/media/:/srv/media/
+      - ../../public/index.php:/srv/index.php
+      - ../../public/phpinfo.php:/srv/phpinfo.php
+    env_file:
+      - ../../.env
+    depends_on:
+      - php-fpm
+  php-fpm:
+    container_name: php-fpm
+    build: .
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    volumes:
+      - ../../.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ../../site/:/srv/site/
+      - ../../kirby/:/srv/kirby/
+      - ../../vendor/:/srv/vendor/
+      - ../../storage/:/srv/storage/
+      - ../../public/media/:/srv/media/
+      - ../../public/index.php:/srv/index.php
+      - ../../public/phpinfo.php:/srv/phpinfo.php
+
+networks:
+  default:
+    name: main
