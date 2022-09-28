@@ -16,13 +16,14 @@ loadenv([
 ]);
 
 return [
-  'url' => ['https://' . env('KIRBY_HOST')],
+  // 'url' => ['https://' . env('KIRBY_HOST')],
+  'url' => '*',
   'debug' => env('KIRBY_DEBUG', false),
 
   //------------ Panel ------------
   'panel' => [
     'language' => 'en',
-    'install' => env('KIRBY_PANEL_INSTALL', false),
+    // 'install' => env('KIRBY_PANEL_INSTALL', false),
   ],
   'api' => [
     'basicAuth' => true,

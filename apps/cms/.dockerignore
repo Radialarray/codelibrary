@@ -1,0 +1,32 @@
+# excludes from the docker image/build
+
+# 1. Ignore everything (ensures don't upload .git, .env etc)
+**
+
+# 2. Allow files and directories
+!site/**
+site/plugins/**
+!site/plugins/kirby-navigation
+!bootstrap/**
+!config/**
+!docker/**
+!public/**
+!media/**
+!assets/**
+!deploy/fly.io/**
+!storage/**
+storage/accounts/**
+storage/sessions/**
+storage/logs/**
+storage/content/**
+!index.php
+!composer.json
+!composer.lock
+!package.json
+!package-lock.json
+
+# 3. Ignore unnecessary files that may be inside those allowed directories
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db

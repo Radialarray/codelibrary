@@ -12,6 +12,7 @@ $kirby = new Kirby([
     'index'    => __DIR__,
     'base'     => $base,
     'site'     => $base . '/site',
+    'assets'     => $base . '/assets',
     'storage'  => $storage = $base . '/storage',
     'content'  => $storage . '/content',
     'accounts' => $storage . '/accounts',
