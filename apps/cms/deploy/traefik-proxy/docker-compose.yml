@@ -5,22 +5,24 @@ services:
     image: composer
     user: '1000:1000'
     volumes:
-      - ./:/app
+      - ../../:/app
     command: composer install --ignore-platform-reqs
   caddy:
     container_name: caddy
     image: caddy
     restart: unless-stopped
     volumes:
-      - $PWD/Caddyfile-Traefik:/etc/caddy/Caddyfile
-      - ./:/var/www/html/app
-      - caddy_data:/data
-      - caddy_config:/config
-      - ./logs:/logs
+      - ../../deploy/traefik-proxy/Caddyfile:/etc/caddy/Caddyfile
+      - ../../site/:/srv/site/
+      - ../../kirby/:/srv/kirby/
+      - ../../vendor/:/srv/vendor/
+      - ../../storage/:/srv/storage/
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
     depends_on:
       - php-fpm
     env_file:
-      - .env
+      - ../../.env
     networks:
       - default
       - proxy
@@ -46,9 +48,17 @@ services:
     restart: unless-stopped
     networks:
       - default
+    env_file:
+      - ../../.env
     volumes:
-      - ./:/var/www/html/app
       - .user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ../../site/:/srv/site/
+      - ../../kirby/:/srv/kirby/
+      - ../../vendor/:/srv/vendor/
+      - ../../storage/:/srv/storage/
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
+      # - phpinfo.php:/srv/phpinfo.php
     depends_on:
       - composer_installation
 

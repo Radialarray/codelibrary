@@ -1,0 +1,6 @@
+localhost, {$KIRBY_HOST} {
+	root * /srv
+  encode gzip
+  php_fastcgi php-fpm:9000
+  tls internal
+}
