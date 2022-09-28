@@ -17,9 +17,8 @@ services:
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/
-      - ../../public/media/:/srv/media/
-      - ../../public/index.php:/srv/index.php
-      - ../../public/phpinfo.php:/srv/phpinfo.php
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
     depends_on:
       - php-fpm
     env_file:
@@ -52,14 +51,14 @@ services:
     env_file:
       - ../../.env
     volumes:
-      - ../../.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
       - ../../site/:/srv/site/
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/
-      - ../../public/media/:/srv/media/
-      - ../../public/index.php:/srv/index.php
-      - ../../public/phpinfo.php:/srv/phpinfo.php
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
+      # - phpinfo.php:/srv/phpinfo.php
     depends_on:
       - composer_installation
 

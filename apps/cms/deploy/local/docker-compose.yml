@@ -13,13 +13,21 @@ services:
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/
-      - ../../public/media/:/srv/media/
-      - ../../public/index.php:/srv/index.php
-      - ../../public/phpinfo.php:/srv/phpinfo.php
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
     env_file:
       - ../../.env
     depends_on:
       - php-fpm
+
+  composer_installation:
+    container_name: composer_installation
+    image: composer
+    user: '1000:1000'
+    volumes:
+      - ../../:/app
+    command: composer install --ignore-platform-reqs
+
   php-fpm:
     container_name: php-fpm
     build: .
@@ -27,14 +35,16 @@ services:
     env_file:
       - ../../.env
     volumes:
-      - ../../.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - .user.ini:/usr/local/etc/php/conf.d/.user.ini
       - ../../site/:/srv/site/
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/
-      - ../../public/media/:/srv/media/
-      - ../../public/index.php:/srv/index.php
-      - ../../public/phpinfo.php:/srv/phpinfo.php
+      - ../../media/:/srv/media/
+      - ../../index.php:/srv/index.php
+      # - phpinfo.php:/srv/phpinfo.php
+    depends_on:
+      - composer_installation
 
 networks:
   default:

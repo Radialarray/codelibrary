@@ -3,5 +3,4 @@ localhost, {$KIRBY_HOST} {
   encode gzip
   php_fastcgi php-fpm:9000
   tls internal
-  file_server
 }
