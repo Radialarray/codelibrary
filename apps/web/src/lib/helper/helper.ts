@@ -18,3 +18,12 @@ const dompurifyDefaultOptions = {
 export const sanitize = (dirty: string, options?: object) => ({
 	__html: DOMPurify.sanitize(dirty, {...dompurifyDefaultOptions, ...options})
 });
+
+/**
+ * Checks if value empty, if yes, make it null, else take the given value.
+ */
+export const ifEmpty = R.ifElse(
+	R.isEmpty,
+	x => null,
+	x => x
+);

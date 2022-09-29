@@ -5,8 +5,9 @@ interface KQLResponse {
 		images: array;
 		url: string;
 		title: string;
+		navigation: Array;
 		courses?: string;
-		codeLanguages?: string;
+		codelanguages?: string;
 		level?: string;
 		categories?: string;
 		headline?: string;
@@ -30,6 +31,7 @@ interface Page {
 
 interface PageContent {
 	content: Block[];
+	meta: MetaInfo;
 }
 
 interface Block {
@@ -103,4 +105,26 @@ interface Image {
 	};
 	url: string;
 	filename: string;
+}
+
+interface NavItem {
+	id: string;
+	url: string;
+	text: string;
+	title: string;
+	popup: string;
+	isOpen: string;
+	children: Array<object>;
+}
+
+interface MetaInfo {
+	url: string;
+	title: string;
+	navigation: Array<NavItem>;
+	courses: string;
+	codeLanguages: string;
+	level: string;
+	categories: string;
+	headline: string;
+	intro: string;
 }

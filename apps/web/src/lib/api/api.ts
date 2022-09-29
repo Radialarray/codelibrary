@@ -1,5 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse, AxiosError, Axios} from 'axios';
 import {pipeWhileNotNil} from '../helper/helper';
+
 export const queryContent = async (req: AxiosRequestConfig) => {
 	// Call an external API endpoint to get article.
 	// You can use any data fetching library
@@ -29,15 +30,17 @@ export const buildContent = async (data: KQLResponse): Promise<Page> => {
 	if (result === undefined) {
 		throw new Error('Page seems empty!');
 	}
+
 	const meta = {
 		url: result.url,
-		title: result.title
-		// courses: result.courses,
-		// codeLanguages: result.codeLanguages,
-		// level: result.level,
-		// categories: result.categories,
-		// headline: result.headline,
-		// intro: result.intro
+		title: result.title,
+		navigation: result.navigation,
+		courses: result.courses,
+		codeLanguages: result.codelanguages,
+		level: result.level,
+		categories: result.categories,
+		headline: result.headline,
+		intro: result.intro
 	};
 
 	if (result.content === undefined) {

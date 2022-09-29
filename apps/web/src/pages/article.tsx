@@ -1,16 +1,18 @@
 import {GetStaticProps} from 'next';
-import {getPageContent} from '../lib/api/api';
-import {parseBlocks} from '../lib/components/Blocks';
+import {getPageContent} from 'lib/api/api';
+import {parseBlocks} from 'lib/components/Blocks';
 import * as R from 'ramda';
 
-import Container from '../lib/components/layouts/Container';
+import Container from 'lib/components/layouts/Container';
 
 // article will be populated at build time by getStaticProps()
 const Article = (props: PageContent) => {
 	const htmlElements = parseBlocks(props.content);
+	const meta = props.meta;
+	const navigation = meta.navigation;
 	return (
-		<Container>
-			<article className="prose dark:prose-invert lg:prose-xl "> {htmlElements}</article>
+		<Container navItems={navigation}>
+			<article className="prose dark:prose-invert lg:prose-xl m-auto"> {htmlElements}</article>
 		</Container>
 	);
 };
@@ -20,6 +22,7 @@ const requestBody = {
 	select: {
 		url: true,
 		title: true,
+		navigation: 'site.navigation.toNavigationArray',
 		courses: true,
 		codelanguages: true,
 		level: true,
@@ -52,9 +55,10 @@ export const getStaticProps: GetStaticProps = async context => {
 	// const data: KQLResponse = await handler(requestOptions);
 
 	const response = await getPageContent(requestOptions);
+	const meta = response.meta;
+
 	const blocks = response.content;
 	const images = response.images;
-
 	// const addImageSource = (blocks, images) => {
 	// 	const isImageBlock = R.propEq('type', 'image');
 	// 	return R.filter(isImageBlock, blocks);
@@ -137,9 +141,13 @@ export const getStaticProps: GetStaticProps = async context => {
 	// console.log(Array.isArray(content));
 	// console.log(content);
 	// const articleContent = content.content;
+
 	// // Props returned will be passed to the page component
 	return {
-		props: {content}
+		props: {
+			content: content,
+			meta: meta
+		}
 	};
 };
 
