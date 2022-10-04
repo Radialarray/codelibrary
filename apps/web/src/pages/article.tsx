@@ -4,6 +4,7 @@ import {parseBlocks} from 'lib/components/Blocks';
 import * as R from 'ramda';
 
 import Container from 'lib/components/layouts/Container';
+import Header from 'lib/components/Header';
 
 // article will be populated at build time by getStaticProps()
 const Article = (props: PageContent) => {
@@ -11,9 +12,13 @@ const Article = (props: PageContent) => {
 	const meta = props.meta;
 	const navigation = meta.navigation;
 	return (
-		<Container navItems={navigation}>
-			<article className="prose dark:prose-invert lg:prose-xl m-auto"> {htmlElements}</article>
-		</Container>
+		<>
+			<Header navItems={navigation}></Header>
+
+			<Container>
+				<article className="prose dark:prose-invert lg:prose-xl m-auto"> {htmlElements}</article>
+			</Container>
+		</>
 	);
 };
 

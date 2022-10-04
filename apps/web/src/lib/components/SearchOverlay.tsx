@@ -12,19 +12,22 @@ const SearchOverlay = ({openOverlay, closeOverlay, open}: Props): JSX.Element =>
 	if (open === true) {
 		return (
 			<div
-				className="fixed grid items-center w-full h-full backdrop-blur-md transition-all duration-150"
-				id="overlay-wrapper"
+				className="z-40 fixed left-0 top-0 grid items-center w-full h-full backdrop-blur-3xl transition-all duration-150"
+				data-overlay-wrapper
 				onClick={e => closeOverlay(e)}
 			>
-				{' '}
+				<div
+					className="fixed left-0 top-0 w-full h-full bg-white opacity-70"
+					data-overlay-wrapper
+				></div>{' '}
 				<motion.div
 					initial={{opacity: 0, scale: 0.5}}
 					animate={{opacity: 1, scale: 1}}
 					exit={{opacity: 0}}
 					transition={{duration: 0.3}}
-					id="overlay-motion-wrapper"
+					data-overlay-wrapper
 				>
-					<Command className="m-auto w-full max-w-md bg-slate-200 rounded-xl  shadow-2xl border-2 border-slate-300">
+					<Command className="relative z-50 m-auto w-full max-w-md bg-slate-200 rounded-xl  shadow-2xl border-2 border-slate-300">
 						<Command.Input
 							className="border-none w-full text-lg px-4 py-4 outline-none bg-transparent text-slate-600 placeholder:text-slate-400"
 							autoFocus

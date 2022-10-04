@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import {useState, useEffect} from 'react';
 
 import SearchOverlay from 'lib/components/SearchOverlay';
+import * as R from 'ramda';
 
 interface Props {
 	navItems: Array<NavItem>;
@@ -29,9 +30,8 @@ const Header = ({navItems}: Props) => {
 	}, []);
 
 	const closeOverlay = (e: {target: any}) => {
-		// console.log(e.target.id);
-		const regex = /.*wrapper.*/gm;
-		if (e.target.id.match(regex)) {
+		const hasWrapperAttribute = R.has('overlayWrapper');
+		if (hasWrapperAttribute(e.target.dataset)) {
 			setOpen(false);
 		}
 	};
@@ -41,6 +41,10 @@ const Header = ({navItems}: Props) => {
 	};
 
 	const router = useRouter();
+
+	/**
+	 * All navigation items will be passed to this component
+	 */
 	const navigationItems = navItems.map(item => {
 		// If route is active
 		if (router.pathname === `/${checkNavId(item.id)}`) {
