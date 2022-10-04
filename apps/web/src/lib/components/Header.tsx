@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {Command} from 'cmdk';
-import React from 'react';
+import {useState, useEffect} from 'react';
+
+import SearchOverlay from 'lib/components/SearchOverlay';
 
 interface Props {
 	navItems: Array<NavItem>;
@@ -13,9 +14,10 @@ const checkNavId = (x: string) => {
 };
 
 const Header = ({navItems}: Props) => {
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+
 	// Toggle the menu when ⌘K is pressed
-	React.useEffect(() => {
+	useEffect(() => {
 		const down = (e: {key: string; metaKey: any}) => {
 			if (e.key === 'k' && e.metaKey) {
 				setOpen(open => !open);
@@ -26,8 +28,16 @@ const Header = ({navItems}: Props) => {
 		return () => document.removeEventListener('keydown', down);
 	}, []);
 
-	const openCommandKMenu = e => {
-		setOpen(open => !open);
+	const closeOverlay = (e: {target: any}) => {
+		// console.log(e.target.id);
+		const regex = /.*wrapper.*/gm;
+		if (e.target.id.match(regex)) {
+			setOpen(false);
+		}
+	};
+
+	const openOverlay = e => {
+		setOpen(true);
 	};
 
 	const router = useRouter();
@@ -73,8 +83,8 @@ const Header = ({navItems}: Props) => {
 						<span className="hidden sm:block">
 							<button
 								type="button"
-								onClick={openCommandKMenu}
-								className="block p-6 border-b-4 border-transparent hover:border-red-700"
+								onClick={openOverlay}
+								className="block p-6 border-b-4 border-transparent"
 							>
 								<svg
 									className="w-4 h-4"
@@ -96,21 +106,11 @@ const Header = ({navItems}: Props) => {
 						</span>
 					</div>
 				</div>
-				<Command.Dialog open={open} onOpenChange={setOpen} label="Global Command Menu">
-					<Command.Input />
-					<Command.List>
-						<Command.Empty>No results found.</Command.Empty>
-
-						<Command.Group heading="Letters">
-							<Command.Item>a</Command.Item>
-							<Command.Item>b</Command.Item>
-							<Command.Separator />
-							<Command.Item>c</Command.Item>
-						</Command.Group>
-
-						<Command.Item>Apple</Command.Item>
-					</Command.List>
-				</Command.Dialog>{' '}
+				<SearchOverlay
+					openOverlay={openOverlay}
+					closeOverlay={closeOverlay}
+					open={open}
+				></SearchOverlay>
 			</header>
 		</>
 	);
