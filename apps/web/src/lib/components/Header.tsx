@@ -15,12 +15,14 @@ const checkNavId = (x: string) => {
 };
 
 const Header = ({navItems}: Props) => {
+	// SearchOverlay state
 	const [open, setOpen] = useState(false);
 
 	// Toggle the menu when ⌘K is pressed
 	useEffect(() => {
-		const down = (e: {key: string; metaKey: any}) => {
-			if (e.key === 'k' && e.metaKey) {
+		const down = (e: {key: string; ctrlKey: any}) => {
+			// Toggle overlay on or off
+			if ((e.key === 'k' && e.ctrlKey) || e.key === 'Escape') {
 				setOpen(open => !open);
 			}
 		};
@@ -40,18 +42,17 @@ const Header = ({navItems}: Props) => {
 		setOpen(true);
 	};
 
-	const router = useRouter();
-
 	/**
 	 * All navigation items will be passed to this component
 	 */
+	const router = useRouter();
 	const navigationItems = navItems.map(item => {
 		// If route is active
 		if (router.pathname === `/${checkNavId(item.id)}`) {
 			return (
-				<li key={item.id}>
+				<li key={item.id} className="border-b-2 border-slate-600">
 					<Link href={`/${checkNavId(item.id)}`}>
-						<a className="underline">{item.text}</a>
+						<a>{item.text}</a>
 					</Link>
 				</li>
 			);

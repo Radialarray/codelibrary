@@ -1,37 +1,73 @@
+interface KQLRequest {
+	url: string;
+	auth: {
+		username: string;
+		password: string;
+	};
+	method: string;
+	data: KQLRequestBody;
+	redirect: string;
+}
+
+interface KQLRequestOptions {
+	method: 'post';
+	data: KQLRequestBody;
+	redirect: 'follow';
+}
+
+interface KQLRequestBody {
+	query: string;
+	select: {
+		url: true;
+		title: true;
+		navigation: 'site.navigation.toNavigationArray';
+		courses?: boolean;
+		codelanguages?: boolean;
+		level?: boolean;
+		categories?: boolean;
+		headline?: boolean;
+		intro?: boolean;
+		content: 'page.content.main';
+		images: {
+			query: 'page.images';
+			select: {
+				url: true;
+				filename: true;
+				dimensions: true;
+			};
+		};
+	};
+	pagination?: {limit: number};
+}
+
 interface KQLResponse {
 	code: number;
-	message?: string;
-	result?: {
-		images: array;
+	result: {
 		url: string;
 		title: string;
-		navigation: Array;
+		navigation: NavItem[];
 		courses?: string;
 		codelanguages?: string;
 		level?: string;
 		categories?: string;
 		headline?: string;
 		intro?: string;
-		content?: string;
+		content: string;
+		images: Image[];
 	};
-}
-
-interface KQLResponseBlock {
-	content: {text?: string};
-	id: string;
-	isHidden: string;
-	type: string;
+	status: string;
 }
 
 interface Page {
-	meta: {};
-	content: [];
-	images: [];
+	meta: MetaInfo;
+	content: Block[] | Layout[];
+	images: Image[];
 }
 
 interface PageContent {
-	content: Block[];
+	content: Block[] | Layout[];
 	meta: MetaInfo;
+	images: Image[];
 }
 
 interface Block {
@@ -114,7 +150,7 @@ interface NavItem {
 	title: string;
 	popup: string;
 	isOpen: string;
-	children: Array<object>;
+	children: array<object>;
 }
 
 interface MetaInfo {
@@ -127,4 +163,16 @@ interface MetaInfo {
 	categories: string;
 	headline: string;
 	intro: string;
+}
+
+interface Layout {
+	attrs: [];
+	columns: [
+		{
+			blocks: Block[];
+			id: string;
+			width: string;
+		}
+	];
+	id: string;
 }

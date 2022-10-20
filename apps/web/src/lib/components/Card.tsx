@@ -1,7 +1,7 @@
 import Link from 'next/link';
 const Card = () => {
 	return (
-		<div className="p-1 shadow-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl">
+		<div className="col-span-4 p-1 shadow-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl">
 			<Link href="">
 				<a className="block p-6 bg-white sm:p-8 rounded-xl">
 					<div className="mt-16 sm:pr-8">

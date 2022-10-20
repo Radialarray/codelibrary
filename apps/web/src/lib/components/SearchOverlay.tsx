@@ -1,6 +1,6 @@
-import {useState, useEffect, MouseEventHandler} from 'react';
+import {MouseEventHandler} from 'react';
 import {Command} from 'cmdk';
-import {motion, AnimatePresence} from 'framer-motion';
+import {motion} from 'framer-motion';
 
 interface Props {
 	open: boolean;
@@ -12,7 +12,7 @@ const SearchOverlay = ({openOverlay, closeOverlay, open}: Props): JSX.Element =>
 	if (open === true) {
 		return (
 			<div
-				className="z-40 fixed left-0 top-0 grid items-center w-full h-full backdrop-blur-3xl transition-all duration-150"
+				className="z-40 fixed left-0 top-0 grid items-center w-full h-full backdrop-blur-lg transition-all duration-150"
 				data-overlay-wrapper
 				onClick={e => closeOverlay(e)}
 			>
@@ -27,13 +27,13 @@ const SearchOverlay = ({openOverlay, closeOverlay, open}: Props): JSX.Element =>
 					transition={{duration: 0.3}}
 					data-overlay-wrapper
 				>
-					<Command className="relative z-50 m-auto w-full max-w-md bg-slate-200 rounded-xl  shadow-2xl border-2 border-slate-300">
+					<Command className="relative z-50 m-auto w-full max-w-xl bg-slate-200 rounded-xl  shadow-2xl border-2 border-slate-300">
 						<Command.Input
 							className="border-none w-full text-lg px-4 py-4 outline-none bg-transparent text-slate-600 placeholder:text-slate-400"
 							autoFocus
 							placeholder="Type a command or search..."
 						/>
-						<hr className="w-full border border-slate-800 mb-3" />
+						<hr className="w-full border border-slate-300 mb-3" />
 
 						<Command.List className="px-4 pb-4">
 							{/* {loading && <Command.Loading>Hang on…</Command.Loading>} */}

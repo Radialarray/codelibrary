@@ -16,7 +16,7 @@ const Article = (props: PageContent) => {
 			<Header navItems={navigation}></Header>
 
 			<Container>
-				<article className="prose dark:prose-invert lg:prose-xl m-auto"> {htmlElements}</article>
+				<article className="prose dark:prose-invert lg:prose-xl m-auto">{htmlElements}</article>
 			</Container>
 		</>
 	);

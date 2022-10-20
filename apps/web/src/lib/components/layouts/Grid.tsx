@@ -8,7 +8,7 @@ interface Props {
 
 function Grid({children, className}: Props) {
 	return (
-		<section className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${className ? className : ''}`}>
+		<section className={`grid grid-cols-1 md:grid-cols-12 gap-4 ${className ? className : ''}`}>
 			{children}
 		</section>
 	);
