@@ -36,6 +36,19 @@ interface KQLRequestBody {
 				dimensions: true;
 			};
 		};
+		search: {
+			query: 'site.children';
+			select: {
+				url: true;
+				title: true;
+				courses: true;
+				codelanguages: true;
+				level: true;
+				categories: true;
+				headline: true;
+				id: true;
+			};
+		};
 	};
 	pagination?: {limit: number};
 }
@@ -54,6 +67,7 @@ interface KQLResponse {
 		intro?: string;
 		content: string;
 		images: Image[];
+		search: [];
 	};
 	status: string;
 }
@@ -157,6 +171,7 @@ interface MetaInfo {
 	url: string;
 	title: string;
 	navigation: Array<NavItem>;
+	search: Array;
 	courses: string;
 	codeLanguages: string;
 	level: string;
@@ -174,5 +189,16 @@ interface Layout {
 			width: string;
 		}
 	];
+	id: string;
+}
+
+interface SearchItem {
+	url: URL;
+	title: string;
+	courses: string;
+	codelanguages: string;
+	level: string;
+	categories: string;
+	headline: string;
 	id: string;
 }

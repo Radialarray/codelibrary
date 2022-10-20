@@ -7,6 +7,7 @@ import * as R from 'ramda';
 
 interface Props {
 	navItems: Array<NavItem>;
+	searchItems: Array<SearchItem>;
 	// any props that come into the component
 }
 
@@ -14,7 +15,7 @@ const checkNavId = (x: string) => {
 	return x.toLowerCase().includes('home') ? '' : x;
 };
 
-const Header = ({navItems}: Props) => {
+const Header = ({navItems, searchItems}: Props) => {
 	// SearchOverlay state
 	const [open, setOpen] = useState(false);
 
@@ -115,6 +116,7 @@ const Header = ({navItems}: Props) => {
 					openOverlay={openOverlay}
 					closeOverlay={closeOverlay}
 					open={open}
+					searchItems={searchItems}
 				></SearchOverlay>
 			</header>
 		</>

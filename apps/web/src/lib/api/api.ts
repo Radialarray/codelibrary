@@ -171,6 +171,7 @@ const sortPage = (data: KQLResponse | AxiosError): Page | undefined => {
 		url: result.url,
 		title: result.title,
 		navigation: result.navigation,
+		search: result.search,
 		courses: result.courses ? result.courses : '',
 		codeLanguages: result.codelanguages ? result.codelanguages : '',
 		level: result.level ? result.level : '',

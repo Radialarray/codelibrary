@@ -38,7 +38,7 @@ h6 {
 /* cmdk component */
 [cmdk-item] {
 	&[aria-selected='true'] {
-		@apply bg-slate-700 text-slate-200;
+		@apply bg-slate-200;
 	}
 
 	&[aria-disabled='true'] {
@@ -50,6 +50,10 @@ h6 {
 		@apply bg-slate-600;
 	}
 
+	&:hover {
+		@apply bg-slate-200;
+	}
+
 	&:first-child {
 		@apply mt-2;
 	}
@@ -57,4 +61,8 @@ h6 {
 	& + [cmdk-item] {
 		@apply mt-1;
 	}
+}
+
+pre {
+	@apply bg-slate-700 my-2 px-2;
 }

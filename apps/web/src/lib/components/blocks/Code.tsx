@@ -1,7 +1,7 @@
 import {Sandpack} from '@codesandbox/sandpack-react';
 import {githubLight, sandpackDark} from '@codesandbox/sandpack-themes';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {dark, github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import {dark, github, vs, githubGist} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import * as R from 'ramda';
 
 /**

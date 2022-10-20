@@ -13,9 +13,10 @@ const Article = (props: PageContent) => {
 	const htmlElements = parseContent(props.content);
 	const meta = props.meta;
 	const navigation = meta.navigation;
+	const search = meta.search;
 	return (
 		<>
-			<Header navItems={navigation}></Header>
+			<Header navItems={navigation} searchItems={search}></Header>
 
 			<Container>
 				<article className="prose dark:prose-invert lg:prose-xl m-auto">{htmlElements}</article>
@@ -47,6 +48,19 @@ export const getStaticProps: GetStaticProps = async context => {
 					url: true,
 					filename: true,
 					dimensions: true
+				}
+			},
+			search: {
+				query: 'site.children',
+				select: {
+					url: true,
+					title: true,
+					courses: true,
+					codelanguages: true,
+					level: true,
+					categories: true,
+					headline: true,
+					id: true
 				}
 			}
 		},

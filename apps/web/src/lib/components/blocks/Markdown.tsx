@@ -17,7 +17,7 @@ const Markdown = (props: Block) => {
 					const match = /language-(\w+)/.exec(className || '');
 					return !inline && match ? (
 						// @ts-expect-error
-						<SyntaxHighlighter language={match[1]} PreTag="div" style={dark} {...props}>
+						<SyntaxHighlighter language={match[1]} PreTag="div" style={github} {...props}>
 							{String(children).replace(/\n$/, '')}
 						</SyntaxHighlighter>
 					) : (
