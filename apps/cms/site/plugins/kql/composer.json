@@ -7,10 +7,12 @@
 		"cms",
 		"api",
 		"json",
-		"query"
+		"query",
+		"headless"
 	],
 	"homepage": "https://getkirby.com",
 	"type": "kirby-plugin",
+	"version": "1.1.0",
 	"authors": [
 		{
 			"name": "Bastian Allgeier",
@@ -18,10 +20,13 @@
 		}
 	],
 	"require": {
-		"getkirby/composer-installer": "^1.2.0"
+		"getkirby/composer-installer": "^1.2.1"
 	},
 	"config": {
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"allow-plugins": {
+			"getkirby/composer-installer": false
+		}
 	},
 	"autoload": {
 		"psr-4": {
@@ -29,6 +34,6 @@
 		}
 	},
 	"scripts": {
-		"fix": "php-cs-fixer fix --config .php_cs"
+		"fix": "php-cs-fixer fix"
 	}
 }

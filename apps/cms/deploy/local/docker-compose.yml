@@ -2,14 +2,15 @@ version: '3.7'
 services:
   caddy:
     container_name: caddy
-    image: caddy
+    image: caddy:2.6.2
     restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - ../../deploy/local/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - ../../site/:/srv/site/
+      - ../../assets/:/srv/assets/
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/
@@ -37,6 +38,7 @@ services:
     volumes:
       - .user.ini:/usr/local/etc/php/conf.d/.user.ini
       - ../../site/:/srv/site/
+      - ../../assets/:/srv/assets/
       - ../../kirby/:/srv/kirby/
       - ../../vendor/:/srv/vendor/
       - ../../storage/:/srv/storage/

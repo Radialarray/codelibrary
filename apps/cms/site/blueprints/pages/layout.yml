@@ -7,7 +7,11 @@ columns:
       fields:
         type: fields
         fields:
-          content:
+          headline:
+            type: text
+            placeholder: '{{ page.title }}'
+            help: Leave empty to use the title as headline.
+          main:
             type: layout
             layouts:
               - '1/1'
