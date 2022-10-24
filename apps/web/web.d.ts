@@ -168,7 +168,7 @@ interface NavItem {
 }
 
 interface MetaInfo {
-	url: string;
+	url: URL;
 	title: string;
 	navigation: Array<NavItem>;
 	search: Array;

@@ -4,6 +4,7 @@ import * as R from 'ramda';
 
 import Container from 'lib/components/layouts/Container';
 import Header from 'lib/components/Header';
+import Breadcrumb from 'lib/components/Breadcrumb';
 import {parseContent} from 'lib/components/Layouts';
 
 // article will be populated at build time by getStaticProps()
@@ -19,7 +20,10 @@ const Article = (props: PageContent) => {
 			<Header navItems={navigation} searchItems={search}></Header>
 
 			<Container>
-				<article className="prose dark:prose-invert lg:prose-xl m-auto">{htmlElements}</article>
+				<Breadcrumb url={meta.url}></Breadcrumb>
+				<article key={'article'} className="prose dark:prose-invert lg:prose-xl m-auto">
+					{htmlElements}
+				</article>
 			</Container>
 		</>
 	);
