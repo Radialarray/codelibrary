@@ -2,6 +2,8 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useState, useEffect} from 'react';
 
+import {MagnifyingGlassIcon} from '@radix-ui/react-icons';
+
 import SearchOverlay from 'lib/components/SearchOverlay';
 import * as R from 'ramda';
 
@@ -92,22 +94,8 @@ const Header = ({navItems, searchItems}: Props) => {
 								onClick={openOverlay}
 								className="block p-6 border-b-4 border-transparent"
 							>
-								<svg
-									className="w-4 h-4"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-									/>
-								</svg>
-
 								<span className="sr-only"> Search </span>
+								<MagnifyingGlassIcon></MagnifyingGlassIcon>
 							</button>
 						</span>
 					</div>
