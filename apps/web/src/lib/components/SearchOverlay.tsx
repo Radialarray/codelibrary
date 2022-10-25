@@ -3,14 +3,17 @@ import {Command} from 'cmdk';
 import {motion} from 'framer-motion';
 import {MagnifyingGlassIcon, FileTextIcon} from '@radix-ui/react-icons';
 import Link from 'next/link';
+import {useSnapshot} from 'valtio';
+import {searchStore} from 'lib/stores/searchStore';
 
 interface Props {
 	open: boolean;
-	openOverlay: MouseEventHandler;
 	closeOverlay: MouseEventHandler;
 	searchItems: SearchItem[];
 }
-const SearchOverlay = ({openOverlay, closeOverlay, open, searchItems}: Props): JSX.Element => {
+
+const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
+	const snap = useSnapshot(searchStore);
 	const groupStyle = `select-none text-sm text-slate-400 mt-4`;
 	const itemStyle = `cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md`;
 
@@ -32,7 +35,7 @@ const SearchOverlay = ({openOverlay, closeOverlay, open, searchItems}: Props): J
 		);
 	});
 
-	if (open === true) {
+	if (searchStore.status === 'open') {
 		return (
 			<div
 				className="z-40 fixed left-0 top-0  w-full h-full backdrop-blur-lg transition-all duration-150"

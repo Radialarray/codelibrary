@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
+import {useSnapshot} from 'valtio';
+import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 
 import {MagnifyingGlassIcon} from '@radix-ui/react-icons';
 
@@ -18,31 +20,29 @@ const checkNavId = (x: string) => {
 };
 
 const Header = ({navItems, searchItems}: Props) => {
-	// SearchOverlay state
-	const [open, setOpen] = useState(false);
-
+	const snap = useSnapshot(searchStore);
 	// Toggle the menu when ⌘K is pressed
 	useEffect(() => {
 		const down = (e: {key: string; ctrlKey: any}) => {
 			// Toggle overlay on or off
 			if ((e.key === 'k' && e.ctrlKey) || e.key === 'Escape') {
-				setOpen(open => !open);
+				toggleSearchOverlay(snap.status === 'closed' ? 'open' : 'closed');
 			}
 		};
 
 		document.addEventListener('keydown', down);
 		return () => document.removeEventListener('keydown', down);
-	}, []);
+	}, [snap.status]);
 
 	const closeOverlay = (e: {target: any}) => {
 		const hasWrapperAttribute = R.has('overlayWrapper');
 		if (hasWrapperAttribute(e.target.dataset)) {
-			setOpen(false);
+			toggleSearchOverlay('closed');
 		}
 	};
 
 	const openOverlay = e => {
-		setOpen(true);
+		toggleSearchOverlay('open');
 	};
 
 	/**
@@ -103,7 +103,6 @@ const Header = ({navItems, searchItems}: Props) => {
 				<SearchOverlay
 					openOverlay={openOverlay}
 					closeOverlay={closeOverlay}
-					open={open}
 					searchItems={searchItems}
 				></SearchOverlay>
 			</header>

@@ -1,13 +1,16 @@
 import * as R from 'ramda';
 import slugify from '@sindresorhus/slugify';
 import Link from 'next/link';
-import {proxy, useSnapshot} from 'valtio';
+import {useSnapshot} from 'valtio';
+import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 
 interface Props {
 	content: Block[] | Layout[];
 }
 
 const Sidebar = ({content}: Props): JSX.Element => {
+	const snap = useSnapshot(searchStore);
+
 	const isHeading = (element: Block) => R.equals('heading', element.type);
 
 	const filterHeadings = (content: Block[] | Layout[]) => {
@@ -65,7 +68,10 @@ const Sidebar = ({content}: Props): JSX.Element => {
 		<div className="flex h-screen flex-col justify-between">
 			<div className="px-4 py-6">
 				{/* TODO: Placeholder for search shortcut */}
-				<span className="block h-10 w-32 rounded-lg bg-gray-200"></span>
+				<span
+					onClick={() => toggleSearchOverlay('open')}
+					className="block h-10 w-32 rounded-lg bg-gray-200"
+				></span>
 
 				<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
 					<ol key={'sidebar'}>{headings}</ol>
