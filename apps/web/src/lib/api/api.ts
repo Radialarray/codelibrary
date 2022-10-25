@@ -208,6 +208,7 @@ const addImageSources = (page: Page | undefined) => {
 
 			return {...content, columns};
 		} else {
+			// TODO: what to do if not a layout but only a block
 			return undefined;
 		}
 	});

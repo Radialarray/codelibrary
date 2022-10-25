@@ -21,7 +21,7 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 				<li key={`caret${path}`}>
 					<CaretRightIcon></CaretRightIcon>
 				</li>
-				<li key={path}>
+				<li key={path.toString()}>
 					<Link href={path} className="block transition hover:text-gray-700">
 						{linkText}
 					</Link>
