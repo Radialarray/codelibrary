@@ -9,7 +9,7 @@ import Sidebar from 'lib/components/Sidebar';
 import {parseContent} from 'lib/components/Layouts';
 
 // article will be populated at build time by getStaticProps()
-const Article = (props: PageContent) => {
+const Layout = (props: PageContent) => {
 	// console.log(props.content[0].columns[0]);
 
 	const htmlElements = parseContent(props.content);
@@ -191,4 +191,4 @@ export const getStaticProps: GetStaticProps = async context => {
 	};
 };
 
-export default Article;
+export default Layout;
