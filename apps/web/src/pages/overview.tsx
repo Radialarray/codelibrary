@@ -1,6 +1,5 @@
 import {GetStaticProps} from 'next';
 import {getPageContent} from 'lib/api/api';
-import * as R from 'ramda';
 
 import Container from 'lib/components/layouts/Container';
 import Header from 'lib/components/Header';
@@ -13,7 +12,7 @@ const Layout = (props: PageContent) => {
 	// console.log(props.content[0].columns[0]);
 
 	const htmlElements = parseContent(props.content);
-	const meta = props.meta;
+	const meta = props.meta as MetaInfo;
 	const navigation = meta.navigation;
 	const search = meta.search;
 	return (
@@ -38,7 +37,7 @@ const Layout = (props: PageContent) => {
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps = async () => {
 	const requestBody: KQLRequestBody = {
 		query: 'page("overview")',
 		select: {
