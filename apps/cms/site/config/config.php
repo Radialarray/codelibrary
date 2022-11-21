@@ -18,8 +18,8 @@ loadenv([
 
 
 return [
-  'url' => ['https://' . env('KIRBY_HOST')],
-  // 'url' => '*',
+  // 'url' => ['https://' . env('KIRBY_HOST')],
+  'url' => '*',
   'debug' => filter_var(env('KIRBY_DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
   //------------ Panel ------------
