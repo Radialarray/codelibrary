@@ -1,4 +1,4 @@
-import {proxy, useSnapshot} from 'valtio';
+import {proxy} from 'valtio';
 
 type Status = 'open' | 'closed';
 

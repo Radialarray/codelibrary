@@ -7,13 +7,14 @@ import {useSnapshot} from 'valtio';
 import {searchStore} from 'lib/stores/searchStore';
 
 interface Props {
-	open: boolean;
 	closeOverlay: MouseEventHandler;
 	searchItems: SearchItem[];
 }
 
 const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
+	console.log(snap);
+
 	const groupStyle = `select-none text-sm text-slate-400 mt-4`;
 	const itemStyle = `cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md`;
 
@@ -22,14 +23,12 @@ const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 		const url = new URL(item.url);
 		return (
 			<Command.Item key={item.id} className={itemStyle}>
-				<Link href={url.pathname}>
-					<a className="flex items-center">
-						<FileTextIcon></FileTextIcon>
-						<div>
-							<span className="pl-2 text-slate-500">Go to </span>
-							<span className="text-blue-500">{item.title}</span>
-						</div>
-					</a>
+				<Link href={url.pathname} className="flex items-center">
+					<FileTextIcon></FileTextIcon>
+					<div>
+						<span className="pl-2 text-slate-500">Go to </span>
+						<span className="text-blue-500">{item.title}</span>
+					</div>
 				</Link>
 			</Command.Item>
 		);

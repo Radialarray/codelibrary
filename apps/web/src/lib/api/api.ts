@@ -1,5 +1,5 @@
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
-import https, {request} from 'https';
+import axios, {AxiosError, AxiosRequestConfig} from 'axios';
+import https from 'https';
 import {pipeWhileNotNil} from '../helper/helper';
 import * as R from 'ramda';
 
@@ -115,14 +115,21 @@ const augmentImageSrc = (block: Block, images: Image[]) => {
 const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse | AxiosError> => {
 	// Call an external API endpoint to get article.
 	// You can use any data fetching library
+
+	const envVars = {
+		API_HOST: process.env.API_HOST ? process.env.API_HOST : '',
+		API_USERNAME: process.env.API_USERNAME ? process.env.API_USERNAME : '',
+		API_PASSWORD: process.env.API_PASSWORD ? process.env.API_PASSWORD : ''
+	};
+
 	try {
 		const config: AxiosRequestConfig =
 			process.env.NODE_ENV === 'development'
 				? {
-						url: `https://${process.env.API_HOST}`,
+						url: `https://${envVars.API_HOST}`,
 						auth: {
-							username: process.env.API_USERNAME!,
-							password: process.env.API_PASSWORD!
+							username: envVars.API_USERNAME,
+							password: envVars.API_PASSWORD
 						},
 						httpsAgent: new https.Agent({
 							rejectUnauthorized: false
@@ -130,10 +137,10 @@ const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse | AxiosE
 						...req
 				  }
 				: {
-						url: `https://${process.env.API_HOST}`,
+						url: `https://${envVars.API_HOST}`,
 						auth: {
-							username: process.env.API_USERNAME!,
-							password: process.env.API_PASSWORD!
+							username: envVars.API_USERNAME,
+							password: envVars.API_PASSWORD
 						},
 						...req
 				  };
@@ -151,13 +158,13 @@ const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse | AxiosE
 	}
 };
 
-const sortPage = (data: KQLResponse | AxiosError): Page | undefined => {
+const sortPage = (data: KQLResponse | AxiosError): Page => {
 	if (data.code !== 200 || data.code === undefined || !R.has('result')(data)) {
 		console.error('server response has error');
 		console.error(data.code);
 		// throw new Error('server response has error');
 		const page = {
-			meta: {title: 'Error'},
+			meta: 'Error',
 			content: 'content',
 			images: 'result.images'
 		};
@@ -192,15 +199,19 @@ const sortPage = (data: KQLResponse | AxiosError): Page | undefined => {
 	return page;
 };
 
-const addImageSources = (page: Page | undefined) => {
-	if (page === undefined) {
+const addImageSources = (page: Page) => {
+	if (page === undefined || typeof page.content === 'string') {
 		throw new Error('Page is undefined!');
 	}
+
 	const augmentedBlocks = page.content.map(content => {
 		if (R.has('columns')(content)) {
 			const columns = content.columns.map(column => {
 				const blocks = column.blocks.map(block => {
 					// console.log('block', block);
+					if (typeof page.images === 'string') {
+						throw new Error('Page.images not an array!');
+					}
 					return augmentImageSrc(block, page.images);
 				});
 				return {...column, blocks};
@@ -216,11 +227,11 @@ const addImageSources = (page: Page | undefined) => {
 	return augmentedBlocks;
 };
 
-export const getPageContent = async (req: KQLRequestOptions): Promise<Page | undefined> => {
+export const getPageContent = async (req: KQLRequestOptions): Promise<Page> => {
 	const response = await requestPage(req);
 	const sortedResponse = sortPage(response);
 	const augmentedContent = addImageSources(sortedResponse);
 
-	const page = {...sortedResponse, content: augmentedContent};
+	const page = {...sortedResponse, content: augmentedContent as Block[] | Layout[]};
 	return page;
 };

@@ -2,7 +2,7 @@ import {HomeIcon, CaretRightIcon} from '@radix-ui/react-icons';
 import Link from 'next/link';
 
 interface Props {
-	url: URL;
+	url: string;
 }
 
 const Breadcrumb = ({url}: Props): JSX.Element => {
@@ -34,13 +34,11 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 
 	return (
 		<nav aria-label="Breadcrumb">
-			<ol role="list" className="flex items-center gap-1 text-sm text-gray-600">
+			<ol key={'breadcrumb'} role="list" className="flex items-center gap-1 text-sm text-gray-600">
 				<li key={'pathhome'}>
 					<Link href="/" className="block transition hover:text-gray-700">
-						<a>
-							<span className="sr-only"> Home </span>
-							<HomeIcon></HomeIcon>
-						</a>
+						<span className="sr-only"> Home </span>
+						<HomeIcon></HomeIcon>
 					</Link>
 				</li>
 				{crumbs}

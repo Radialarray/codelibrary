@@ -73,14 +73,14 @@ interface KQLResponse {
 }
 
 interface Page {
-	meta: MetaInfo;
-	content: Block[] | Layout[];
-	images: Image[];
+	meta: MetaInfo | string;
+	content: Block[] | Layout[] | string;
+	images: Image[] | string;
 }
 
 interface PageContent {
 	content: Block[] | Layout[];
-	meta: MetaInfo;
+	meta: MetaInfo | string;
 	images: Image[];
 }
 
@@ -168,7 +168,7 @@ interface NavItem {
 }
 
 interface MetaInfo {
-	url: URL;
+	url: string;
 	title: string;
 	navigation: Array<NavItem>;
 	search: Array;

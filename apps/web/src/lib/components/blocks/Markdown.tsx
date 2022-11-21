@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {dark, github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import {github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 /**
  * Consumes a markdown string and return JSX.Elements, appropriate to the content.
@@ -13,10 +13,10 @@ const Markdown = (props: Block) => {
 		<ReactMarkdown
 			key={props.id}
 			components={{
-				code({node, inline, className, children, ...props}) {
+				code({inline, className, children, ...props}) {
 					const match = /language-(\w+)/.exec(className || '');
 					return !inline && match ? (
-						// @ts-expect-error
+						// @ts-expect-error: Cannot solve error thrown on the style tag, implementation conflicts
 						<SyntaxHighlighter language={match[1]} PreTag="div" style={github} {...props}>
 							{String(children).replace(/\n$/, '')}
 						</SyntaxHighlighter>

@@ -1,4 +1,4 @@
-const config = require('@radialarray/tailwind-config/tailwind.config.js');
+const config = require('../../packages/tailwind-config/tailwind.config.js');
 
 module.exports = {
 	plugins:

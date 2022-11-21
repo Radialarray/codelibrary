@@ -10,6 +10,7 @@ interface Props {
 
 const Sidebar = ({content}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
+	console.log(snap);
 
 	const isHeading = (element: Block) => R.equals('heading', element.type);
 
@@ -31,7 +32,7 @@ const Sidebar = ({content}: Props): JSX.Element => {
 
 	const createListElements = (elements: Block[]) => {
 		if (elements) {
-			return elements.map((element, index) => {
+			return elements.map(element => {
 				if ('text' in element.content) {
 					const getLevel = (content: TextContent) => {
 						if ('level' in content) {
@@ -50,8 +51,11 @@ const Sidebar = ({content}: Props): JSX.Element => {
 
 					return (
 						<li key={element.id}>
-							<Link href={`#${slugify(element.content.text)}`}>
-								<a className={getLevel(element.content)}>{element.content.text}</a>
+							<Link
+								href={`#${slugify(element.content.text)}`}
+								className={getLevel(element.content)}
+							>
+								{element.content.text}
 							</Link>
 						</li>
 					);

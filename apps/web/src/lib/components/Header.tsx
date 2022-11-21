@@ -1,13 +1,10 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
-
 import {MagnifyingGlassIcon} from '@radix-ui/react-icons';
-
 import SearchOverlay from 'lib/components/SearchOverlay';
-import * as R from 'ramda';
 
 interface Props {
 	navItems: Array<NavItem>;
@@ -23,7 +20,7 @@ const Header = ({navItems, searchItems}: Props) => {
 	const snap = useSnapshot(searchStore);
 	// Toggle the menu when ⌘K is pressed
 	useEffect(() => {
-		const down = (e: {key: string; ctrlKey: any}) => {
+		const down = (e: {key: string; ctrlKey: boolean}) => {
 			// Toggle overlay on or off
 			if ((e.key === 'k' && e.ctrlKey) || e.key === 'Escape') {
 				toggleSearchOverlay(snap.status === 'closed' ? 'open' : 'closed');
@@ -34,14 +31,18 @@ const Header = ({navItems, searchItems}: Props) => {
 		return () => document.removeEventListener('keydown', down);
 	}, [snap.status]);
 
-	const closeOverlay = (e: {target: any}) => {
-		const hasWrapperAttribute = R.has('overlayWrapper');
-		if (hasWrapperAttribute(e.target.dataset)) {
-			toggleSearchOverlay('closed');
+	const closeOverlay = (e: React.MouseEvent) => {
+		console.log(e);
+
+		if (e.target && e.target instanceof HTMLElement) {
+			// TODO: Find right type interface for this specific event!
+			if ('overlayWrapper' in e.target.dataset) {
+				toggleSearchOverlay('closed');
+			}
 		}
 	};
 
-	const openOverlay = e => {
+	const openOverlay = () => {
 		toggleSearchOverlay('open');
 	};
 
@@ -54,17 +55,13 @@ const Header = ({navItems, searchItems}: Props) => {
 		if (router.pathname === `/${checkNavId(item.id)}`) {
 			return (
 				<li key={item.id} className="border-b-2 border-slate-600">
-					<Link href={`/${checkNavId(item.id)}`}>
-						<a>{item.text}</a>
-					</Link>
+					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
 				</li>
 			);
 		} else {
 			return (
 				<li key={item.id}>
-					<Link href={`/${checkNavId(item.id)}`}>
-						<a>{item.text}</a>
-					</Link>
+					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
 				</li>
 			);
 		}
@@ -74,10 +71,8 @@ const Header = ({navItems, searchItems}: Props) => {
 		<>
 			<header className="bg-white text-lg">
 				<div className="flex items-center h-16 max-w-screen-xl gap-8 px-4 mx-auto sm:px-6 lg:px-8">
-					<Link href="/">
-						<a className="font-normal">
-							hfg <b className="font-bold">code</b>lab
-						</a>
+					<Link href="/" className="font-normal">
+						hfg <b className="font-bold">code</b>lab
 					</Link>
 
 					<div className="flex items-center justify-end flex-1">
@@ -100,11 +95,7 @@ const Header = ({navItems, searchItems}: Props) => {
 						</span>
 					</div>
 				</div>
-				<SearchOverlay
-					openOverlay={openOverlay}
-					closeOverlay={closeOverlay}
-					searchItems={searchItems}
-				></SearchOverlay>
+				<SearchOverlay closeOverlay={closeOverlay} searchItems={searchItems}></SearchOverlay>
 			</header>
 		</>
 	);

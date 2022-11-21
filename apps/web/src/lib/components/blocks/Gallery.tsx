@@ -1,4 +1,3 @@
-import NextImage from 'next/image';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import Image from './Image';
 import 'swiper/css';

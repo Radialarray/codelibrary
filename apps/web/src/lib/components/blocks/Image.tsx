@@ -22,7 +22,7 @@ const Image = (props: Block): JSX.Element => {
 			// objectFit="cover"
 		/>
 	) : (
-		<a href={content.link} key={props.id}>
+		<Link href={content.link} key={props.id}>
 			<NextImage
 				src={content.src}
 				alt={content.alt ? content.alt : content.src}
@@ -31,7 +31,7 @@ const Image = (props: Block): JSX.Element => {
 				height={content.height}
 				// objectFit="cover"
 			/>
-		</a>
+		</Link>
 	);
 };
 

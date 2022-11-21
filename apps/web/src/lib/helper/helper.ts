@@ -24,6 +24,6 @@ export const sanitize = (dirty: string, options?: object) => ({
  */
 export const ifEmpty = R.ifElse(
 	R.isEmpty,
-	x => null,
+	() => null,
 	x => x
 );
