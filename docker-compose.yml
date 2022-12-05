@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  # Frontend
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+
+  # CMS
+  cms_caddy:
+    container_name: cms_caddy
+    image: caddy:2.6.2
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./apps/cms/deploy/local/Caddyfile:/etc/caddy/Caddyfile
+      - ./apps/cms/site/:/srv/site/
+      - ./apps/cms/assets/:/srv/assets/
+      - ./apps/cms/kirby/:/srv/kirby/
+      - ./apps/cms/vendor/:/srv/vendor/
+      - ./apps/cms/storage/:/srv/storage/
+      - ./apps/cms/media/:/srv/media/
+      - ./apps/cms/index.php:/srv/index.php
+    env_file:
+      - ./apps/cms/.env
+    depends_on:
+      - cms_php-fpm
+
+  cms_composer_installation:
+    container_name: cms_composer_installation
+    image: composer
+    user: '1000:1000'
+    volumes:
+      - ./apps/cms/:/app
+    command: composer install --ignore-platform-reqs
+
+  cms_php-fpm:
+    container_name: cms_php-fpm
+    build:
+      context: ./apps/cms/deploy/local
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./apps/cms/.env
+    volumes:
+      - ./apps/cms/deploy/local/.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ./apps/cms/site/:/srv/site/
+      - ./apps/cms/assets/:/srv/assets/
+      - ./apps/cms/kirby/:/srv/kirby/
+      - ./apps/cms/vendor/:/srv/vendor/
+      - ./apps/cms/storage/:/srv/storage/
+      - ./apps/cms/media/:/srv/media/
+      - ./apps/cms/index.php:/srv/index.php
+      # - phpinfo.php:/srv/phpinfo.php
+    depends_on:
+      - cms_composer_installation
+
+networks:
+  default:
+    name: main

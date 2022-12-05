@@ -52,7 +52,7 @@ The backend is a standard kirby instance, which could be hosted on a server with
 
 The frontend is a static webapp which could be hosted nearly everywhere. Right now there is some stuff set up for hosting on [vercel](vercel.com).
 
-### Turbocache
+### //Turbocache (not used anymore)
 
 The whole repository is equipped with turbocache caching for faster build times. So please use it. By using the root level package.json commands, everything will work out of the box.
 

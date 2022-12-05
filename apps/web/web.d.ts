@@ -1,35 +1,87 @@
+interface KQLRequest {
+	url: string;
+	auth: {
+		username: string;
+		password: string;
+	};
+	method: string;
+	data: KQLRequestBody;
+	redirect: string;
+}
+
+interface KQLRequestOptions {
+	method: 'post';
+	data: KQLRequestBody;
+	redirect: 'follow';
+}
+
+interface KQLRequestBody {
+	query: string;
+	select: {
+		url: true;
+		title: true;
+		navigation: 'site.navigation.toNavigationArray';
+		courses?: boolean;
+		codelanguages?: boolean;
+		level?: boolean;
+		categories?: boolean;
+		headline?: boolean;
+		intro?: boolean;
+		content: 'page.content.main';
+		images: {
+			query: 'page.images';
+			select: {
+				url: true;
+				filename: true;
+				dimensions: true;
+			};
+		};
+		search: {
+			query: 'site.children';
+			select: {
+				url: true;
+				title: true;
+				courses: true;
+				codelanguages: true;
+				level: true;
+				categories: true;
+				headline: true;
+				id: true;
+			};
+		};
+	};
+	pagination?: {limit: number};
+}
+
 interface KQLResponse {
 	code: number;
-	message?: string;
-	result?: {
-		images: array;
+	result: {
 		url: string;
 		title: string;
+		navigation: NavItem[];
 		courses?: string;
-		codeLanguages?: string;
+		codelanguages?: string;
 		level?: string;
 		categories?: string;
 		headline?: string;
 		intro?: string;
-		content?: string;
+		content: string;
+		images: Image[];
+		search: [];
 	};
-}
-
-interface KQLResponseBlock {
-	content: {text?: string};
-	id: string;
-	isHidden: string;
-	type: string;
+	status: string;
 }
 
 interface Page {
-	meta: {};
-	content: [];
-	images: [];
+	meta: MetaInfo | string;
+	content: Block[] | Layout[] | string;
+	images: Image[] | string;
 }
 
 interface PageContent {
-	content: Block[];
+	content: Block[] | Layout[];
+	meta: MetaInfo | string;
+	images: Image[];
 }
 
 interface Block {
@@ -103,4 +155,50 @@ interface Image {
 	};
 	url: string;
 	filename: string;
+}
+
+interface NavItem {
+	id: string;
+	url: string;
+	text: string;
+	title: string;
+	popup: string;
+	isOpen: string;
+	children: array<object>;
+}
+
+interface MetaInfo {
+	url: string;
+	title: string;
+	navigation: Array<NavItem>;
+	search: Array;
+	courses: string;
+	codeLanguages: string;
+	level: string;
+	categories: string;
+	headline: string;
+	intro: string;
+}
+
+interface Layout {
+	attrs: [];
+	columns: [
+		{
+			blocks: Block[];
+			id: string;
+			width: string;
+		}
+	];
+	id: string;
+}
+
+interface SearchItem {
+	url: URL;
+	title: string;
+	courses: string;
+	codelanguages: string;
+	level: string;
+	categories: string;
+	headline: string;
+	id: string;
 }

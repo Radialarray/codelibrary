@@ -7,15 +7,18 @@ columns:
       fields:
         type: fields
         fields:
-          content:
+          headline:
+            type: text
+            placeholder: '{{ page.title }}'
+            help: Leave empty to use the title as headline.
+          main:
             type: layout
             layouts:
               - '1/1'
               - '1/2, 1/2'
-              - '1/4, 1/4, 1/4, 1/4'
-              - '1/1, 1/3, 2/3'
-              - '1/1, 2/3, 1/3'
-              - '1/2, 1/2, 1/3, 1/3, 1/3'
+              - '1/3, 1/3, 1/3'
+              - '1/3, 2/3'
+              - '2/3, 1/3'
   sidebar:
     width: 1/3
     sections:

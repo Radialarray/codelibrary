@@ -1,7 +1,7 @@
 import {Sandpack} from '@codesandbox/sandpack-react';
-import {githubLight, sandpackDark} from '@codesandbox/sandpack-themes';
+import {githubLight} from '@codesandbox/sandpack-themes';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {dark, github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import {github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import * as R from 'ramda';
 
 /**
@@ -43,20 +43,20 @@ const Code = (props: Block): JSX.Element => {
 	};
 
 	// TODO: Interactive viewer: P5JS usw.
-	const fullInteractiveSandbox = (props: Block) => {
-		return (
-			<Sandpack
-				key={props.id}
-				options={{readOnly: true}}
-				// theme={sandpackDark}
-				theme={githubLight}
-				template="vanilla"
-				files={{
-					'/src/index.js': (props.content as CodeContent).code
-				}}
-			/>
-		);
-	};
+	// const fullInteractiveSandbox = (props: Block) => {
+	// 	return (
+	// 		<Sandpack
+	// 			key={props.id}
+	// 			options={{readOnly: true}}
+	// 			// theme={sandpackDark}
+	// 			theme={githubLight}
+	// 			template="vanilla"
+	// 			files={{
+	// 				'/src/index.js': (props.content as CodeContent).code
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 
 	const selectCodeEnvironment = R.cond<Block[], JSX.Element>([
 		[x => R.equals('js', (x.content as CodeContent).language), basicInteractiveSandbox],

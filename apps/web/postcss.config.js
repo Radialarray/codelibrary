@@ -1,12 +1,10 @@
-const config = require('@radialarray/tailwind-config/tailwind.config.js');
-
 module.exports = {
 	plugins:
 		process.env.NODE_ENV === 'production'
 			? {
 					//Some plugins, like tailwindcss/nesting, need to run before Tailwind,
 					'tailwindcss/nesting': {},
-					tailwindcss: {config},
+					tailwindcss: {},
 					'postcss-flexbugs-fixes': {},
 
 					'postcss-preset-env': {
@@ -26,6 +24,6 @@ module.exports = {
 			: {
 					// Only some transformations in development
 					'tailwindcss/nesting': {},
-					tailwindcss: {config}
+					tailwindcss: {}
 			  }
 };
