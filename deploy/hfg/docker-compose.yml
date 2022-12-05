@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   # Frontend
   # web:
@@ -62,10 +62,12 @@ services:
 
 volumes:
   codelibrary:
+    name: codelibrary
+    driver: local
     driver_opts:
       type: cifs
-      o: 'username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD}'
-      device: '//cifs://iot-share/Share_CodeLibrary'
+      device: '//${BACKEND_SHARE_REMOTE_DOMAIN}/${BACKEND_SHARE_PATH_TO_LIBRARY}'
+      o: 'addr=${BACKEND_SHARE_REMOTE_HOST},username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD},file_mode=0777,dir_mode=0777,vers=3.0'
 networks:
   default:
   traefik-dynamic:
