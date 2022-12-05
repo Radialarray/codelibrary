@@ -64,7 +64,7 @@ volumes:
   codelibrary:
     driver_opts:
       type: cifs
-      o: 'username=[${BACKEND_SHARE_USER}],password=[${BACKEND_SHARE_PASSWORD}]'
+      o: 'username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD}'
       device: '//cifs://iot-share/Share_CodeLibrary'
 networks:
   default:
