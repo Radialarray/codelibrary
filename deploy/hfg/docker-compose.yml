@@ -1,5 +1,18 @@
 version: '3.7'
 services:
+  # Frontend
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+
   # CMS
   cms_caddy:
     container_name: cms_caddy
@@ -10,7 +23,7 @@ services:
       - https_ingress
     volumes:
       - codelibrary:/srv/
-      - ${PWD}/deploy/hfg/Caddyfile:/etc/caddy/Caddyfile
+      - ./deploy/hfg/Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - cms_php_fpm
     labels:
@@ -36,14 +49,14 @@ services:
   cms_php_fpm:
     container_name: cms_php_fpm
     build:
-      context: ${PWD}
+      context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     networks:
       - default
     volumes:
       - codelibrary:/srv/
-      - ${PWD}/.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ./.user.ini:/usr/local/etc/php/conf.d/.user.ini
     depends_on:
       - cms_composer_installation
 

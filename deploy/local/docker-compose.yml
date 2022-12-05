@@ -11,16 +11,16 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ${PWD}/deploy/local/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ${PWD}/apps/cms/site/:/srv/site/
-      - ${PWD}/apps/cms/assets/:/srv/assets/
-      - ${PWD}/apps/cms/kirby/:/srv/kirby/
-      - ${PWD}/apps/cms/vendor/:/srv/vendor/
-      - ${PWD}/apps/cms/storage/:/srv/storage/
-      - ${PWD}/apps/cms/media/:/srv/media/
-      - ${PWD}/apps/cms/index.php:/srv/index.php
+      - ./deploy/local/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./apps/cms/site/:/srv/site/
+      - ./apps/cms/assets/:/srv/assets/
+      - ./apps/cms/kirby/:/srv/kirby/
+      - ./apps/cms/vendor/:/srv/vendor/
+      - ./apps/cms/storage/:/srv/storage/
+      - ./apps/cms/media/:/srv/media/
+      - ./apps/cms/index.php:/srv/index.php
     env_file:
-      - ${PWD}/deploy/local/.env
+      - ./deploy/local/.env
     depends_on:
       - cms_php_fpm
 
@@ -31,7 +31,7 @@ services:
     networks:
       - default
     volumes:
-      - ${PWD}/apps/cms/:/app
+      - ./apps/cms/:/app
     command: composer install --ignore-platform-reqs
 
   cms_php_fpm:
@@ -43,16 +43,16 @@ services:
     networks:
       - default
     env_file:
-      - ${PWD}/deploy/local/.env
+      - ./deploy/local/.env
     volumes:
-      - ${PWD}/deploy/local/.user.ini:/usr/local/etc/php/conf.d/.user.ini
-      - ${PWD}/apps/cms/site/:/srv/site/
-      - ${PWD}/apps/cms/assets/:/srv/assets/
-      - ${PWD}/apps/cms/kirby/:/srv/kirby/
-      - ${PWD}/apps/cms/vendor/:/srv/vendor/
-      - ${PWD}/apps/cms/storage/:/srv/storage/
-      - ${PWD}/apps/cms/media/:/srv/media/
-      - ${PWD}/apps/cms/index.php:/srv/index.php
+      - ./deploy/local/.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ./apps/cms/site/:/srv/site/
+      - ./apps/cms/assets/:/srv/assets/
+      - ./apps/cms/kirby/:/srv/kirby/
+      - ./apps/cms/vendor/:/srv/vendor/
+      - ./apps/cms/storage/:/srv/storage/
+      - ./apps/cms/media/:/srv/media/
+      - ./apps/cms/index.php:/srv/index.php
       # - phpinfo.php:/srv/phpinfo.php
     depends_on:
       - composer_installation
