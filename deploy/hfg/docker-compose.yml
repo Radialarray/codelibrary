@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     networks:
       - default
-      - https_ingress
+      - traefik-dynamic
     volumes:
       - codelibrary:/srv/
       - ./deploy/hfg/Caddyfile:/etc/caddy/Caddyfile
@@ -32,7 +32,7 @@ services:
       - 'traefik.http.services.codelibrary.loadbalancer.server.port=80'
       - 'traefik.http.middlewares.codelibrary-https-redirect.redirectscheme.scheme=https'
       - 'traefik.http.routers.codelibrary.middlewares=codelibrary-https-redirect'
-      - 'traefik.docker.network=https_ingress'
+      - 'traefik.docker.network=traefik-dynamic'
       # No indexation eg. google
       - 'traefik.http.middlewares.traefik-headers.headers.customresponseheaders.X-Robots-Tag=none,noarchive,nosnippet,notranslate,noimageindex'
 
@@ -66,5 +66,5 @@ volumes:
 
 networks:
   default:
-  https_ingress:
+  traefik-dynamic:
     external: true
