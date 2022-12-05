@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+  # CMS
+  cms_caddy:
+    container_name: cms_caddy
+    image: caddy:2.6.2
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${PWD}/deploy/local/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${PWD}/apps/cms/site/:/srv/site/
+      - ${PWD}/apps/cms/assets/:/srv/assets/
+      - ${PWD}/apps/cms/kirby/:/srv/kirby/
+      - ${PWD}/apps/cms/vendor/:/srv/vendor/
+      - ${PWD}/apps/cms/storage/:/srv/storage/
+      - ${PWD}/apps/cms/media/:/srv/media/
+      - ${PWD}/apps/cms/index.php:/srv/index.php
+    env_file:
+      - ${PWD}/deploy/local/.env
+    depends_on:
+      - cms_php_fpm
+
+  cms_composer_installation:
+    container_name: cms_composer_installation
+    image: composer
+    user: '1000:1000'
+    networks:
+      - default
+    volumes:
+      - ${PWD}/apps/cms/:/app
+    command: composer install --ignore-platform-reqs
+
+  cms_php_fpm:
+    container_name: cms_php_fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - default
+    env_file:
+      - ${PWD}/deploy/local/.env
+    volumes:
+      - ${PWD}/deploy/local/.user.ini:/usr/local/etc/php/conf.d/.user.ini
+      - ${PWD}/apps/cms/site/:/srv/site/
+      - ${PWD}/apps/cms/assets/:/srv/assets/
+      - ${PWD}/apps/cms/kirby/:/srv/kirby/
+      - ${PWD}/apps/cms/vendor/:/srv/vendor/
+      - ${PWD}/apps/cms/storage/:/srv/storage/
+      - ${PWD}/apps/cms/media/:/srv/media/
+      - ${PWD}/apps/cms/index.php:/srv/index.php
+      # - phpinfo.php:/srv/phpinfo.php
+    depends_on:
+      - composer_installation
+
+networks:
+  default:

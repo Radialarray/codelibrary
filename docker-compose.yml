@@ -2,17 +2,17 @@ version: '3.7'
 
 services:
   # Frontend
-  web:
-    container_name: web
-    build:
-      context: .
-      dockerfile: ./apps/web/Dockerfile
-    volumes:
-      - .:/app
-      - /app/node_modules
-    restart: always
-    ports:
-      - 3000:3000
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
 
   # CMS
   cms_caddy:

@@ -18,7 +18,7 @@ loadenv([
 
 
 return [
-  // 'url' => ['https://' . env('KIRBY_HOST')],
+  // 'url' => ['https://' . env('BACKEND_HOST')],
   'url' => '*',
   'debug' => filter_var(env('KIRBY_DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
@@ -30,5 +30,10 @@ return [
   'api' => [
     'basicAuth' => true,
     'allowInsecure' => false
+  ],
+  'auth' => [
+    'trials' => 200,
+    'timeout' => 3600
   ]
+
 ];
