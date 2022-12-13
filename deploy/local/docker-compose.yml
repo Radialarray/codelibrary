@@ -1,26 +1,33 @@
-version: '3.7'
+version: '3.8'
 services:
+  # Frontend
+  # w eb:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+
   # CMS
   cms_caddy:
     container_name: cms_caddy
     image: caddy:2.6.2
     restart: unless-stopped
     networks:
-      - default
+      - my-bridge-network
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - ./deploy/local/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./apps/cms/site/:/srv/site/
-      - ./apps/cms/assets/:/srv/assets/
-      - ./apps/cms/kirby/:/srv/kirby/
-      - ./apps/cms/vendor/:/srv/vendor/
-      - ./apps/cms/storage/:/srv/storage/
-      - ./apps/cms/media/:/srv/media/
-      - ./apps/cms/index.php:/srv/index.php
+      - codelibrary:/srv/
+      - ./deploy/hfg/Caddyfile:/etc/caddy/Caddyfile
     env_file:
-      - ./deploy/local/.env
+      - ./.env
     depends_on:
       - cms_php_fpm
 
@@ -29,9 +36,9 @@ services:
     image: composer
     user: '1000:1000'
     networks:
-      - default
+      - my-bridge-network
     volumes:
-      - ./apps/cms/:/app
+      - codelibrary:/app
     command: composer install --ignore-platform-reqs
 
   cms_php_fpm:
@@ -41,21 +48,34 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     networks:
-      - default
+      - my-bridge-network
     env_file:
-      - ./deploy/local/.env
+      - ./.env
     volumes:
-      - ./deploy/local/.user.ini:/usr/local/etc/php/conf.d/.user.ini
-      - ./apps/cms/site/:/srv/site/
-      - ./apps/cms/assets/:/srv/assets/
-      - ./apps/cms/kirby/:/srv/kirby/
-      - ./apps/cms/vendor/:/srv/vendor/
-      - ./apps/cms/storage/:/srv/storage/
-      - ./apps/cms/media/:/srv/media/
-      - ./apps/cms/index.php:/srv/index.php
-      # - phpinfo.php:/srv/phpinfo.php
+      - codelibrary:/srv/
+      - ./.user.ini:/usr/local/etc/php/conf.d/.user.ini
     depends_on:
-      - composer_installation
-
+      - cms_composer_installation
+volumes:
+  codelibrary:
+    # external: true
+    # name: codelibrary
+    # driver: local
+    # driver_opts:
+    #   type: cifs
+    #   device: '//${BACKEND_SHARE_REMOTE_DOMAIN}/${BACKEND_SHARE_PATH_TO_LIBRARY}'
+    #   o: 'addr=${BACKEND_SHARE_REMOTE_HOST},username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD},file_mode=0777,dir_mode=0777,vers=3.0'
+    # name: codelibrary
+    # driver: local
+    # driver_opts:
+    #   type: cifs
+    #   device: '//iot-share/Share_CodeLibrary'
+    #   o: 'addr=172.17.172.21,username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD}'
+    name: codelibrary
+    driver_opts:
+      type: cifs
+      o: 'username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD}'
+      device: '//${BACKEND_SHARE_REMOTE_HOST}/${BACKEND_SHARE_PATH_TO_LIBRARY}'
 networks:
-  default:
+  my-bridge-network:
+    external: true
