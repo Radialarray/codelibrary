@@ -63,9 +63,10 @@ services:
 volumes:
   codelibrary:
     name: codelibrary
+    driver: local
     driver_opts:
       type: cifs
-      o: 'username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD}'
+      o: 'username=${BACKEND_SHARE_USER},password=${BACKEND_SHARE_PASSWORD},vers=3.0,rw'
       device: '//${BACKEND_SHARE_REMOTE_HOST}/${BACKEND_SHARE_PATH_TO_LIBRARY}'
 
 networks:
