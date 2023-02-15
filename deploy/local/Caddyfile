@@ -1,7 +1,6 @@
 (common) {
 	encode gzip
 	php_fastcgi php:9000
-
 	tls internal
 	file_server
 	header * {
@@ -20,7 +19,7 @@
 	respond @blocked 403
 }
 
-:80 {
+library-backend.localhost {
 	import common
 	import kirby
 	root * /srv

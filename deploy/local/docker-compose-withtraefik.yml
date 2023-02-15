@@ -1,0 +1,81 @@
+version: '3.8'
+services:
+  php:
+    container_name: 'php'
+    build:
+      dockerfile: ../../apps/cms/Dockerfile
+      context: ../../apps/cms
+    restart: unless-stopped
+    volumes:
+      - ../../apps/cms:/srv
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+
+  # CMS
+  codelibrary:
+    container_name: 'codelibrary'
+    image: caddy:2.6.2
+    restart: unless-stopped
+    depends_on:
+      - php
+    volumes:
+      - ../../apps/cms:/srv
+      - ./.env.cms:/srv/.env:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.codelibrary-backend.entrypoints=websecure'
+      - 'traefik.http.routers.codelibrary-backend.tls=true'
+      - 'traefik.http.routers.codelibrary-backend.rule=Host(`library-backend.localhost`)'
+      - 'traefik.http.services.codelibrary-backend.loadbalancer.server.port=80'
+      # - 'traefik.http.routers.codelibrary-backend-insecure.entrypoints=web'
+      # - 'traefik.http.routers.codelibrary-backend-insecure.rule=Host(`codelibrary-backend.localhost`)'
+      # - 'traefik.http.routers.codelibrary-backend-insecure.middlewares=force-secure'
+      # - 'traefik.http.middlewares.force-secure.redirectscheme.scheme=https'
+      # - 'traefik.http.middlewares.force-secure.redirectscheme.permanent=true'
+    networks:
+      - internal
+      - proxy
+
+  # Frontend
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: ../../apps/web/
+  #     dockerfile: ../../apps/web/Dockerfile
+  #   volumes:
+  #     - ../../apps/web:/app
+  #   restart: unless-stopped
+  #   labels:
+  #     - 'traefik.enable=true'
+  #     - 'traefik.http.routers.codelibrary-frontend.rule=Host(`library-frontend.localhost`)'
+  #     - 'traefik.http.services.codelibrary-frontend.loadbalancer.server.port=3000'
+
+  traefik:
+    container_name: 'loadbalancer'
+    image: 'traefik:v2.9'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
+    networks:
+      - proxy
+      - internal
+    depends_on:
+      - codelibrary
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.backend=traefik'
+      - 'traefik.http.routers.api.entrypoints=websecure'
+      - 'traefik.http.routers.api.rule=Host(`traefik.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))'
+      - 'traefik.http.routers.api.service=api@internal'
+
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - ./traefik.yml:/traefik.yml:ro
+networks:
+  internal:
+  proxy:
