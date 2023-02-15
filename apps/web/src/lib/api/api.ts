@@ -123,7 +123,7 @@ const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse | AxiosE
 	};
 
 	try {
-		const config: AxiosRequestConfig =
+		const config =
 			process.env.NODE_ENV === 'development'
 				? {
 						url: `https://${envVars.API_HOST}`,
@@ -148,7 +148,35 @@ const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse | AxiosE
 		process.env.NODE_ENV === 'development' ? (process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0') : '';
 		// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-		const response = await axios(config);
+		// console.log(config);
+		// console.log(req);
+
+		const authVars = Buffer.from(`${config.auth.username}:${config.auth.password}`, `base64`);
+
+		const headers = new Headers({
+			Authorization: `Basic ${authVars}`,
+			'Content-Type': 'application/json'
+		});
+		const myHeaders = new Headers();
+		myHeaders.append(
+			'Authorization',
+			'Basic YXBpQGJhY2tlbmQubG9jYWxob3N0Ol55b0hrWHlXZEJDY0AjM2NrdFFteXk1NGk='
+		);
+		myHeaders.append('Content-Type', 'application/json');
+
+		// console.log(headers);
+
+		// TODO: rewrite fetch
+		const response = await fetch(config.url, {
+			method: req.method,
+			body: JSON.stringify(req.body),
+			redirect: req.redirect,
+			headers: headers
+		});
+
+		console.log('response');
+		console.log(response);
+
 		const data = response.data;
 		return data;
 	} catch (error) {

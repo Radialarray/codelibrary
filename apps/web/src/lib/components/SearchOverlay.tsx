@@ -1,7 +1,7 @@
 import {MouseEventHandler} from 'react';
 import {Command} from 'cmdk';
 import {motion} from 'framer-motion';
-import {MagnifyingGlassIcon, FileTextIcon} from '@radix-ui/react-icons';
+import {Search as SearchIcon, FileText as FileTextIcon} from 'react-feather';
 import Link from 'next/link';
 import {useSnapshot} from 'valtio';
 import {searchStore} from 'lib/stores/searchStore';
@@ -55,7 +55,7 @@ const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 				>
 					<Command className="relative z-50 m-auto w-full max-w-2xl bg-white rounded-xl  shadow-2xl px-2 col-start-2 col-span-1 row-start-2 row-span-1 ">
 						<div className="flex items-center">
-							<MagnifyingGlassIcon></MagnifyingGlassIcon>
+							<SearchIcon></SearchIcon>
 							<Command.Input
 								className="border-none w-full text-lg px-2 py-4 outline-none bg-transparent text-slate-600 placeholder:text-slate-400"
 								autoFocus

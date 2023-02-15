@@ -26,7 +26,7 @@ export const parseLayout = (x: Layout) => {
 
 // const decideLayoutBlock = R.ifElse(R.has('columns'), parseLayout, parseBlocks);
 const decideLayoutBlock = (x: Layout[] | Block[]) => {
-	if ('columns' in x) {
+	if (x && 'columns' in x) {
 		return parseLayout(x);
 	} else {
 		return parseBlocks(x as Block[]);

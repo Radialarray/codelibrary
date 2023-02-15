@@ -1,9 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import React, {useEffect} from 'react';
 import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
-import {MagnifyingGlassIcon} from '@radix-ui/react-icons';
+import {Search as SearchIcon} from 'react-feather';
 import SearchOverlay from 'lib/components/SearchOverlay';
 
 interface Props {
@@ -90,7 +92,7 @@ const Header = ({navItems, searchItems}: Props) => {
 								className="block p-6 border-b-4 border-transparent"
 							>
 								<span className="sr-only"> Search </span>
-								<MagnifyingGlassIcon></MagnifyingGlassIcon>
+								<SearchIcon></SearchIcon>
 							</button>
 						</span>
 					</div>

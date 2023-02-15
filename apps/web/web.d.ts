@@ -10,8 +10,8 @@ interface KQLRequest {
 }
 
 interface KQLRequestOptions {
-	method: 'post';
-	data: KQLRequestBody;
+	method: 'POST';
+	body: KQLRequestBody;
 	redirect: 'follow';
 }
 

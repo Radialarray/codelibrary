@@ -1,4 +1,4 @@
-import {HomeIcon, CaretRightIcon} from '@radix-ui/react-icons';
+import {Home as HomeIcon, ChevronRight as ChevronRightIcon} from 'react-feather';
 import Link from 'next/link';
 
 interface Props {
@@ -19,7 +19,7 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 		return subPath.length ? (
 			<>
 				<li key={`caret${path}`}>
-					<CaretRightIcon></CaretRightIcon>
+					<ChevronRightIcon></ChevronRightIcon>
 				</li>
 				<li key={path.toString()}>
 					<Link href={path} className="block transition hover:text-gray-700">

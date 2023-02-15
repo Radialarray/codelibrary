@@ -34,5 +34,6 @@ const parseBlock = R.cond<Block[], JSX.Element>([
 // export const parseBlocks = ({content}: PageContent): JSX.Element[] => {
 export const parseBlocks = (props: Block[]): JSX.Element[] => {
 	// for every block in blocks paste as parameter to parseBlock()
-	return R.map(parseBlock, props);
+	// return R.map(parseBlock, props);
+	if (props !== undefined) return props.map(x => parseBlock(x));
 };
