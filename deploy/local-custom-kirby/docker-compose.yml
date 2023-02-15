@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  # Frontend
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+
+  # CMS
+  cms_caddy:
+    container_name: cms_caddy
+    image: caddy:2.6.2
+    env_file:
+      - ./.env
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - '80:80'
+    volumes:
+      - ../../storage:/srv/storage
+      - ./docker/Caddyfile:/srv/config/Caddyfile:ro
+
+  # PHP-FPM
+  cms_php_fpm:
+    container_name: cms_php_fpm
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - default
+    env_file:
+      - ./.env
+    volumes:
+      - ../../storage:/srv/storage
+
+networks:
+  default:
