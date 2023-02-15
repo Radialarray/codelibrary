@@ -1,61 +1,69 @@
 version: '3.8'
 services:
-  # Frontend
-  # w eb:
-  #   container_name: web
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/web/Dockerfile
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
+  php:
+    container_name: 'php'
+    build:
+      dockerfile: ../../apps/cms/Dockerfile
+      context: ../../apps/cms
+    restart: unless-stopped
+    volumes:
+      - ../../apps/cms:/srv
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
 
   # CMS
-  cms_caddy:
-    container_name: cms_caddy
+  codelibrary:
+    container_name: 'codelibrary'
     image: caddy:2.6.2
     restart: unless-stopped
+    depends_on:
+      - php
+    volumes:
+      - ../../apps/cms:/srv
+      - ./.env.cms:/srv/.env:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.codelibrary-backend.rule=Host(`library-backend.localhost`)'
+      - 'traefik.http.services.codelibrary-backend.loadbalancer.server.port=80'
     networks:
-      - default
+      - internal
+
+  # Frontend
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: ../../apps/web/
+  #     dockerfile: ../../apps/web/Dockerfile
+  #   volumes:
+  #     - ../../apps/web:/app
+  #   restart: unless-stopped
+  #   labels:
+  #     - 'traefik.enable=true'
+  #     - 'traefik.http.routers.codelibrary-frontend.rule=Host(`library-frontend.localhost`)'
+  #     - 'traefik.http.services.codelibrary-frontend.loadbalancer.server.port=3000'
+
+  traefik:
+    container_name: 'loadbalancer'
+    image: 'traefik:v2.9'
+    restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
-    volumes:
-      - ../../apps/cms/:/srv/
-      - ./Caddyfile:/etc/caddy/Caddyfile
-    env_file:
-      - ./.env
-    depends_on:
-      - cms_php_fpm
-
-  cms_composer_installation:
-    container_name: cms_composer_installation
-    image: composer
-    user: '1000:1000'
     networks:
-      - default
-    volumes:
-      - ../../apps/cms/:/app
-    command: composer install --ignore-platform-reqs
-
-  cms_php_fpm:
-    container_name: cms_php_fpm
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    restart: unless-stopped
-    networks:
-      - default
-    env_file:
-      - ./.env
-    volumes:
-      - ../../apps/cms/:/srv/
-      - ./.user.ini:/usr/local/etc/php/conf.d/.user.ini
-      - ./phpinfo.php:/srv/phpinfo.php
+      - internal
     depends_on:
-      - cms_composer_installation
+      - codelibrary
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.backend=traefik'
+      - 'traefik.http.routers.api.entrypoints=web'
+      - 'traefik.http.routers.api.rule=Host(`traefik.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))'
+      - 'traefik.http.routers.api.service=api@internal'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - ./traefik.yml:/traefik.yml:ro
 networks:
-  default:
+  internal:

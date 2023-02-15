@@ -1,7 +1,27 @@
-localhost, {$BACKEND_HOST} {
-        root * /srv
-        encode gzip
-        tls internal
-        file_server
-        php_fastcgi cms_php_fpm:9000
+(common) {
+	encode gzip
+	php_fastcgi php:9000
+
+	tls internal
+	file_server
+	header * {
+		# You may want some other header options...
+		X-Frame-Options "DENY"
+		X-XSS-Protection "1; mode=block"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+	}
+}
+
+(kirby) {
+	@blocked {
+		path *.txt *.md *.mdown /content /content/* /site /site/* /kirby /kirby/* *index.php
+	}
+	respond @blocked 403
+}
+
+:80 {
+	import common
+	import kirby
+	root * /srv
 }

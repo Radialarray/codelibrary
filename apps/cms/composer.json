@@ -23,8 +23,8 @@
 	},
 	"require": {
 		"php": ">=7.4.0 <8.2.0",
-		"getkirby/cms": "^3.6",
-		"getkirby/kql": "^1.0",
+		"getkirby/cms": "^3.9",
+		"getkirby/kql": "^2.0",
 		"bnomei/kirby3-dotenv": "^2.0"
 	},
 	"scripts": {
