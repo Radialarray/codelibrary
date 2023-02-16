@@ -9,10 +9,12 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"swiper": "^9.0.5"
+	},
+	"devDependencies": {
 		"@codesandbox/sandpack-react": "^1.20.9",
 		"@codesandbox/sandpack-themes": "^1.19.0",
 		"@sindresorhus/slugify": "^2.2.0",
-		"@tailwindcss/typography": "^0.5.9",
 		"axios": "^0.27.2",
 		"classnames": "^2.3.2",
 		"cmdk": "^0.1.22",
@@ -36,11 +38,8 @@
 		"sanitize-html": "^2.9.0",
 		"sharp": "^0.31.3",
 		"shiki": "^0.10.1",
-		"swiper": "^9.0.5",
 		"unified": "^10.1.2",
-		"valtio": "^1.10.2"
-	},
-	"devDependencies": {
+		"valtio": "^1.10.2",
 		"@types/dompurify": "^2.4.0",
 		"@types/mdast": "^3.0.10",
 		"@types/node": "18.6.3",
@@ -50,6 +49,7 @@
 		"@types/react-syntax-highlighter": "^15.5.6",
 		"@types/sanitize-html": "^2.8.0",
 		"@types/unist": "^2.0.6",
+		"autoprefixer": "^10.4.13",
 		"cssnano": "^5.1.15",
 		"eslint": "8.21.0",
 		"eslint-config-next": "13.0.2",
@@ -60,6 +60,7 @@
 		"postcss-preset-env": "^7.8.3",
 		"react-feather": "^2.0.10",
 		"tailwindcss": "^3.2.6",
+		"@tailwindcss/typography": "^0.5.9",
 		"typescript": "4.7.4"
 	}
 }

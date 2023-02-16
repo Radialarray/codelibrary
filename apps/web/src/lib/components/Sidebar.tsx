@@ -11,7 +11,7 @@ interface Props {
 
 const Sidebar = ({content}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
-	console.log(snap);
+	// console.log(snap);
 
 	const isHeading = (element: Block) => R.equals('heading', element.type);
 
