@@ -1,3 +1,4 @@
+'use client';
 import * as R from 'ramda';
 import slugify from '@sindresorhus/slugify';
 import Link from 'next/link';
@@ -78,7 +79,7 @@ const Sidebar = ({content}: Props): JSX.Element => {
 				></span>
 
 				<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
-					<ol key={'sidebar'}>{headings}</ol>
+					<ol>{headings}</ol>
 				</nav>
 			</div>
 		</div>

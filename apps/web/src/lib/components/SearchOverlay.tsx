@@ -13,7 +13,7 @@ interface Props {
 
 const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
-	console.log(snap);
+	// console.log(snap);
 
 	const groupStyle = `select-none text-sm text-slate-400 mt-4`;
 	const itemStyle = `cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md`;
