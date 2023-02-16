@@ -11,22 +11,19 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 	const subPaths = urlDecomposed.pathname.split('/');
 
 	let lastItem = '';
-	const crumbs = subPaths.map(subPath => {
+	const crumbs = subPaths.map((subPath, index) => {
 		const path = lastItem + subPath + '/';
 		lastItem = path;
 		const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
 
 		return subPath.length ? (
-			<>
-				<li key={`caret${path}`}>
-					<ChevronRightIcon></ChevronRightIcon>
-				</li>
-				<li key={path.toString()}>
-					<Link href={path} className="block transition hover:text-gray-700">
-						{linkText}
-					</Link>
-				</li>
-			</>
+			<li key={path.toString()}>
+				<ChevronRightIcon></ChevronRightIcon>
+
+				<Link href={`${path}${index}`} className="block transition hover:text-gray-700">
+					{linkText}
+				</Link>
+			</li>
 		) : (
 			''
 		);
@@ -34,7 +31,7 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 
 	return (
 		<nav aria-label="Breadcrumb">
-			<ol key={'breadcrumb'} role="list" className="flex items-center gap-1 text-sm text-gray-600">
+			<ol role="list" className="flex items-center gap-1 text-sm text-gray-600">
 				<li key={'pathhome'}>
 					<Link href="/" className="block transition hover:text-gray-700">
 						<span className="sr-only"> Home </span>

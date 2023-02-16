@@ -74,7 +74,7 @@ interface KQLResponse {
 
 interface Page {
 	meta: MetaInfo | string;
-	content: Block[] | Layout[] | string;
+	content: Block[] | Layout[];
 	images: Image[] | string;
 }
 

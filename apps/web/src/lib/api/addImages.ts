@@ -28,7 +28,6 @@ export const augmentImageSrc = (block: Block, images: Image[]) => {
 		const findImage = (key: string, value: string, data: Image[]) =>
 			R.find(R.propEq(key, value))(data);
 		// const test2 = findImage('filename', 'smallsimulation3.jpg', images);
-		// console.log(test2);
 
 		const imageSources = content.images.map(filename => {
 			const image = findImage('filename', filename, images);
@@ -73,7 +72,6 @@ export const addImageSources = (page: Page) => {
 		if (R.has('columns')(content)) {
 			const columns = content.columns.map(column => {
 				const blocks = column.blocks.map(block => {
-					// console.log('block', block);
 					if (typeof page.images === 'string') {
 						throw new Error('Page.images not an array!');
 					}
