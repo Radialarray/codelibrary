@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import {useRouter} from 'next/navigation';
 import React, {useEffect} from 'react';
 import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
