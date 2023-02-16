@@ -63,6 +63,7 @@ const Page = async () => {
 	const data = await getData();
 
 	const htmlElements = parseContent(data.content);
+
 	if (htmlElements === undefined) {
 		throw new Error('Something went wrong when parsing content!');
 	}
@@ -70,7 +71,6 @@ const Page = async () => {
 	const navigation = meta.navigation;
 	const search = meta.search;
 	return (
-		// <h1>geakgaje</h1>
 		<>
 			<Header navItems={navigation} searchItems={search}></Header>
 

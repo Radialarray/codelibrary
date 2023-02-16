@@ -4,11 +4,16 @@ import Grid from 'lib/components/layouts/Grid';
 import {Key} from 'react';
 
 const parseColumn = (x: {width: string; blocks: Block[]; id: Key | null | undefined}) => {
-	const selectColumWidth = R.cond([
-		[R.equals('1/2'), R.always('col-span-6')],
-		[R.equals('1/3'), R.always('col-span-4')],
-		[R.T, R.always('col-span-12')]
-	]);
+	const selectColumWidth = (width: string) => {
+		switch (width) {
+			case '1/2':
+				return 'col-span-6';
+			case '1/3':
+				return 'col-span-4';
+			default:
+				return 'col-span-12';
+		}
+	};
 	const columnWidth = selectColumWidth(x.width);
 
 	const blockContent = parseBlocks(x.blocks);
@@ -20,20 +25,21 @@ const parseColumn = (x: {width: string; blocks: Block[]; id: Key | null | undefi
 };
 
 export const parseLayout = (x: Layout) => {
-	const columns = R.map(parseColumn, x.columns);
-	return <Grid>{columns}</Grid>;
+	const columns = x.columns.map(parseColumn);
+	return <Grid key={x.id}>{columns}</Grid>;
 };
 
 // const decideLayoutBlock = R.ifElse(R.has('columns'), parseLayout, parseBlocks);
-const decideLayoutBlock = (x: Layout[] | Block[]) => {
+const decideLayoutBlock = (x: Layout | Block) => {
 	if (x && 'columns' in x) {
 		return parseLayout(x);
 	} else {
-		return parseBlocks(x as Block[]);
+		// return parseBlocks(x);
 	}
 };
 
-export const parseContent = (x: Layout[] | Block[]) => {
-	// return R.map(decideLayoutBlock, x);
-	return decideLayoutBlock(x);
+export const parseContent = (content: PageContent['content']) => {
+	// return R.map(decideLayoutBlock, content);
+	return content.map(decideLayoutBlock);
+	// return decideLayoutBlock(x);
 };

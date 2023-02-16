@@ -10,8 +10,9 @@ interface Props {
 }
 
 const Sidebar = ({content}: Props): JSX.Element => {
-	const snap = useSnapshot(searchStore);
+	// const snap = useSnapshot(searchStore);
 	// console.log(snap);
+	useSnapshot(searchStore);
 
 	const isHeading = (element: Block) => R.equals('heading', element.type);
 
