@@ -1,6 +1,3 @@
-// 'use client';
-
-import {GetStaticProps} from 'next';
 import {getPageContent} from 'lib/api/api';
 
 import Container from 'lib/components/layouts/Container';
@@ -9,43 +6,10 @@ import Breadcrumb from 'lib/components/Breadcrumb';
 import Sidebar from 'lib/components/Sidebar';
 import {parseContent} from 'lib/components/Layouts';
 
-// article will be populated at build time by getStaticProps()
-const Page = async (props: PageContent) => {
-	// console.log(props.content[0].columns[0]);
-
-	const data = await getData();
-	console.log(data);
-
-	const htmlElements = parseContent(props.content);
-	if (htmlElements === undefined) {
-		throw new Error('Something went wrong when parsing content!');
-	}
-	const meta = props.meta as MetaInfo;
-	const navigation = meta.navigation;
-	const search = meta.search;
-	return (
-		<>
-			<Header navItems={navigation} searchItems={search}></Header>
-
-			<div className="flex">
-				<aside>
-					<Sidebar content={props.content}></Sidebar>
-				</aside>
-				<Container>
-					<Breadcrumb url={meta.url}></Breadcrumb>
-					<article key={'article'} className="prose dark:prose-invert lg:prose-xl m-auto">
-						{htmlElements}
-					</article>
-				</Container>
-			</div>
-		</>
-	);
-};
-
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-export const getData = async () => {
+export const getData = async (): Promise<Page> => {
 	const requestBody: KQLRequestBody = {
 		query: 'page("overview")',
 		select: {
@@ -91,12 +55,38 @@ export const getData = async () => {
 	};
 
 	const response = await getPageContent(requestOptions);
-	console.log(response);
+	return {...response};
+};
 
-	const pageData = await getPageContent(requestOptions);
-	return {
-		props: {...pageData}
-	};
+// article will be populated at build time by getStaticProps()
+const Page = async () => {
+	const data = await getData();
+
+	const htmlElements = parseContent(data.content);
+	if (htmlElements === undefined) {
+		throw new Error('Something went wrong when parsing content!');
+	}
+	const meta = data.meta as MetaInfo;
+	const navigation = meta.navigation;
+	const search = meta.search;
+	return (
+		// <h1>geakgaje</h1>
+		<>
+			<Header navItems={navigation} searchItems={search}></Header>
+
+			<div className="flex">
+				<aside>
+					<Sidebar content={data.content}></Sidebar>
+				</aside>
+				<Container>
+					<Breadcrumb url={meta.url}></Breadcrumb>
+					<article key={'article'} className="prose dark:prose-invert lg:prose-xl m-auto">
+						{htmlElements}
+					</article>
+				</Container>
+			</div>
+		</>
+	);
 };
 
 export default Page;
