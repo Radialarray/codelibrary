@@ -26,7 +26,7 @@ import Line from './blocks/Line';
 // 	[x => R.equals('video', x.type), Video]
 // ]);
 
-const parseBlock = (block: Block): JSX.Element | undefined => {
+const parseBlock = (block: Block): JSX.Element => {
 	switch (block.type) {
 		case 'code':
 			return <Code key={block.id} {...block} />;
@@ -49,6 +49,8 @@ const parseBlock = (block: Block): JSX.Element | undefined => {
 			return <Text key={block.id} {...block} />;
 		case 'video':
 			return <Video key={block.id} {...block} />;
+		default:
+			return <p>Error, empty block</p>;
 	}
 };
 
@@ -68,4 +70,5 @@ export const parseBlocks = (blocks: Block[]): JSX.Element[] => {
 	// });
 
 	if (blocks !== undefined) return blocks.map(parseBlock);
+	return [<p>Something happened.</p>];
 };

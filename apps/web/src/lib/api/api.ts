@@ -79,8 +79,8 @@ const sortPage = (data: KQLResponse): Page => {
 		// throw new Error('server response has error');
 		const page = {
 			meta: 'Error',
-			content: 'content',
-			images: 'result.images'
+			content: data.code,
+			images: 'error'
 		};
 
 		return page;
