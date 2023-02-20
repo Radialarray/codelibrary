@@ -7,7 +7,11 @@ services:
       context: ../../apps/cms
     restart: unless-stopped
     volumes:
-      - ../../apps/cms:/srv
+      - ../../apps/cms/assets:/srv/assets/
+      - ../../apps/cms/media:/srv/media/
+      - ../../apps/cms/site:/srv/site/
+      - ../../apps/cms/storage:/srv/storage/
+      - ../../apps/cms/index.php:/srv/index.php:ro
     networks:
       - internal
     labels:
@@ -24,7 +28,11 @@ services:
     depends_on:
       - php
     volumes:
-      - ../../apps/cms:/srv
+      - ../../apps/cms/assets:/srv/assets/
+      - ../../apps/cms/media:/srv/media/
+      - ../../apps/cms/site:/srv/site/
+      - ../../apps/cms/storage:/srv/storage/
+      - ../../apps/cms/index.php:/srv/index.php:ro
       - ./.env.cms:/srv/.env:ro
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     networks:
