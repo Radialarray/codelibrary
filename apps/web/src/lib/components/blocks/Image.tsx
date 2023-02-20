@@ -16,7 +16,6 @@ const Image = (props: Block): JSX.Element => {
 			key={props.id}
 			src={content.src}
 			alt={content.alt ? content.alt : content.src}
-			layout="responsive"
 			width={content.width}
 			height={content.height}
 			// objectFit="cover"
@@ -26,7 +25,6 @@ const Image = (props: Block): JSX.Element => {
 			<NextImage
 				src={content.src}
 				alt={content.alt ? content.alt : content.src}
-				layout="responsive"
 				width={content.width}
 				height={content.height}
 				// objectFit="cover"
