@@ -26,7 +26,9 @@ import Line from './blocks/Line';
 // 	[x => R.equals('video', x.type), Video]
 // ]);
 
-const parseBlock = (block: Block): JSX.Element => {
+export const parseBlock = (block: Block): JSX.Element => {
+	// console.log(block);
+
 	switch (block.type) {
 		case 'code':
 			return <Code key={block.id} {...block} />;

@@ -27,13 +27,14 @@ interface KQLRequestBody {
 		categories?: boolean;
 		headline?: boolean;
 		intro?: boolean;
-		content: 'page.content.main';
+		content: 'page.content.main.addImagePaths';
 		images: {
 			query: 'page.images';
 			select: {
 				url: true;
 				filename: true;
 				dimensions: true;
+				alt: 'file.alt.kirbytext';
 			};
 		};
 		search: {
@@ -139,7 +140,8 @@ interface VideoContent {
 }
 
 interface GalleryContent {
-	images: Block[];
+	// images: Block[];
+	images: string[];
 }
 
 interface KQLGalleryBlock {

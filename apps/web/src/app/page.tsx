@@ -22,13 +22,14 @@ export const getData = async (): Promise<Page> => {
 			categories: true,
 			headline: true,
 			intro: true,
-			content: 'page.content.main',
+			content: 'page.content.main.addImagePaths',
 			images: {
 				query: 'page.images',
 				select: {
 					url: true,
 					filename: true,
-					dimensions: true
+					dimensions: true,
+					alt: 'file.alt.kirbytext'
 				}
 			},
 			search: {
@@ -55,6 +56,7 @@ export const getData = async (): Promise<Page> => {
 	};
 
 	const response = await getPageContent(requestOptions);
+
 	return {...response};
 };
 
@@ -63,6 +65,7 @@ const Page = async () => {
 	const data = await getData();
 
 	const htmlElements = parseContent(data.content);
+	// console.log(htmlElements);
 
 	if (htmlElements === undefined) {
 		throw new Error('Something went wrong when parsing content!');
@@ -74,17 +77,17 @@ const Page = async () => {
 		<>
 			<Header navItems={navigation} searchItems={search}></Header>
 
-			<div className="flex">
-				<aside>
-					<Sidebar content={data.content}></Sidebar>
-				</aside>
-				<Container>
+			<Container>
+				<div className="flex">
+					<aside>
+						<Sidebar content={data.content}></Sidebar>
+					</aside>
 					<Breadcrumb url={meta.url}></Breadcrumb>
-					<article key={'article'} className="prose dark:prose-invert lg:prose-xl m-auto">
+					<article key={'article'} className="">
 						{htmlElements}
 					</article>
-				</Container>
-			</div>
+				</div>
+			</Container>
 		</>
 	);
 };

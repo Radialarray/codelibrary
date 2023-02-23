@@ -1,5 +1,4 @@
-import * as R from 'ramda';
-import {parseBlocks} from './Blocks';
+import {parseBlocks, parseBlock} from './Blocks';
 import Grid from 'lib/components/layouts/Grid';
 import {Key} from 'react';
 
@@ -17,6 +16,7 @@ const parseColumn = (x: {width: string; blocks: Block[]; id: Key | null | undefi
 	const columnWidth = selectColumWidth(x.width);
 
 	const blockContent = parseBlocks(x.blocks);
+
 	return (
 		<div key={x.id} className={columnWidth}>
 			{blockContent}
@@ -26,20 +26,25 @@ const parseColumn = (x: {width: string; blocks: Block[]; id: Key | null | undefi
 
 export const parseLayout = (x: Layout) => {
 	const columns = x.columns.map(parseColumn);
+
 	return <Grid key={x.id}>{columns}</Grid>;
 };
 
 // const decideLayoutBlock = R.ifElse(R.has('columns'), parseLayout, parseBlocks);
 const decideLayoutBlock = (x: Layout | Block) => {
+	// console.log(x);
+
 	if (x && 'columns' in x) {
 		return parseLayout(x);
 	} else {
-		// return parseBlocks(x);
+		return parseBlock(x);
 	}
 };
 
 export const parseContent = (content: PageContent['content']) => {
 	// return R.map(decideLayoutBlock, content);
+	// console.log(content);
+
 	return content.map(decideLayoutBlock);
 	// return decideLayoutBlock(x);
 };

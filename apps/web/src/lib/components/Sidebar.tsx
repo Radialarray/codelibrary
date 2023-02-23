@@ -18,6 +18,7 @@ const Sidebar = ({content}: Props): JSX.Element => {
 
 	const filterHeadings = (content: Block[] | Layout[]) => {
 		return content.map(x => {
+			// console.log(x);
 			if (R.has('columns')(x)) {
 				const columns = x.columns.map(column => {
 					const blocks = R.filter(isHeading, column.blocks);
@@ -35,7 +36,7 @@ const Sidebar = ({content}: Props): JSX.Element => {
 	const createListElements = (elements: Block[]) => {
 		if (elements) {
 			return elements.map(element => {
-				if ('text' in element.content) {
+				if (element.type === 'heading' && 'text' in element.content) {
 					const getLevel = (content: TextContent) => {
 						if ('level' in content) {
 							switch (content.level) {
@@ -50,6 +51,8 @@ const Sidebar = ({content}: Props): JSX.Element => {
 							}
 						}
 					};
+
+					// console.log(element.id);
 
 					return (
 						<li key={element.id}>

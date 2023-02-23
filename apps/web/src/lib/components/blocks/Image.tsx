@@ -8,26 +8,26 @@ import * as R from 'ramda';
  * @returns {JSX.Element}
  */
 const Image = (props: Block): JSX.Element => {
+	// console.log(props);
+
 	const content = props.content as ImageContent;
 
 	// if link exists, return image wrapped in link.
 	return R.isNil(content.link) ? (
 		<NextImage
 			key={props.id}
-			src={content.src}
+			src={content.image[0]}
 			alt={content.alt ? content.alt : content.src}
-			width={content.width}
-			height={content.height}
-			// objectFit="cover"
+			width="300"
+			height="300"
 		/>
 	) : (
 		<Link href={content.link} key={props.id}>
 			<NextImage
-				src={content.src}
+				src={content.image[0]}
 				alt={content.alt ? content.alt : content.src}
-				width={content.width}
-				height={content.height}
-				// objectFit="cover"
+				width="300"
+				height="300"
 			/>
 		</Link>
 	);

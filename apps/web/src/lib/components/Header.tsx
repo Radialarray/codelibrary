@@ -34,7 +34,7 @@ const Header = ({navItems, searchItems}: Props) => {
 	}, [snap.status]);
 
 	const closeOverlay = (e: React.MouseEvent) => {
-		console.log(e);
+		// console.log(e);
 
 		if (e.target && e.target instanceof HTMLElement) {
 			// TODO: Find right type interface for this specific event!

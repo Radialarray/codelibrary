@@ -103,7 +103,7 @@ const sortPage = (data: KQLResponse): Page => {
 	};
 
 	// Build content data
-	const content: Block[] | Layout[] = JSON.parse(result.content);
+	const content: Block[] | Layout[] = result.content;
 
 	const page = {
 		meta: meta,
@@ -116,8 +116,12 @@ const sortPage = (data: KQLResponse): Page => {
 
 export const getPageContent = async (req: KQLRequestOptions): Promise<Page> => {
 	const response = await requestPage(req);
+
 	const sortedResponse = sortPage(response);
-	const augmentedContent = addImageSources(sortedResponse);
-	const page = {...sortedResponse, content: augmentedContent as Block[] | Layout[]};
+	// console.log(sortedResponse.content[0]);
+
+	// const augmentedContent = addImageSources(sortedResponse);
+	// const page = {...sortedResponse, content: augmentedContent as Block[] | Layout[]};
+	const page = {...sortedResponse};
 	return page;
 };

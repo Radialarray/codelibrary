@@ -1,9 +1,16 @@
 import * as R from 'ramda';
 
 export const augmentImageSrc = (block: Block, images: Image[]) => {
+	// console.log(images);
+
 	if (block.type === 'image') {
 		const content = block.content;
+
+		// console.log(block);
+		// console.log(images);
 		const imageSrc = R.find(R.propEq('filename', (block.content as ImageContent).image[0]))(images);
+		// console.log(imageSrc);
+
 		if (!R.isNil(imageSrc) && (imageSrc as Image).url) {
 			const newContent = {
 				...content,
@@ -29,8 +36,11 @@ export const augmentImageSrc = (block: Block, images: Image[]) => {
 			R.find(R.propEq(key, value))(data);
 		// const test2 = findImage('filename', 'smallsimulation3.jpg', images);
 
+		// console.log(content.images);
+
 		const imageSources = content.images.map(filename => {
 			const image = findImage('filename', filename, images);
+
 			const newContent: ImageContent = {
 				location: '',
 				image: [(image as Image).filename],
