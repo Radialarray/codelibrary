@@ -20,6 +20,7 @@ interface KQLRequestBody {
 	select?: {
 		url: true;
 		title: true;
+		id: true;
 		navigation: 'site.navigation.toNavigationArray';
 		courses?: boolean;
 		codelanguages?: boolean;
@@ -59,6 +60,7 @@ interface KQLResponse {
 	result: {
 		url: string;
 		title: string;
+		id: string;
 		navigation: NavItem[];
 		courses?: string;
 		codelanguages?: string;
@@ -173,7 +175,7 @@ interface MetaInfo {
 	url: string;
 	title: string;
 	navigation: Array<NavItem>;
-	search: Array;
+	search: Array<SearchItem>;
 	courses: string;
 	codeLanguages: string;
 	level: string;

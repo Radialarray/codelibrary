@@ -9,8 +9,10 @@ import {Search as SearchIcon} from 'react-feather';
 import SearchOverlay from 'lib/components/SearchOverlay';
 
 interface Props {
-	navItems: Array<NavItem>;
-	searchItems: Array<SearchItem>;
+	meta: {
+		navigation: Array<NavItem>;
+		search: Array<SearchItem>;
+	};
 	// any props that come into the component
 }
 
@@ -18,8 +20,9 @@ const checkNavId = (x: string) => {
 	return x.toLowerCase().includes('home') ? '' : x;
 };
 
-const Header = ({navItems, searchItems}: Props) => {
+const Header = ({meta}: Props) => {
 	const snap = useSnapshot(searchStore);
+
 	// Toggle the menu when ⌘K is pressed
 	useEffect(() => {
 		const down = (e: {key: string; ctrlKey: boolean}) => {
@@ -52,7 +55,8 @@ const Header = ({navItems, searchItems}: Props) => {
 	 * All navigation items will be passed to this component
 	 */
 	const pathname = usePathname();
-	const navigationItems = navItems.map(item => {
+
+	const navigationItems = meta.navigation.map(item => {
 		// If route is active
 		if (pathname === `/${checkNavId(item.id)}`) {
 			return (
@@ -97,7 +101,7 @@ const Header = ({navItems, searchItems}: Props) => {
 						</span>
 					</div>
 				</div>
-				<SearchOverlay closeOverlay={closeOverlay} searchItems={searchItems}></SearchOverlay>
+				<SearchOverlay closeOverlay={closeOverlay} searchItems={meta.search}></SearchOverlay>
 			</header>
 		</>
 	);

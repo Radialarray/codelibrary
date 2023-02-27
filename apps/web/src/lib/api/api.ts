@@ -92,6 +92,7 @@ const sortPage = (data: KQLResponse): Page => {
 	const meta = {
 		url: result.url,
 		title: result.title,
+		id: result.id,
 		navigation: result.navigation,
 		search: result.search,
 		courses: result.courses ? result.courses : '',

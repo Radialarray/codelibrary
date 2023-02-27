@@ -10,9 +10,11 @@ import Content from 'lib/components/Content';
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-const getData = async (): Promise<Page> => {
+const getData = async (slug: string): Promise<Page> => {
+	const pageToQuery = `page("${slug}")`;
+
 	const requestBody: KQLRequestBody = {
-		query: 'page("overview")',
+		query: pageToQuery,
 		select: {
 			url: true,
 			title: true,
@@ -62,17 +64,18 @@ const getData = async (): Promise<Page> => {
 	return {...response};
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-	const data = await getData();
+export const generateMetadata = async ({params}: {params: {slug: string}}): Promise<Metadata> => {
+	const data = await getData(params.slug[0]);
 	if (typeof data.meta !== 'string') {
 		return {title: data.meta.title};
 	}
 	return {title: ''};
-}
+};
 
 // article will be populated at build time by getStaticProps()
-const Page = async () => {
-	const data = await getData();
+
+const Page = async ({params}: {params: {slug: string}}): Promise<JSX.Element> => {
+	const data = await getData(params.slug[0]);
 
 	const meta = data.meta as MetaInfo;
 	return (
