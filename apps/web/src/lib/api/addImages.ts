@@ -74,7 +74,7 @@ export const augmentImageSrc = (block: Block, images: Image[]) => {
 };
 
 export const addImageSources = (page: Page) => {
-	if (page === undefined || typeof page.content === 'string') {
+	if (!page || page === undefined || !page.content || typeof page.content === 'string') {
 		throw new Error('Page is undefined!');
 	}
 

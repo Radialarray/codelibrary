@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import {useRouter} from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import React, {useEffect} from 'react';
 import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
@@ -51,10 +51,10 @@ const Header = ({navItems, searchItems}: Props) => {
 	/**
 	 * All navigation items will be passed to this component
 	 */
-	const router = useRouter();
+	const pathname = usePathname();
 	const navigationItems = navItems.map(item => {
 		// If route is active
-		if (router.pathname === `/${checkNavId(item.id)}`) {
+		if (pathname === `/${checkNavId(item.id)}`) {
 			return (
 				<li key={item.id} className="border-b-2 border-slate-600">
 					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>

@@ -6,13 +6,15 @@ import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 
 interface Props {
-	content: Block[] | Layout[];
+	content: Page['content'];
 }
 
-const Sidebar = ({content}: Props): JSX.Element => {
-	// const snap = useSnapshot(searchStore);
-	// console.log(snap);
+const Sidebar = ({content}: Props): JSX.Element | null => {
 	useSnapshot(searchStore);
+
+	if (typeof content === 'string' || content === null) {
+		return null;
+	}
 
 	const isHeading = (element: Block) => R.equals('heading', element.type);
 
@@ -74,19 +76,21 @@ const Sidebar = ({content}: Props): JSX.Element => {
 	// console.log(headings);
 
 	return (
-		<div className="flex h-screen flex-col justify-between">
-			<div className="px-4 py-6">
-				{/* TODO: Placeholder for search shortcut */}
-				<span
-					onClick={() => toggleSearchOverlay('open')}
-					className="block h-10 w-32 rounded-lg bg-gray-200"
-				></span>
+		<aside>
+			<div className="flex h-screen flex-col justify-between">
+				<div className="px-4 py-6">
+					{/* TODO: Placeholder for search shortcut */}
+					<span
+						onClick={() => toggleSearchOverlay('open')}
+						className="block h-10 w-32 rounded-lg bg-gray-200"
+					></span>
 
-				<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
-					<ol>{headings}</ol>
-				</nav>
+					<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
+						<ol>{headings}</ol>
+					</nav>
+				</div>
 			</div>
-		</div>
+		</aside>
 	);
 };
 

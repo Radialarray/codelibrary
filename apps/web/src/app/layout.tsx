@@ -14,19 +14,27 @@ export async function generateMetadata(): Promise<Metadata> {
 		redirect: 'follow'
 	};
 
-	const data = await requestData(requestOptions);
-
-	return {
-		title: {
-			default: data.result.title,
-			template: `%s | ${data.result.title}`
-		}
-	};
+	try {
+		const data = await requestData(requestOptions);
+		return {
+			title: {
+				default: data.result.title,
+				template: `%s | ${data.result.title}`
+			}
+		};
+	} catch (error) {
+		return {
+			title: {
+				default: 'Error',
+				template: `%s | Error`
+			}
+		};
+	}
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
-		<html>
+		<html lang="de">
 			<head></head>
 			<body>{children}</body>
 		</html>

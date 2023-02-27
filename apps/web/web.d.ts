@@ -66,7 +66,7 @@ interface KQLResponse {
 		categories?: string;
 		headline?: string;
 		intro?: string;
-		content: string;
+		content: Page['content'];
 		images: Image[];
 		search: [];
 	};
@@ -75,7 +75,7 @@ interface KQLResponse {
 
 interface Page {
 	meta: MetaInfo | string;
-	content: Block[] | Layout[] | string;
+	content: Block[] | Layout[] | null;
 	images: Image[] | string;
 }
 

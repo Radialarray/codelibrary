@@ -1,5 +1,4 @@
 import https from 'https';
-import * as R from 'ramda';
 
 /**
  * Get the complete page content from a normal article page.
@@ -65,7 +64,7 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 			headers: headers
 		});
 
-		const data = response.json();
+		const data = await response.json();
 		return data;
 	} catch (error) {
 		console.error(error);
@@ -74,13 +73,13 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 };
 
 const sortPage = (data: KQLResponse): Page => {
-	if (data.code !== 200 || data.code === undefined || !R.has('result')(data)) {
+	if (data.code !== 200 || data.code === undefined || !('result' in data)) {
 		console.error('server response has error');
 		console.error(data.code);
 		// throw new Error('server response has error');
 		const page = {
 			meta: 'Error',
-			content: data.code,
+			content: null,
 			images: 'error'
 		};
 
@@ -104,7 +103,7 @@ const sortPage = (data: KQLResponse): Page => {
 	};
 
 	// Build content data
-	const content: Block[] | Layout[] = result.content;
+	const content = result.content;
 
 	const page = {
 		meta: meta,

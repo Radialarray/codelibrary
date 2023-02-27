@@ -12,22 +12,8 @@ import Line from './blocks/Line';
 /**
  * Checks for block type and then calls the respective component.
  */
-// const parseBlock = R.cond<Block[], JSX.Element>([
-// 	[x => R.equals('code', x.type), Code],
-// 	[x => R.equals('gallery', x.type), Gallery],
-// 	[x => R.equals('heading', x.type), Heading],
-// 	[x => R.equals('image', x.type), Image],
-// 	[x => R.equals('line', x.type), Line],
-// 	[x => R.equals('list', x.type), List],
-// 	[x => R.equals('markdown', x.type), Markdown],
-// 	[x => R.equals('quote', x.type), Quote],
-// 	[x => R.equals('text', x.type), Text],
-// 	[x => R.equals('video', x.type), Video]
-// ]);
-
 export const parseBlock = (block: Block): JSX.Element => {
 	// console.log(block);
-
 	switch (block.type) {
 		case 'code':
 			return <Code key={block.id} {...block} />;
