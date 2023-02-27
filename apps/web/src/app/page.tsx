@@ -1,3 +1,4 @@
+import type {Metadata} from 'next';
 import {getPageContent} from 'lib/api/api';
 
 import Container from 'lib/components/layouts/Container';
@@ -59,6 +60,14 @@ export const getData = async (): Promise<Page> => {
 
 	return {...response};
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+	const data = await getData();
+	if (typeof data.meta !== 'string') {
+		return {title: data.meta.title};
+	}
+	return {};
+}
 
 // article will be populated at build time by getStaticProps()
 const Page = async () => {
