@@ -1,8 +1,5 @@
-import {AxiosError} from 'axios';
 import https from 'https';
-import {pipeWhileNotNil} from '../helper/helper';
 import * as R from 'ramda';
-import {addImageSources} from './addImages';
 
 /**
  * Get the complete page content from a normal article page.
@@ -10,11 +7,9 @@ import {addImageSources} from './addImages';
  * 2. Build content
  * 3. Add images
  * 4. Return page
- * @param {AxiosRequestConfig} req
- * @returns {Page}
  */
 
-const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse> => {
+export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> => {
 	// Call an external API endpoint to get article.
 	// You can use any data fetching library
 
@@ -42,10 +37,16 @@ const requestPage = async (req: KQLRequestOptions): Promise<KQLResponse> => {
 						username: envVars.API_USERNAME,
 						password: envVars.API_PASSWORD
 					},
+					// TODO: remove from production
+					httpsAgent: new https.Agent({
+						rejectUnauthorized: false
+					}),
 					...req
 			  };
 
 	process.env.NODE_ENV === 'development' ? (process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0') : '';
+	// TODO: remove from production
+	process.env.NODE_ENV === 'production' ? (process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0') : '';
 
 	const authVars = Buffer.from(`${config.auth.username}:${config.auth.password}`).toString(
 		'base64'
@@ -115,7 +116,7 @@ const sortPage = (data: KQLResponse): Page => {
 };
 
 export const getPageContent = async (req: KQLRequestOptions): Promise<Page> => {
-	const response = await requestPage(req);
+	const response = await requestData(req);
 
 	const sortedResponse = sortPage(response);
 	// console.log(sortedResponse.content[0]);

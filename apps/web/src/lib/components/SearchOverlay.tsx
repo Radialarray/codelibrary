@@ -34,7 +34,7 @@ const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 		);
 	});
 
-	if (searchStore.status === 'open') {
+	if (snap.status === 'open') {
 		return (
 			<div
 				className="z-40 fixed left-0 top-0  w-full h-full backdrop-blur-lg transition-all duration-150"

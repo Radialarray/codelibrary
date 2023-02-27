@@ -1,4 +1,3 @@
-import * as R from 'ramda';
 import Heading from './blocks/Heading';
 import Text from './blocks/Text';
 import Quote from './blocks/Quote';

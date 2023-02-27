@@ -17,7 +17,7 @@ interface KQLRequestOptions {
 
 interface KQLRequestBody {
 	query: string;
-	select: {
+	select?: {
 		url: true;
 		title: true;
 		navigation: 'site.navigation.toNavigationArray';
