@@ -1,7 +1,8 @@
 version: '3.8'
 services:
+  # CMS Kirby
   php:
-    container_name: 'php'
+    container_name: 'codelibrary_php'
     build:
       dockerfile: ../../apps/cms/Dockerfile
       context: ../../apps/cms
@@ -14,12 +15,9 @@ services:
       - ../../apps/cms/index.php:/srv/index.php:ro
     networks:
       - internal
-    labels:
-      - traefik.enable=false
 
-  # CMS
   codelibrary:
-    container_name: 'codelibrary'
+    container_name: 'codelibrary_cms'
     image: caddy:2.6.2
     restart: unless-stopped
     ports:
@@ -38,20 +36,5 @@ services:
     networks:
       - internal
 
-  # Frontend
-  # web:
-  #   container_name: web
-  #   build:
-  #     context: ../../apps/web/
-  #     dockerfile: ../../apps/web/Dockerfile
-  #   volumes:
-  #     - ../../apps/web:/app
-  #   restart: unless-stopped
-  #   labels:
-  #     - 'traefik.enable=true'
-  #     - 'traefik.http.routers.codelibrary-frontend.rule=Host(`library-frontend.localhost`)'
-  #     - 'traefik.http.services.codelibrary-frontend.loadbalancer.server.port=3000'
-
 networks:
   internal:
-  proxy:
