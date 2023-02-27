@@ -86,7 +86,6 @@ const sortPage = (data: KQLResponse): Page => {
 		return page;
 	}
 
-	// if (R.has('result')(data)) {
 	const result = data.result;
 	// Build meta data
 	const meta = {

@@ -30,7 +30,6 @@ export const parseLayout = (x: Layout) => {
 	return <Grid key={x.id}>{columns}</Grid>;
 };
 
-// const decideLayoutBlock = R.ifElse(R.has('columns'), parseLayout, parseBlocks);
 const decideLayoutBlock = (x: Layout | Block) => {
 	// console.log(x);
 
@@ -42,8 +41,6 @@ const decideLayoutBlock = (x: Layout | Block) => {
 };
 
 export const parseContent = (content: Page['content']) => {
-	// return R.map(decideLayoutBlock, content);
-	// console.log(content);
 	if (content) {
 		return content.map(decideLayoutBlock);
 	}

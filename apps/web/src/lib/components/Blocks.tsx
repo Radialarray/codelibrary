@@ -48,14 +48,6 @@ export const parseBlock = (block: Block): JSX.Element => {
  */
 // export const parseBlocks = ({content}: PageContent): JSX.Element[] => {
 export const parseBlocks = (blocks: Block[]): JSX.Element[] => {
-	// for every block in blocks paste as parameter to parseBlock()
-	// return R.map(parseBlock, blocks);
-
-	// blocks.map(block => {
-	// 	console.log(typeof block);
-	// 	console.log(block);
-	// });
-
 	if (blocks !== undefined) return blocks.map(parseBlock);
 	return [<p>Something happened.</p>];
 };

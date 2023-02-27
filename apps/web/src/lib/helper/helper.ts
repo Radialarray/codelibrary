@@ -1,6 +1,4 @@
-import * as R from 'ramda';
 import sanitizeHtml from 'sanitize-html';
-export const pipeWhileNotNil = R.pipeWith((f, res) => (R.isNil(res) ? res : f(res)));
 
 // Dompurify Options
 const sanitizeDefaultOptions = {
@@ -16,12 +14,3 @@ const sanitizeDefaultOptions = {
 export const sanitize = (dirty: string, options?: object) => ({
 	__html: sanitizeHtml(dirty, {...sanitizeDefaultOptions, ...options})
 });
-
-/**
- * Checks if value empty, if yes, make it null, else take the given value.
- */
-export const ifEmpty = R.ifElse(
-	R.isEmpty,
-	() => null,
-	x => x
-);

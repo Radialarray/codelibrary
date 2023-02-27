@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import NextImage from 'next/image';
-import * as R from 'ramda';
 
 /**
  * Creates a JSX.Element an image block.
@@ -13,7 +12,7 @@ const Image = (props: Block): JSX.Element => {
 	const content = props.content as ImageContent;
 
 	// if link exists, return image wrapped in link.
-	return R.isNil(content.link) ? (
+	return content.link ? (
 		<NextImage
 			key={props.id}
 			src={content.image[0]}
