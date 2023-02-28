@@ -74,10 +74,11 @@ export const generateMetadata = async ({params}: {params: {slug: string}}): Prom
 
 // article will be populated at build time by getStaticProps()
 
-const Page = async ({params}: {params: {slug: string}}): Promise<JSX.Element> => {
-	const data = await getData(params.slug[0]);
-
+const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> => {
+	const slug = params.slug.join('/');
+	const data = await getData(slug);
 	const meta = data.meta as MetaInfo;
+
 	return (
 		<>
 			<Header meta={meta}></Header>

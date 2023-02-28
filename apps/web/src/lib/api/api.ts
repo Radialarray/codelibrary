@@ -87,6 +87,10 @@ const sortPage = (data: KQLResponse): Page => {
 	}
 
 	const result = data.result;
+
+	if (!result) {
+		throw new Error();
+	}
 	// Build meta data
 	const meta = {
 		url: result.url,

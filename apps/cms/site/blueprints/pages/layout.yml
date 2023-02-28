@@ -27,6 +27,6 @@ columns:
     sections:
       pages:
         type: pages
-        template: default
+        template: layout
       files:
         type: files
