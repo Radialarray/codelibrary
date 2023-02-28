@@ -1,7 +1,7 @@
 title: Multi-Column Page
 
 options:
-  preview: http://localhost:3000/
+  preview: "http://localhost:3000/{{ page.uri }}"
 
 columns:
   main:
@@ -30,3 +30,36 @@ columns:
         template: layout
       files:
         type: files
+      meta:
+        type: fields
+        fields:
+          courses:
+            label: Kurse
+            type: multiselect
+            options: query
+            query: site.cour1ses.split('- ')
+            # TODO: split courses here
+            text: '{{ arrayItem.split('course:') }}'
+            value: '{{ course }}'
+            search: false
+          codeLanguages:
+            type: multiselect
+            label: Sprache
+            accept: options
+            options: query
+            query: site.languages.split
+          level:
+            required: true
+            label: Level
+            type: toggles
+            options:
+              - low
+              - medium
+              - high
+            default: low
+          categories:
+            label: Kategorien
+            type: multiselect
+            accept: options
+            options: query
+            query: site.tags.split
