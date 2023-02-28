@@ -94,6 +94,7 @@ const sortPage = (data: KQLResponse): Page => {
 	// Build meta data
 	const meta = {
 		url: result.url,
+		uri: result.uri,
 		title: result.title,
 		id: result.id,
 		navigation: result.navigation,

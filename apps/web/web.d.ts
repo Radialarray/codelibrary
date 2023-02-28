@@ -19,6 +19,7 @@ interface KQLRequestBody {
 	query: string;
 	select?: {
 		url: true;
+		uri: true;
 		title: true;
 		id: true;
 		navigation: 'site.navigation.toNavigationArray';
@@ -59,6 +60,7 @@ interface KQLResponse {
 	code: number;
 	result: {
 		url: string;
+		uri: string;
 		title: string;
 		id: string;
 		navigation: NavItem[];
@@ -173,6 +175,7 @@ interface NavItem {
 
 interface MetaInfo {
 	url: string;
+	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
 	search: Array<SearchItem>;

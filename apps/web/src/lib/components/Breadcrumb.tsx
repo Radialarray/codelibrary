@@ -2,25 +2,23 @@ import {Home as HomeIcon, ChevronRight as ChevronRightIcon} from 'react-feather'
 import Link from 'next/link';
 
 interface Props {
-	url: string;
+	uri: string;
 }
 
-const Breadcrumb = ({url}: Props): JSX.Element => {
-	const urlDecomposed = new URL(url);
-
-	const subPaths = urlDecomposed.pathname.split('/');
+const Breadcrumb = ({uri}: Props): JSX.Element => {
+	const subPaths = uri.split('/');
 
 	let lastItem = '';
-	const crumbs = subPaths.map((subPath, index) => {
+	const crumbs = subPaths.map(subPath => {
 		const path = lastItem + subPath + '/';
+
 		lastItem = path;
 		const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
 
 		return subPath.length ? (
-			<li key={path.toString()}>
+			<li className="min-w-max flex justify-between items-center" key={path.toString()}>
 				<ChevronRightIcon></ChevronRightIcon>
-
-				<Link href={`${path}${index}`} className="block transition hover:text-gray-700">
+				<Link href={`/${path}`} className="block  transition hover:text-gray-700">
 					{linkText}
 				</Link>
 			</li>
@@ -31,9 +29,9 @@ const Breadcrumb = ({url}: Props): JSX.Element => {
 
 	return (
 		<nav aria-label="Breadcrumb">
-			<ol role="list" className="flex items-center gap-1 text-sm text-gray-600">
-				<li key={'pathhome'}>
-					<Link href="/" className="block transition hover:text-gray-700">
+			<ol role="list" className="flex flex-row items-center gap-1 text-sm text-gray-600">
+				<li className="min-w-max" key={'pathhome'}>
+					<Link href="/" className="block transition hover:text-gray-700 min-w-fit">
 						<span className="sr-only"> Home </span>
 						<HomeIcon></HomeIcon>
 					</Link>

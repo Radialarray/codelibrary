@@ -15,6 +15,7 @@ const getData = async (): Promise<Page> => {
 		query: 'page("overview")',
 		select: {
 			url: true,
+			uri: true,
 			title: true,
 			id: true,
 			navigation: 'site.navigation.toNavigationArray',
@@ -82,7 +83,7 @@ const Page = async () => {
 			<Container>
 				<div className="flex w-full">
 					<Sidebar content={data.content}></Sidebar>
-					<Breadcrumb url={meta.url}></Breadcrumb>
+					<Breadcrumb uri={meta.uri}></Breadcrumb>
 					<article key={'article'} className="">
 						<Content content={data.content}></Content>
 					</article>
