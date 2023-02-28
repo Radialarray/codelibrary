@@ -10,17 +10,8 @@ const Image = (props: Block): JSX.Element => {
 	// console.log(props);
 
 	const content = props.content as ImageContent;
-
 	// if link exists, return image wrapped in link.
-	return content.link ? (
-		<NextImage
-			key={props.id}
-			src={content.image[0]}
-			alt={content.alt ? content.alt : content.src}
-			width="300"
-			height="300"
-		/>
-	) : (
+	return content.link.length ? (
 		<Link href={content.link} key={props.id}>
 			<NextImage
 				src={content.image[0]}
@@ -29,6 +20,14 @@ const Image = (props: Block): JSX.Element => {
 				height="300"
 			/>
 		</Link>
+	) : (
+		<NextImage
+			key={props.id}
+			src={content.image[0]}
+			alt={content.alt ? content.alt : content.src}
+			width="300"
+			height="300"
+		/>
 	);
 };
 

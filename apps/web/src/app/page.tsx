@@ -83,8 +83,8 @@ const Page = async () => {
 			<Container>
 				<div className="flex w-full">
 					<Sidebar content={data.content}></Sidebar>
-					<Breadcrumb uri={meta.uri}></Breadcrumb>
-					<article key={'article'} className="">
+					<article key={'article'} className="flex flex-col gap-12">
+						<Breadcrumb uri={meta.uri}></Breadcrumb>
 						<Content content={data.content}></Content>
 					</article>
 				</div>

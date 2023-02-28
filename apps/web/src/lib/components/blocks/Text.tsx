@@ -26,7 +26,11 @@ const Text = (x: Block): JSX.Element => {
 	// return keyedElement;
 
 	const sanitized = sanitize((x.content as TextContent).text);
-	return <div key={x.id}>{htmlReactParser(sanitized.__html, options)}</div>;
+	return (
+		<div className="mt-4" key={x.id}>
+			{htmlReactParser(sanitized.__html, options)}
+		</div>
+	);
 };
 
 export default Text;

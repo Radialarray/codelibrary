@@ -78,6 +78,7 @@ export const generateMetadata = async ({params}: {params: {slug: string}}): Prom
 const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> => {
 	const slug = params.slug.join('/');
 	const data = await getData(slug);
+
 	const meta = data.meta as MetaInfo;
 
 	return (
@@ -87,8 +88,8 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 			<Container>
 				<div className="flex w-full">
 					<Sidebar content={data.content}></Sidebar>
-					<Breadcrumb uri={meta.uri}></Breadcrumb>
-					<article key={'article'} className="">
+					<article key={'article'} className="flex flex-col gap-12">
+						<Breadcrumb uri={meta.uri}></Breadcrumb>
 						<Content content={data.content}></Content>
 					</article>
 				</div>
