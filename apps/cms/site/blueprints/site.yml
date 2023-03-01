@@ -1,5 +1,8 @@
 title: Site
 
+options:
+  preview: "http://localhost:3000/"
+
 columns:
   main:
     width: 2/3

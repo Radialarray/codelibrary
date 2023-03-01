@@ -11,7 +11,8 @@ const Heading = (x: Block): JSX.Element => {
 		(x.content as TextContent).level || 'h1',
 		{
 			key: x.id,
-			id: `${slugify((x.content as TextContent).text)}`
+			id: `${slugify((x.content as TextContent).text)}`,
+			className: 'my-6'
 		},
 		(x.content as TextContent).text
 	);

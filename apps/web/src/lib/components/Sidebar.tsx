@@ -7,9 +7,10 @@ import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 
 interface Props {
 	content: Page['content'];
+	uri: string;
 }
 
-const Sidebar = ({content}: Props): JSX.Element | null => {
+const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 	useSnapshot(searchStore);
 
 	if (typeof content === 'string' || content === null) {
@@ -54,12 +55,10 @@ const Sidebar = ({content}: Props): JSX.Element | null => {
 						}
 					};
 
-					// console.log(element.id);
-
 					return (
 						<li key={element.id}>
 							<Link
-								href={`#${slugify(element.content.text)}`}
+								href={`/${uri}#${slugify(element.content.text)}`}
 								className={getLevel(element.content)}
 							>
 								{element.content.text}

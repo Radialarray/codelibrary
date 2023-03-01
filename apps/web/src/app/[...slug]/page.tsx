@@ -87,9 +87,10 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 
 			<Container>
 				<div className="flex w-full">
-					<Sidebar content={data.content}></Sidebar>
+					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
 					<article key={'article'} className="flex flex-col gap-12">
 						<Breadcrumb uri={meta.uri}></Breadcrumb>
+						<h1>{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}</h1>
 						<Content content={data.content}></Content>
 					</article>
 				</div>

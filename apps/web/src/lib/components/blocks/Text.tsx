@@ -10,7 +10,11 @@ const options: HTMLReactParserOptions = {
 		}
 
 		if (domNode.name === 'a') {
-			return <Link href={domNode.attribs.href}>{domToReact(domNode.children, options)}</Link>;
+			return (
+				<Link className="underline" href={domNode.attribs.href}>
+					{domToReact(domNode.children, options)}
+				</Link>
+			);
 		}
 	}
 };
