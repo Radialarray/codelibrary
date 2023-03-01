@@ -13,7 +13,7 @@ import Content from 'lib/components/Content';
 const getData = async (slug: string): Promise<Page> => {
 	const pageToQuery = `page("${slug}")`;
 
-	const requestBody: KQLRequestBody = {
+	const requestBody = {
 		query: pageToQuery,
 		select: {
 			url: true,
@@ -37,8 +37,31 @@ const getData = async (slug: string): Promise<Page> => {
 					alt: 'file.alt.kirbytext'
 				}
 			},
-			search: {
+			searchPage: {
+				query: 'page.children',
+				select: {
+					url: true,
+					uri: true,
+					slug: true,
+					id: true,
+					title: 'page.title'
+				}
+			},
+			searchGlobal: {
 				query: 'site.children',
+				select: {
+					url: true,
+					title: true,
+					courses: true,
+					codelanguages: true,
+					level: true,
+					categories: true,
+					headline: true,
+					id: true
+				}
+			},
+			searchAll: {
+				query: 'site.index',
 				select: {
 					url: true,
 					title: true,
@@ -85,7 +108,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 		<>
 			<Container>
 				<Header meta={meta}></Header>
-				<div className="flex w-full">
+				<div className="flex w-full mx-auto px-4">
 					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
 					<article key={'article'} className="flex flex-col gap-12">
 						<Breadcrumb uri={meta.uri}></Breadcrumb>

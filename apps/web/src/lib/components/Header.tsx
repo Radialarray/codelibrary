@@ -55,6 +55,7 @@ const Header = ({meta}: Props) => {
 	 * All navigation items will be passed to this component
 	 */
 	const pathname = usePathname();
+	// console.log(meta);
 
 	const navigationItems = meta.navigation.map(item => {
 		// If route is active
@@ -75,7 +76,7 @@ const Header = ({meta}: Props) => {
 
 	return (
 		<>
-			<header className=" text-lg">
+			<header className="text-lg">
 				<div className="flex items-center h-16 gap-8  mx-auto px-4">
 					<Link href="/" className="font-normal">
 						hfg <b className="font-bold">code</b>lab

@@ -98,7 +98,11 @@ const sortPage = (data: KQLResponse): Page => {
 		title: result.title,
 		id: result.id,
 		navigation: result.navigation,
-		search: result.search,
+		search: {
+			searchPage: result.searchPage,
+			searchGlobal: result.searchGlobal,
+			searchAll: result.searchAll
+		},
 		courses: result.courses ? result.courses : '',
 		codeLanguages: result.codelanguages ? result.codelanguages : '',
 		level: result.level ? result.level : '',

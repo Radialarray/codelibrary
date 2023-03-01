@@ -8,30 +8,40 @@ import {searchStore} from 'lib/stores/searchStore';
 
 interface Props {
 	closeOverlay: MouseEventHandler;
-	searchItems: SearchItem[];
+	// searchItems: SearchItem[];
+	searchItems: {
+		searchPage: [];
+		searchGlobal: [];
+		searchAll: [];
+	};
 }
 
 const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
 
 	const groupStyle = `select-none text-sm text-slate-400 mt-4`;
-	const itemStyle = `cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md`;
 
-	// console.log(searchItems);
-	const listItems = searchItems.map(item => {
-		const url = new URL(item.url);
-		return (
-			<Command.Item key={item.id} className={itemStyle}>
-				<Link href={url.pathname} className="flex items-center">
-					<FileTextIcon></FileTextIcon>
-					<div>
-						<span className="pl-2 text-slate-500">Go to </span>
-						<span className="text-blue-500">{item.title}</span>
-					</div>
-				</Link>
-			</Command.Item>
-		);
-	});
+	const createSearchSection = (items: SearchItem[]): JSX.Element[] => {
+		const list = items.map(item => {
+			const url = new URL(item.url);
+			return (
+				<Command.Item
+					key={item.id}
+					className="cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md"
+				>
+					<Link href={url.pathname} className="flex items-center w-full h-full">
+						<FileTextIcon></FileTextIcon>
+						<div>
+							<span className="pl-2 text-slate-500">Go to </span>
+							<span className="text-blue-500">{item.title}</span>
+						</div>
+					</Link>
+				</Command.Item>
+			);
+		});
+
+		return list;
+	};
 
 	if (snap.status === 'open') {
 		return (
@@ -68,14 +78,26 @@ const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 
 							<Command.Empty>No results found.</Command.Empty>
 
-							<Command.Group heading="Kategorien" className={groupStyle}>
+							<Command.Group heading="Auf dieser Seite" className={groupStyle}>
+								{createSearchSection(searchItems.searchPage)}
+							</Command.Group>
+
+							<Command.Group heading="Global" className={groupStyle}>
+								{createSearchSection(searchItems.searchGlobal)}
+							</Command.Group>
+
+							<Command.Group heading="Alle Seiten" className={groupStyle}>
+								{createSearchSection(searchItems.searchAll)}
+							</Command.Group>
+
+							{/* <Command.Group heading="Kategorien" className={groupStyle}>
 								<Command.Item className={itemStyle}>
 									<FileTextIcon></FileTextIcon>Apple
 								</Command.Item>
-							</Command.Group>
-							<Command.Group heading="Links" className={groupStyle}>
+							</Command.Group> */}
+							{/* <Command.Group heading="Links" className={groupStyle}>
 								{listItems}
-							</Command.Group>
+							</Command.Group> */}
 						</Command.List>
 					</Command>
 				</motion.div>

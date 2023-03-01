@@ -11,7 +11,7 @@ interface KQLRequest {
 
 interface KQLRequestOptions {
 	method: 'POST';
-	body: KQLRequestBody;
+	body: KQLRequestBody | object;
 	redirect: 'follow';
 }
 
@@ -39,19 +39,7 @@ interface KQLRequestBody {
 				alt: 'file.alt.kirbytext';
 			};
 		};
-		search: {
-			query: 'site.children';
-			select: {
-				url: true;
-				title: true;
-				courses: true;
-				codelanguages: true;
-				level: true;
-				categories: true;
-				headline: true;
-				id: true;
-			};
-		};
+		search: object;
 	};
 	pagination?: {limit: number};
 }
@@ -72,7 +60,11 @@ interface KQLResponse {
 		intro?: string;
 		content: Page['content'];
 		images: Image[];
-		search: [];
+		search: {
+			searchPage: [];
+			searchGlobal: [];
+			searchAll: [];
+		};
 	};
 	status: string;
 }

@@ -12,7 +12,7 @@ import Content from 'lib/components/Content';
 // direct database queries.
 const getData = async (): Promise<Page> => {
 	const requestBody: KQLRequestBody = {
-		query: 'page("overview")',
+		query: 'page("home")',
 		select: {
 			url: true,
 			uri: true,
@@ -35,8 +35,31 @@ const getData = async (): Promise<Page> => {
 					alt: 'file.alt.kirbytext'
 				}
 			},
-			search: {
+			searchPage: {
+				query: 'page.children',
+				select: {
+					url: true,
+					uri: true,
+					slug: true,
+					id: true,
+					title: 'page.title'
+				}
+			},
+			searchGlobal: {
 				query: 'site.children',
+				select: {
+					url: true,
+					title: true,
+					courses: true,
+					codelanguages: true,
+					level: true,
+					categories: true,
+					headline: true,
+					id: true
+				}
+			},
+			searchAll: {
+				query: 'site.index',
 				select: {
 					url: true,
 					title: true,
@@ -78,11 +101,14 @@ const Page = async () => {
 	const meta = data.meta as MetaInfo;
 	return (
 		<>
-			<Header meta={meta}></Header>
 			<Container>
-				<article key={'article'} className="flex flex-col gap-12">
-					<Content content={data.content}></Content>
-				</article>
+				<Header meta={meta}></Header>
+				<div className="flex w-full mx-auto px-4">
+					<article key={'article'} className="flex flex-col gap-12">
+						<h1>{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}</h1>
+						<Content content={data.content}></Content>
+					</article>
+				</div>
 			</Container>
 		</>
 	);
