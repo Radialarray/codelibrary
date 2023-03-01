@@ -2,8 +2,7 @@
 import * as R from 'ramda';
 import slugify from '@sindresorhus/slugify';
 import Link from 'next/link';
-import {useSnapshot} from 'valtio';
-import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
+import Search from 'lib/components/Search';
 
 interface Props {
 	content: Page['content'];
@@ -11,8 +10,6 @@ interface Props {
 }
 
 const Sidebar = ({content, uri}: Props): JSX.Element | null => {
-	useSnapshot(searchStore);
-
 	if (typeof content === 'string' || content === null) {
 		return null;
 	}
@@ -43,14 +40,14 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 					const getLevel = (content: TextContent) => {
 						if ('level' in content) {
 							switch (content.level) {
-								case 'h1':
-									return 'font-base';
-								case 'h2':
-									return 'text-sm';
-								case 'h3':
-									return 'text-xs';
+								// case 'h1':
+								// 	return 'font-base';
+								// case 'h2':
+								// 	return 'text-sm';
+								// case 'h3':
+								// 	return 'text-xs';
 								default:
-									return 'font-md';
+									return 'text-sm';
 							}
 						}
 					};
@@ -77,12 +74,9 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 	return (
 		<aside>
 			<div className="flex h-screen flex-col justify-between">
-				<div className="px-4 py-6">
+				<div className="px-4">
 					{/* TODO: Placeholder for search shortcut */}
-					<span
-						onClick={() => toggleSearchOverlay('open')}
-						className="block h-10 w-32 rounded-lg bg-gray-200"
-					></span>
+					<Search></Search>
 
 					<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
 						<ol>{headings}</ol>

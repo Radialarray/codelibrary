@@ -4,6 +4,9 @@ import {githubLight} from '@codesandbox/sandpack-themes';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {github} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import * as R from 'ramda';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {Clipboard as ClipboardIcon, Check as CheckIcon} from 'react-feather';
+import {useState} from 'react';
 
 /**
  * Creates a JSX.Element from a code block.
@@ -11,15 +14,36 @@ import * as R from 'ramda';
  * @returns {JSX.Element}
  */
 const Code = (props: Block): JSX.Element => {
+	const [copied, setCopied] = useState(false);
+
+	const copy = () => {
+		console.log('Copied!');
+		setCopied(true);
+		setTimeout(() => {
+			setCopied(false);
+		}, 5000);
+	};
+
 	// TODO: Syntax Highlighting for everything
 	const basicHighlighting = (x: Block) => {
 		const codeString = (x.content as CodeContent).code;
 		return (
-			<div className="mt-6">
+			<div className="relative mt-6">
+				<button className="absolute flex flex-row  top-0 right-0 p-2">
+					<span className="m-1 pb-1 basis-3/4 text-xs">{(x.content as CodeContent).language}</span>
+					<CopyToClipboard text={codeString} onCopy={() => copy()}>
+						<span>{copied ? <CheckIcon></CheckIcon> : <ClipboardIcon></ClipboardIcon>}</span>
+					</CopyToClipboard>
+				</button>
+
 				<SyntaxHighlighter
 					key={props.id}
 					language={(x.content as CodeContent).language}
 					style={github}
+					wrapLines={true}
+					wrapLongLines={true}
+					showLineNumbers={false}
+					showInlineLineNumbers={false}
 				>
 					{codeString}
 				</SyntaxHighlighter>
@@ -30,18 +54,27 @@ const Code = (props: Block): JSX.Element => {
 	// TODO: Basic readonly code viewer for HTML,CSS,JS
 	const basicInteractiveSandbox = (props: Block) => {
 		return (
-			<Sandpack
-				key={props.id}
-				options={{readOnly: true}}
-				theme={githubLight}
-				template="vanilla"
-				files={{
-					'/src/index.cpp': (props.content as CodeContent).code,
-					'/src/index2.ts': (props.content as CodeContent).code,
-					[`/src/index4.${(props.content as CodeContent).language}`]: (props.content as CodeContent)
-						.code
-				}}
-			/>
+			<div className="relative mt-6">
+				<button className="absolute flex flex-row  top-0 right-0 p-2 z-50">
+					<CopyToClipboard text={(props.content as CodeContent).code} onCopy={() => copy()}>
+						<span>{copied ? <CheckIcon></CheckIcon> : <ClipboardIcon></ClipboardIcon>}</span>
+					</CopyToClipboard>
+				</button>
+
+				<Sandpack
+					key={props.id}
+					options={{readOnly: true}}
+					theme={githubLight}
+					template="vanilla"
+					files={{
+						'/src/index.cpp': (props.content as CodeContent).code,
+						'/src/index2.ts': (props.content as CodeContent).code,
+						[`/src/index4.${(props.content as CodeContent).language}`]: (
+							props.content as CodeContent
+						).code
+					}}
+				/>
+			</div>
 		);
 	};
 

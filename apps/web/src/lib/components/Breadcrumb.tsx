@@ -17,7 +17,7 @@ const Breadcrumb = ({uri}: Props): JSX.Element => {
 
 		return subPath.length ? (
 			<li className="min-w-max flex justify-between items-center" key={path.toString()}>
-				<ChevronRightIcon></ChevronRightIcon>
+				<ChevronRightIcon className="w-4 mx-1"></ChevronRightIcon>
 				<Link href={`/${path}`} className="block  transition hover:text-gray-700">
 					{linkText}
 				</Link>
@@ -30,7 +30,7 @@ const Breadcrumb = ({uri}: Props): JSX.Element => {
 	return (
 		<nav aria-label="Breadcrumb">
 			<ol role="list" className="flex flex-row items-center gap-1 text-sm text-gray-600">
-				<li className="min-w-max" key={'pathhome'}>
+				<li className="w-4" key={'pathhome'}>
 					<Link href="/" className="block transition hover:text-gray-700 min-w-fit">
 						<span className="sr-only"> Home </span>
 						<HomeIcon></HomeIcon>

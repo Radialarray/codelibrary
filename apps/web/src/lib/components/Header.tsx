@@ -75,8 +75,8 @@ const Header = ({meta}: Props) => {
 
 	return (
 		<>
-			<header className="bg-white text-lg">
-				<div className="flex items-center h-16 max-w-screen-xl gap-8 px-4 mx-auto sm:px-6 lg:px-8">
+			<header className=" text-lg">
+				<div className="flex items-center h-16 gap-8  mx-auto px-4">
 					<Link href="/" className="font-normal">
 						hfg <b className="font-bold">code</b>lab
 					</Link>

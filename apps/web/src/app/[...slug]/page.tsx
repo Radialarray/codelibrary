@@ -83,9 +83,8 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 
 	return (
 		<>
-			<Header meta={meta}></Header>
-
 			<Container>
+				<Header meta={meta}></Header>
 				<div className="flex w-full">
 					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
 					<article key={'article'} className="flex flex-col gap-12">
