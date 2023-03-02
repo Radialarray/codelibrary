@@ -74,7 +74,7 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 	return (
 		<aside>
 			<div className="flex h-screen flex-col justify-between">
-				<div className="px-4">
+				<div className="pr-6">
 					{/* TODO: Placeholder for search shortcut */}
 					<Search></Search>
 

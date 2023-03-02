@@ -3,8 +3,6 @@ import {getPageContent} from 'lib/api/api';
 
 import Container from 'lib/components/layouts/Container';
 import Header from 'lib/components/Header';
-import Breadcrumb from 'lib/components/Breadcrumb';
-import Sidebar from 'lib/components/Sidebar';
 import Content from 'lib/components/Content';
 
 // This function gets called at build time on server-side.

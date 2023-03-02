@@ -15,8 +15,8 @@ const Search = (): JSX.Element | null => {
 						type="submit"
 						className="p-1 focus:outline-none focus:shadow-outline"
 					>
-						<i className="w-4 mx-1">
-							<SearchIcon></SearchIcon>
+						<i className="mx-1">
+							<SearchIcon className="object-contain w-[18px] h-[18px]"></SearchIcon>
 						</i>
 					</button>
 				</span>

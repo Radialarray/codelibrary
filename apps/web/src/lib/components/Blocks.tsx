@@ -49,5 +49,5 @@ export const parseBlock = (block: Block): JSX.Element => {
 // export const parseBlocks = ({content}: PageContent): JSX.Element[] => {
 export const parseBlocks = (blocks: Block[]): JSX.Element[] => {
 	if (blocks !== undefined) return blocks.map(parseBlock);
-	return [<p>Something happened.</p>];
+	return [<p key={'error'}>Something happened.</p>];
 };

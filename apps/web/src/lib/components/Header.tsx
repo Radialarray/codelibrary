@@ -11,7 +11,11 @@ import SearchOverlay from 'lib/components/SearchOverlay';
 interface Props {
 	meta: {
 		navigation: Array<NavItem>;
-		search: Array<SearchItem>;
+		search: {
+			searchAll: [];
+			searchPage: [];
+			searchGlobal: [];
+		};
 	};
 	// any props that come into the component
 }
@@ -77,7 +81,7 @@ const Header = ({meta}: Props) => {
 	return (
 		<>
 			<header className="text-lg">
-				<div className="flex items-center h-16 gap-8  mx-auto px-4">
+				<div className="flex items-center h-16 gap-8 mx-auto px-4">
 					<Link href="/" className="font-normal">
 						hfg <b className="font-bold">code</b>lab
 					</Link>
@@ -97,7 +101,7 @@ const Header = ({meta}: Props) => {
 								className="block p-6 border-b-4 border-transparent"
 							>
 								<span className="sr-only"> Search </span>
-								<SearchIcon></SearchIcon>
+								<SearchIcon className="object-contain w-[18px] h-[18px]"></SearchIcon>
 							</button>
 						</span>
 					</div>

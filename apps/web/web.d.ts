@@ -39,7 +39,9 @@ interface KQLRequestBody {
 				alt: 'file.alt.kirbytext';
 			};
 		};
-		search: object;
+		searchAll: object;
+		searchPage: object;
+		searchGlobal: object;
 	};
 	pagination?: {limit: number};
 }
@@ -60,11 +62,9 @@ interface KQLResponse {
 		intro?: string;
 		content: Page['content'];
 		images: Image[];
-		search: {
-			searchPage: [];
-			searchGlobal: [];
-			searchAll: [];
-		};
+		searchAll: [];
+		searchPage: [];
+		searchGlobal: [];
 	};
 	status: string;
 }
@@ -170,7 +170,12 @@ interface MetaInfo {
 	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
-	search: Array<SearchItem>;
+	search: {
+		searchAll: [];
+		searchPage: [];
+		searchGlobal: [];
+	};
+
 	courses: string;
 	codeLanguages: string;
 	level: string;
