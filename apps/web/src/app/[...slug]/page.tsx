@@ -6,6 +6,7 @@ import Header from 'lib/components/Header';
 import Breadcrumb from 'lib/components/Breadcrumb';
 import Sidebar from 'lib/components/Sidebar';
 import Content from 'lib/components/Content';
+import Link from 'next/link';
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
@@ -103,6 +104,17 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 	const data = await getData(slug);
 
 	const meta = data.meta as MetaInfo;
+	console.log(data.meta.search.searchPage);
+
+	const chapters = data.meta.search.searchPage.map((item: SearchItem): JSX.Element => {
+		return (
+			<li key={item.id}>
+				<Link className="underline" href={item.uri}>
+					{item.title}
+				</Link>
+			</li>
+		);
+	});
 
 	return (
 		<>
@@ -110,11 +122,19 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 				<Header meta={meta}></Header>
 				<div className="flex w-full mx-auto px-4">
 					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
-					<article key={'article'} className="flex flex-col gap-12 justify-center">
-						<Breadcrumb uri={meta.uri}></Breadcrumb>
-						<h1>{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}</h1>
-						<Content content={data.content}></Content>
-					</article>
+					<div>
+						<article key={'article'} className="flex flex-col">
+							<Breadcrumb uri={meta.uri}></Breadcrumb>
+							<h1>{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}</h1>
+							<Content content={data.content}></Content>
+						</article>
+						{chapters.length ? (
+							<nav>
+								<h3>Weitere Kapitel</h3>
+								<ol>{chapters}</ol>
+							</nav>
+						) : null}
+					</div>
 				</div>
 			</Container>
 		</>
