@@ -13,6 +13,9 @@ services:
       - ../../apps/cms/site:/srv/site/
       - ../../apps/cms/storage:/srv/storage/
       - ../../apps/cms/index.php:/srv/index.php:ro
+      - ./.env:/srv/.env:ro
+    env_file:
+      - .env
     networks:
       - internal
 
@@ -31,10 +34,12 @@ services:
       - ../../apps/cms/site:/srv/site/
       - ../../apps/cms/storage:/srv/storage/
       - ../../apps/cms/index.php:/srv/index.php:ro
-      - ./.env.cms:/srv/.env:ro
+      - ./.env:/srv/.env:ro
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
     networks:
       - internal
+    env_file:
+      - .env
 
 networks:
   internal:

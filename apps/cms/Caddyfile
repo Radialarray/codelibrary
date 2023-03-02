@@ -19,7 +19,7 @@
 	respond @blocked 403
 }
 
-library-backend.localhost {
+{$BACKEND_HOST} {
 	import common
 	import kirby
 	root * /srv

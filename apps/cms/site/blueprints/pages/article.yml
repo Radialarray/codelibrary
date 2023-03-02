@@ -2,7 +2,7 @@ title: Single-Column Page
 
 
 options:
-  preview: "{{ page.frontendUrl }}"
+  preview: "{{ kirby.option('frontendUrl') }}/{{ page.uri }}"
 
 
 columns:
