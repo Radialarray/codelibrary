@@ -7,16 +7,10 @@ import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 import {Search as SearchIcon} from 'react-feather';
 import SearchOverlay from 'lib/components/SearchOverlay';
+import NextImage from 'next/image';
 
 interface Props {
-	meta: {
-		navigation: Array<NavItem>;
-		search: {
-			searchAll: [];
-			searchPage: [];
-			searchGlobal: [];
-		};
-	};
+	meta: MetaInfo;
 	// any props that come into the component
 }
 
@@ -82,8 +76,11 @@ const Header = ({meta}: Props) => {
 		<>
 			<header className="text-lg">
 				<div className="flex items-center h-16 gap-8 mx-auto px-4">
-					<Link href="/" className="font-normal">
-						hfg <b className="font-bold">code</b>lab
+					<Link href="/" className="font-normal flex gap-2">
+						<NextImage src="/hfg-icon.png" alt="HfG Logo" width="24" height="24"></NextImage>
+						<p>
+							<b className="font-bold">Code</b>Lab
+						</p>
 					</Link>
 
 					<div className="flex items-center justify-end flex-1">
@@ -92,7 +89,7 @@ const Header = ({meta}: Props) => {
 								Header navigation
 							</h2>
 
-							<ul className="flex  items-center gap-6">{navigationItems}</ul>
+							<ul className="flex text-sm items-center gap-8">{navigationItems}</ul>
 						</nav>
 						<span className="hidden sm:block">
 							<button
@@ -106,7 +103,11 @@ const Header = ({meta}: Props) => {
 						</span>
 					</div>
 				</div>
-				<SearchOverlay closeOverlay={closeOverlay} searchItems={meta.search}></SearchOverlay>
+				<SearchOverlay
+					closeOverlay={closeOverlay}
+					searchItems={meta.search}
+					currentPage={meta.title}
+				></SearchOverlay>
 			</header>
 		</>
 	);

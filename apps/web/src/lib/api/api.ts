@@ -108,6 +108,7 @@ const sortPage = (data: KQLResponse): Page => {
 		level: result.level ? result.level : '',
 		categories: result.categories ? result.categories : '',
 		headline: result.headline ? result.headline : '',
+		banner: result.banner,
 		intro: result.intro ? result.intro : ''
 	};
 

@@ -12,7 +12,7 @@ const Heading = (x: Block): JSX.Element => {
 		{
 			key: x.id,
 			id: `${slugify((x.content as TextContent).text)}`,
-			className: 'my-6'
+			className: 'mt-12 mb-6'
 		},
 		(x.content as TextContent).text
 	);

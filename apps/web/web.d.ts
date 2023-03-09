@@ -59,6 +59,7 @@ interface KQLResponse {
 		level?: string;
 		categories?: string;
 		headline?: string;
+		banner?: string;
 		intro?: string;
 		content: Page['content'];
 		images: Image[];
@@ -181,6 +182,7 @@ interface MetaInfo {
 	level: string;
 	categories: string;
 	headline: string;
+	banner: string;
 	intro: string;
 }
 

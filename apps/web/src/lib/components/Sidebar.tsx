@@ -7,9 +7,10 @@ import Search from 'lib/components/Search';
 interface Props {
 	content: Page['content'];
 	uri: string;
+	className?: string;
 }
 
-const Sidebar = ({content, uri}: Props): JSX.Element | null => {
+const Sidebar = ({content, uri, className}: Props): JSX.Element | null => {
 	if (typeof content === 'string' || content === null) {
 		return null;
 	}
@@ -72,11 +73,11 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 	// console.log(headings);
 
 	return (
-		<aside>
+		<aside className={`${className ? className : ''}`}>
 			<div className="flex h-screen flex-col justify-between">
 				<div className="pr-6">
 					{/* TODO: Placeholder for search shortcut */}
-					<Search></Search>
+					{/* <Search></Search> */}
 
 					<nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
 						<ol>{headings}</ol>

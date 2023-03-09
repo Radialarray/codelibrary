@@ -7,8 +7,6 @@ import NextImage from 'next/image';
  * @returns {JSX.Element}
  */
 const Image = (props: Block): JSX.Element => {
-	// console.log(props);
-
 	const content = props.content as ImageContent;
 	// if link exists, return image wrapped in link.
 	return content.link.length ? (

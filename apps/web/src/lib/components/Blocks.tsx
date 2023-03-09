@@ -1,5 +1,6 @@
 import Heading from './blocks/Heading';
 import Text from './blocks/Text';
+import Callout from './blocks/Callout';
 import Quote from './blocks/Quote';
 import List from './blocks/List';
 import Image from './blocks/Image';
@@ -32,6 +33,8 @@ export const parseBlock = (block: Block): JSX.Element => {
 			return <Markdown key={block.id} {...block} />;
 		case 'quote':
 			return <Quote key={block.id} {...block} />;
+		case 'callout':
+			return <Callout key={block.id} {...block} />;
 		case 'text':
 			return <Text key={block.id} {...block} />;
 		case 'video':
