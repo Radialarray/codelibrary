@@ -8,7 +8,7 @@ module.exports = {
 	},
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
-	ignorePatterns: ['*.cjs', 'node_modules', 'build', 'dist', 'public'],
+	ignorePatterns: ['*.cjs', 'node_modules', 'build', 'dist', 'public', 'cms'],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true
