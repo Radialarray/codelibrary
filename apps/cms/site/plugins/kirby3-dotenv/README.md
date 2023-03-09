@@ -38,7 +38,7 @@ Kirby 3 Plugin for environment variables from .env
 
 ### .env file Examples
 **/.env**
-```
+```dotenv
 APP_MODE=production
 APP_DEBUG=false
 ALGOLIA_APIKEY=12d7331a21d8a28b3069c49830f463e833e30f6d
@@ -47,7 +47,7 @@ KIRBY_API_PW=52d3a0edcc78be6c5645fdb7568f94d3d83d1c2a
 ```
 
 **/.env.staging**
-```
+```dotenv
 APP_MODE=staging
 APP_DEBUG=true
 ALGOLIA_APIKEY=950306d052ec893b467f2ca088daf2964b9f9530
@@ -87,6 +87,17 @@ echo site()->env('ALGOLIA_APIKEY'); // 37e30ad867ff3a427317dcd1852abbd692b39ffc
 ## Usage in Config files
 
 See [config examples](https://github.com/bnomei/kirby3-dotenv/tree/master/tests/site/config) on how to use this plugin in combination with kirbys config files. Since v2 this plugin support Kirbys [Multi-environment setup](https://getkirby.com/docs/guide/configuration#multi-environment-setup) used to merging multiple config files.
+
+## Default values
+
+In case you want to provide a default value as fallback in case the environment variable is not set you can do that with the 2nd parameter in each helper function.
+
+```php
+ // `true` as default value
+echo env('ALGOLIA_ENABLED', true);
+```
+
+> Thanks for your PR @teichsta
 
 ## Settings
 

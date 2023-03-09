@@ -22,7 +22,7 @@
 		"source": "https://github.com/getkirby/starterkit"
 	},
 	"require": {
-		"php": ">=7.4.0 <8.2.0",
+		"php": ">=7.4.0 <8.2.3",
 		"getkirby/cms": "^3.9",
 		"getkirby/kql": "^2.0",
 		"bnomei/kirby3-dotenv": "^2.0",

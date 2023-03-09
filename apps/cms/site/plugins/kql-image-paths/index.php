@@ -2,7 +2,7 @@
 
 use Kirby\Cms\App as Kirby;
 
-Kirby::plugin('radialarray/addImagePaths', [
+Kirby::plugin('codelab/addImagePaths', [
   'fieldMethods' => [
     'addImagePathsToLayout' => function ($field) {
       $model = $field->parent();
