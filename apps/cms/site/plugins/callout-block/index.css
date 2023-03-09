@@ -1,0 +1,12 @@
+
+.k-block-type-callout-editor {
+  /* padding-inline-start: 1rem; */
+  /* border-inline-start: 2px solid var(--color-black); */
+  display: flex;
+  gap: 1rem;
+}
+.k-block-type-callout-text {
+  /* font-size: var(--text-xl); */
+  margin-bottom: 0.25rem;
+  line-height: 1.25em;
+}

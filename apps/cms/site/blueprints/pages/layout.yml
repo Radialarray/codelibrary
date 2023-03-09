@@ -14,6 +14,10 @@ columns:
             type: text
             placeholder: '{{ page.title }}'
             help: Leave empty to use the title as headline.
+          banner:
+            type: files
+            multiple: false
+            help: This image is used in previews of your article and as a banner image. Best, if it's a wide format image.
           main:
             type: layout
             layouts:
@@ -22,6 +26,19 @@ columns:
               - '1/3, 1/3, 1/3'
               - '1/3, 2/3'
               - '2/3, 1/3'
+            fieldsets:
+              - heading
+              - text
+              - list
+              - image
+              - gallery
+              - video
+              - code
+              - line
+              - callout
+            
+
+
   sidebar:
     width: 1/3
     sections:
