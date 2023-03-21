@@ -10,10 +10,16 @@ columns:
       fields:
         type: fields
         fields:
-          headline:
-            type: text
-            placeholder: '{{ page.title }}'
-            help: Leave empty to use the title as headline.
+          # headline:
+          #   type: text
+          #   placeholder: '{{ page.title }}'
+          #   help: Leave empty to use the title as headline.
+          summary:
+            label: Summary
+            type: textarea
+            placeholder: 'Short article summary for previews.'
+            help: Describe your article here in 2-3 sentences.
+            buttons: false
           banner:
             type: files
             multiple: false

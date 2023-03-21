@@ -13,7 +13,22 @@ Kirby::plugin('codelab/addImagePaths', [
           if (is_int($key) && is_string($value)) {
             if ($file = $model->file($value)) {
               // $value = $file->srcset([300, 800, 1024]);
-              $value = $file->url();
+              // $value = $file->url();
+
+              class Image
+              {
+                public $dimensions;
+                public $orientation;
+                public $url;
+              }
+
+              $value = new Image();
+              // $value = $file->dimensions();
+              // $value = $file->orientation();
+
+              $value->dimensions = $file->dimensions();
+              $value->orientation = $file->orientation();
+              $value->url = $file->url();
             }
           }
         });
