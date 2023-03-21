@@ -27,9 +27,9 @@ interface KQLRequestBody {
 		codelanguages?: boolean;
 		level?: boolean;
 		categories?: boolean;
-		headline?: boolean;
+		// headline?: boolean;
 		intro?: boolean;
-		content: 'page.content.main.addImagePaths';
+		content: 'page.content.main.addImagePathsToLayout';
 		images: {
 			query: 'page.images';
 			select: {
@@ -52,13 +52,14 @@ interface KQLResponse {
 		url: string;
 		uri: string;
 		title: string;
+		summary: string;
 		id: string;
 		navigation: NavItem[];
 		courses?: string;
 		codelanguages?: string;
 		level?: string;
 		categories?: string;
-		headline?: string;
+		// headline?: string;
 		banner?: string;
 		intro?: string;
 		content: Page['content'];
@@ -172,17 +173,20 @@ interface MetaInfo {
 	title: string;
 	navigation: Array<NavItem>;
 	search: {
-		searchAll: [];
-		searchPage: [];
-		searchGlobal: [];
+		searchAll: Array<SearchItem>;
+		searchPage: Array<SearchItem>;
+		searchGlobal: Array<SearchItem>;
 	};
 
 	courses: string;
 	codeLanguages: string;
 	level: string;
 	categories: string;
-	headline: string;
-	banner: string;
+	// headline: string;
+	banner: {
+		url: string;
+		filename: string;
+	};
 	intro: string;
 }
 
@@ -200,11 +204,12 @@ interface Layout {
 
 interface SearchItem {
 	url: URL;
+	uri: string;
 	title: string;
 	courses: string;
 	codelanguages: string;
 	level: string;
 	categories: string;
-	headline: string;
+	// headline: string;
 	id: string;
 }

@@ -1,7 +1,6 @@
 import {MouseEventHandler} from 'react';
 import {Command} from 'cmdk';
 import {motion} from 'framer-motion';
-import {Search as SearchIcon} from 'react-feather';
 import Link from 'next/link';
 import {useSnapshot} from 'valtio';
 import {searchStore} from 'lib/stores/searchStore';
@@ -10,11 +9,12 @@ interface Props {
 	closeOverlay: MouseEventHandler;
 	// searchItems: SearchItem[];
 	currentPage: string;
-	searchItems: {
-		searchPage: [];
-		searchGlobal: [];
-		searchAll: [];
-	};
+	// searchItems: {
+	// 	searchPage: [];
+	// 	searchGlobal: [];
+	// 	searchAll: [];
+	// };
+	searchItems: MetaInfo['search'];
 }
 
 const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Element => {

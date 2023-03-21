@@ -8,23 +8,26 @@ import NextImage from 'next/image';
  */
 const Image = (props: Block): JSX.Element => {
 	const content = props.content as ImageContent;
+
 	// if link exists, return image wrapped in link.
 	return content.link.length ? (
 		<Link href={content.link} key={props.id}>
 			<NextImage
-				src={content.image[0]}
+				className="my-6 object-contain w-full max-h-[32rem]"
+				src={content.image[0].url}
 				alt={content.alt ? content.alt : content.src}
-				width="300"
-				height="300"
+				width={content.image[0].dimensions.width}
+				height={content.image[0].dimensions.height}
 			/>
 		</Link>
 	) : (
 		<NextImage
 			key={props.id}
-			src={content.image[0]}
+			className="my-6 object-contain w-full max-h-[32rem]"
+			src={content.image[0].url}
 			alt={content.alt ? content.alt : content.src}
-			width="300"
-			height="300"
+			width={content.image[0].dimensions.width}
+			height={content.image[0].dimensions.height}
 		/>
 	);
 };

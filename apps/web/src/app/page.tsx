@@ -21,9 +21,9 @@ const getData = async (): Promise<Page> => {
 			codelanguages: true,
 			level: true,
 			categories: true,
-			headline: true,
+			// headline: true,
 			intro: true,
-			content: 'page.content.main.addImagePaths',
+			content: 'page.content.main.addImagePathsToLayout',
 			images: {
 				query: 'page.images',
 				select: {
@@ -52,7 +52,7 @@ const getData = async (): Promise<Page> => {
 					codelanguages: true,
 					level: true,
 					categories: true,
-					headline: true,
+					// headline: true,
 					id: true
 				}
 			},
@@ -65,7 +65,7 @@ const getData = async (): Promise<Page> => {
 					codelanguages: true,
 					level: true,
 					categories: true,
-					headline: true,
+					// headline: true,
 					id: true
 				}
 			}

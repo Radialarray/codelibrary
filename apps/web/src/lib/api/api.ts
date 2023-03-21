@@ -96,6 +96,7 @@ const sortPage = (data: KQLResponse): Page => {
 		url: result.url,
 		uri: result.uri,
 		title: result.title,
+		summary: result.summary,
 		id: result.id,
 		navigation: result.navigation,
 		search: {
@@ -107,7 +108,7 @@ const sortPage = (data: KQLResponse): Page => {
 		codeLanguages: result.codelanguages ? result.codelanguages : '',
 		level: result.level ? result.level : '',
 		categories: result.categories ? result.categories : '',
-		headline: result.headline ? result.headline : '',
+		// headline: result.headline ? result.headline : '',
 		banner: result.banner,
 		intro: result.intro ? result.intro : ''
 	};
