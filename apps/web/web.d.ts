@@ -40,7 +40,7 @@ interface KQLRequestBody {
 			};
 		};
 		searchAll: object;
-		searchPage: object;
+		searchChildren: object;
 		searchGlobal: object;
 	};
 	pagination?: {limit: number};
@@ -62,10 +62,12 @@ interface KQLResponse {
 		// headline?: string;
 		banner?: string;
 		intro?: string;
+		modified?: string;
+		author?: string;
 		content: Page['content'];
 		images: Image[];
 		searchAll: [];
-		searchPage: [];
+		searchChildren: [];
 		searchGlobal: [];
 	};
 	status: string;
@@ -172,9 +174,9 @@ interface MetaInfo {
 	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
-	search: {
+	searchInfo: {
 		searchAll: Array<SearchItem>;
-		searchPage: Array<SearchItem>;
+		searchChildren: Array<SearchItem>;
 		searchGlobal: Array<SearchItem>;
 	};
 
@@ -183,6 +185,8 @@ interface MetaInfo {
 	level: string;
 	categories: string;
 	// headline: string;
+	author: string;
+	modified: string;
 	banner: {
 		url: string;
 		filename: string;

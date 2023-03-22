@@ -74,16 +74,24 @@ const Header = ({meta}: Props) => {
 
 	return (
 		<>
-			<header className="text-lg">
-				<div className="flex items-center h-16 gap-8 mx-auto px-4">
+			<header className="text-lg bg-white">
+				<div className="relative flex items-end h-16 gap-8 mx-auto px-4 z-50">
 					<Link href="/" className="font-normal flex gap-2">
-						<NextImage src="/hfg-icon.png" alt="HfG Logo" width="24" height="24"></NextImage>
-						<p>
+						<div className="absolute top-1/4 mt-4">
+							<NextImage
+								src="/hfg-icon.png"
+								alt="HfG Logo"
+								width="24"
+								height="24"
+								className="w-16 h-16"
+							></NextImage>
+						</div>
+						<p className="ml-16 pl-2 z-50">
 							<b className="font-bold">Code</b>Lab
 						</p>
 					</Link>
 
-					<div className="flex items-center justify-end flex-1">
+					<div className="flex items-end justify-end flex-1 mb-2">
 						<nav className="hidden md:block" aria-labelledby="header-navigation">
 							<h2 className="sr-only" id="header-navigation">
 								Header navigation
@@ -95,7 +103,7 @@ const Header = ({meta}: Props) => {
 							<button
 								type="button"
 								onClick={openOverlay}
-								className="block p-6 border-b-4 border-transparent"
+								className="block px-6 border-b-4 border-transparent"
 							>
 								<span className="sr-only"> Search </span>
 								<SearchIcon className="object-contain w-[18px] h-[18px]"></SearchIcon>
@@ -105,7 +113,7 @@ const Header = ({meta}: Props) => {
 				</div>
 				<SearchOverlay
 					closeOverlay={closeOverlay}
-					searchItems={meta.search}
+					searchItems={meta.searchInfo}
 					currentPage={meta.title}
 				></SearchOverlay>
 			</header>

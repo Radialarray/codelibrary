@@ -10,11 +10,11 @@ interface Props {
 	// searchItems: SearchItem[];
 	currentPage: string;
 	// searchItems: {
-	// 	searchPage: [];
+	// 	searchChildren: [];
 	// 	searchGlobal: [];
 	// 	searchAll: [];
 	// };
-	searchItems: MetaInfo['search'];
+	searchItems: MetaInfo['searchInfo'];
 }
 
 const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Element => {
@@ -87,10 +87,11 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 
 							<Command.Empty>No results found.</Command.Empty>
 
-							<Command.Group heading="Auf dieser Seite" className={groupStyle}>
-								{createSearchSection(searchItems.searchPage)}
-							</Command.Group>
-
+							{searchItems.searchChildren.length > 0 ? (
+								<Command.Group heading="Auf dieser Seite" className={groupStyle}>
+									{createSearchSection(searchItems.searchChildren)}
+								</Command.Group>
+							) : null}
 							<Command.Group heading="Global" className={groupStyle}>
 								{createSearchSection(searchItems.searchGlobal)}
 							</Command.Group>

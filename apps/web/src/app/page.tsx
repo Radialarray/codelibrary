@@ -33,7 +33,7 @@ const getData = async (): Promise<Page> => {
 					alt: 'file.alt.kirbytext'
 				}
 			},
-			searchPage: {
+			searchChildren: {
 				query: 'page.children',
 				select: {
 					url: true,

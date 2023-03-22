@@ -5,6 +5,17 @@
       ?> -->
 
 
+<h1>
+  <?php
+  if ($page->author()->exists()) {
+    $user = $page->author()->toUser()->name();
+    var_dump($user);
+    return 'hello';
+  }
+  ?>
+</h1>
+
+
 <?php foreach ($page->main()->toLayouts() as $layout) : ?>
   <section class="6-column-grid" id="<?= $layout->id() ?>">
     <?php foreach ($layout->columns() as $column) : ?>

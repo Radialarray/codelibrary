@@ -60,7 +60,7 @@ columns:
             label: Kurse
             type: multiselect
             options: query
-            query: site.cour1ses.split('- ')
+            query: site.courses.split('- ')
             # TODO: split courses here
             text: '{{ arrayItem.split('course:') }}'
             value: '{{ course }}'
@@ -86,3 +86,7 @@ columns:
             accept: options
             options: query
             query: site.tags.split
+          author:
+            type: users
+            multiple: false
+            required: true

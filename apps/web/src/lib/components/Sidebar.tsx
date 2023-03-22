@@ -43,7 +43,6 @@ const Sidebar = ({content, uri, className}: Props): JSX.Element | null => {
 		const href = e.currentTarget.href;
 
 		const targetId = href.replace(/.*#/, '');
-		console.log(targetId);
 		// get the element by id and use scrollIntoView
 		const elem = document.getElementById(targetId);
 		elem?.scrollIntoView({

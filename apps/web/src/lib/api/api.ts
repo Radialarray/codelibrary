@@ -75,7 +75,7 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 const sortPage = (data: KQLResponse): Page => {
 	if (data.code !== 200 || data.code === undefined || !('result' in data)) {
 		console.error('server response has error');
-		console.error(data.code);
+		console.error(data);
 		// throw new Error('server response has error');
 		const page = {
 			meta: 'Error',
@@ -99,8 +99,10 @@ const sortPage = (data: KQLResponse): Page => {
 		summary: result.summary,
 		id: result.id,
 		navigation: result.navigation,
-		search: {
-			searchPage: result.searchPage,
+		modified: result.modified,
+		author: result.author,
+		searchInfo: {
+			searchChildren: result.searchChildren,
 			searchGlobal: result.searchGlobal,
 			searchAll: result.searchAll
 		},
