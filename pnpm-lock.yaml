@@ -42,7 +42,7 @@ importers:
 
   apps/web:
     specifiers:
-      '@codesandbox/sandpack-react': ^2.1.10
+      '@codesandbox/sandpack-react': ^2.1.11
       '@codesandbox/sandpack-themes': ^2.0.21
       '@sindresorhus/slugify': ^2.2.0
       '@tailwindcss/typography': ^0.5.9
@@ -64,7 +64,7 @@ importers:
       eslint: ^8.36.0
       eslint-config-next: ^13.2.4
       framer-motion: ^10.8.3
-      html-react-parser: ^3.0.12
+      html-react-parser: ^3.0.13
       isomorphic-dompurify: ^1.2.0
       next: ^13.2.4
       postcss: ^8.4.21
@@ -100,7 +100,7 @@ importers:
       react-intersection-observer: 9.4.3_react@18.2.0
       swiper: 9.1.1
     devDependencies:
-      '@codesandbox/sandpack-react': 2.1.10_biqbaboplfbrettd7655fr4n2y
+      '@codesandbox/sandpack-react': 2.1.11_biqbaboplfbrettd7655fr4n2y
       '@codesandbox/sandpack-themes': 2.0.21
       '@sindresorhus/slugify': 2.2.0
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
@@ -122,7 +122,7 @@ importers:
       eslint: 8.36.0
       eslint-config-next: 13.2.4_j4766f7ecgqbon3u7zlxn5zszu
       framer-motion: 10.8.3_biqbaboplfbrettd7655fr4n2y
-      html-react-parser: 3.0.12_react@18.2.0
+      html-react-parser: 3.0.13_react@18.2.0
       isomorphic-dompurify: 1.2.0
       next: 13.2.4_biqbaboplfbrettd7655fr4n2y
       postcss: 8.4.21
@@ -610,8 +610,8 @@ packages:
       outvariant: 1.3.0
     dev: true
 
-  /@codesandbox/sandpack-react/2.1.10_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-LrU4TTv2yajR0V+nZzihaYQ1nvXqvUtOkEuVJ3cNFsROF60BN2Tk3z74Rshd6tGfnrf3SSWJ7RUEcgAo2lKLfg==}
+  /@codesandbox/sandpack-react/2.1.11_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-xssAD3pYvfe+YxmnWUgbWQvi694obgKczWsuAdGx0JGCHVMNYezYAOlActZehquKjgnYyWNgomYgHtsfdsxUpA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -659,8 +659,8 @@ packages:
     dev: true
     optional: true
 
-  /@commitlint/load/17.4.4:
-    resolution: {integrity: sha512-z6uFIQ7wfKX5FGBe1AkOF4l/ShOQsaa1ml/nLMkbW7R/xF8galGS7Zh0yHvzVp/srtfS0brC+0bUfQfmpMPFVQ==}
+  /@commitlint/load/17.5.0:
+    resolution: {integrity: sha512-l+4W8Sx4CD5rYFsrhHH8HP01/8jEP7kKf33Xlx2Uk2out/UKoKPYMOIRcDH5ppT8UXLMV+x6Wm5osdRKKgaD1Q==}
     engines: {node: '>=v14'}
     requiresBuild: true
     dependencies:
@@ -671,13 +671,13 @@ packages:
       '@types/node': 18.15.5
       chalk: 4.1.2
       cosmiconfig: 8.1.3
-      cosmiconfig-typescript-loader: 4.3.0_7woy4ibcfjwmaucoravjxjqwpq
+      cosmiconfig-typescript-loader: 4.3.0_5mk3bjopm3vql75kemvp43vb6q
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1_345kigqis4fipgyy5xb3ndshmq
-      typescript: 4.9.5
+      ts-node: 10.9.1_zlbzrxdj56n2qhafx752nt3nlm
+      typescript: 5.0.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -3003,7 +3003,7 @@ packages:
       toggle-selection: 1.0.6
     dev: true
 
-  /cosmiconfig-typescript-loader/4.3.0_7woy4ibcfjwmaucoravjxjqwpq:
+  /cosmiconfig-typescript-loader/4.3.0_5mk3bjopm3vql75kemvp43vb6q:
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -3014,8 +3014,8 @@ packages:
     dependencies:
       '@types/node': 18.15.5
       cosmiconfig: 8.1.3
-      ts-node: 10.9.1_345kigqis4fipgyy5xb3ndshmq
-      typescript: 4.9.5
+      ts-node: 10.9.1_zlbzrxdj56n2qhafx752nt3nlm
+      typescript: 5.0.2
     dev: true
     optional: true
 
@@ -3207,7 +3207,7 @@ packages:
       longest: 2.0.1
       word-wrap: 1.2.3
     optionalDependencies:
-      '@commitlint/load': 17.4.4
+      '@commitlint/load': 17.5.0
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -4785,8 +4785,8 @@ packages:
       parse-passwd: 1.0.0
     dev: true
 
-  /html-dom-parser/3.1.5:
-    resolution: {integrity: sha512-9KTy2C7G7OcDDvnJ3Y7np84RF3OuO7X0PE5ZXyrNdOTI9NYam8thaUtxGEIM5lUqJkJR8T1aVe+zlN6H4PCtuA==}
+  /html-dom-parser/3.1.6:
+    resolution: {integrity: sha512-j3JYc7/W4CUzZXBqJVljJaWQ1vddTG0bxipRZh03emQtUQ5Uk+rFKil3hk7RbS9yd4QcyaFdD2qGJ1f6aY47Qg==}
     dependencies:
       domhandler: 5.0.3
       htmlparser2: 8.0.1
@@ -4799,13 +4799,13 @@ packages:
       whatwg-encoding: 2.0.0
     dev: true
 
-  /html-react-parser/3.0.12_react@18.2.0:
-    resolution: {integrity: sha512-eOXg0EvKhXjYjljd8gtBPzL8Pqf49uRrb9JAjYLlqYFr95E+HoCvGt0/w0J1E/fR1ArsEMWY+K6M4/wUuvaQ5Q==}
+  /html-react-parser/3.0.13_react@18.2.0:
+    resolution: {integrity: sha512-Z8amThJdrAhuqG/29GAyh2obOETWdC6zFWS/+jnk3lTX7QO2AVEicf+LcfuJwaAOK+YIJ46u96QaWSwmEO64Tw==}
     peerDependencies:
       react: 0.14 || 15 || 16 || 17 || 18
     dependencies:
       domhandler: 5.0.3
-      html-dom-parser: 3.1.5
+      html-dom-parser: 3.1.6
       react: 18.2.0
       react-property: 2.0.0
       style-to-js: 1.1.3
@@ -8210,7 +8210,7 @@ packages:
     resolution: {integrity: sha512-AqTiAOLcj85xS7vQ8QkAV41hPDIJ71XJB4RCUrzo/1GM2CQwhkJGaf9Hgr7BOugMRpgGUrqRg/DrBDl4H40+8g==}
     dev: true
 
-  /ts-node/10.9.1_345kigqis4fipgyy5xb3ndshmq:
+  /ts-node/10.9.1_zlbzrxdj56n2qhafx752nt3nlm:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -8236,7 +8236,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.9.5
+      typescript: 5.0.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
@@ -8318,13 +8318,6 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.10
     dev: true
-
-  /typescript/4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-    optional: true
 
   /typescript/5.0.2:
     resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}

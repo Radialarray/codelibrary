@@ -59,13 +59,13 @@ const Header = ({meta}: Props) => {
 		// If route is active
 		if (pathname === `/${checkNavId(item.id)}`) {
 			return (
-				<li key={item.id} className="border-b-2 border-slate-600">
+				<li key={item.id} className="text-black">
 					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
 				</li>
 			);
 		} else {
 			return (
-				<li key={item.id}>
+				<li key={item.id} className="text-gray">
 					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
 				</li>
 			);

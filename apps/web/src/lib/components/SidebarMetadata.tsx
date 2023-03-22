@@ -32,7 +32,7 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 	};
 
 	return (
-		<aside className="col-span-2 mt-36 ml-4 text-gray">
+		<aside className="hidden lg:block col-span-2 mt-36 ml-4 text-gray">
 			{/* TODO: Placeholder for search shortcut */}
 			{/* <Search></Search> */}
 

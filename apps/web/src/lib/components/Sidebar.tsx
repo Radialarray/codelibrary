@@ -2,7 +2,7 @@
 import * as R from 'ramda';
 import slugify from '@sindresorhus/slugify';
 import Link from 'next/link';
-import {scrollStore, updateElement} from 'lib/stores/scrollStore';
+import {scrollStore} from 'lib/stores/scrollStore';
 import {useSnapshot} from 'valtio';
 import {useEffect, useState} from 'react';
 
@@ -12,7 +12,7 @@ interface Props {
 	className?: string;
 }
 
-const Sidebar = ({content, uri, className}: Props): JSX.Element | null => {
+const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 	const snap = useSnapshot(scrollStore);
 	const [scrollY, setScrollY] = useState(0);
 
@@ -73,12 +73,6 @@ const Sidebar = ({content, uri, className}: Props): JSX.Element | null => {
 		if (elements) {
 			return elements.map(element => {
 				if (element.type === 'heading' && 'text' in element.content) {
-					const getLevel = (content: TextContent) => {
-						if ('level' in content) {
-							return 'text-sm';
-						}
-					};
-
 					return (
 						<li
 							key={element.id}
@@ -118,7 +112,7 @@ const Sidebar = ({content, uri, className}: Props): JSX.Element | null => {
 	// console.log(headings);
 
 	return (
-		<aside className="fixed top-0 left-0 h-full ml-6">
+		<aside className="hidden lg:block fixed top-0 left-0 h-full ml-6">
 			{/* TODO: Placeholder for search shortcut */}
 			{/* <Search></Search> */}
 

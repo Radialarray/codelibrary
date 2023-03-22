@@ -99,8 +99,8 @@ const sortPage = (data: KQLResponse): Page => {
 		summary: result.summary,
 		id: result.id,
 		navigation: result.navigation,
-		modified: result.modified,
-		author: result.author,
+		modified: result.modified ? result.modified : '',
+		author: result.author ? result.author : '',
 		searchInfo: {
 			searchChildren: result.searchChildren,
 			searchGlobal: result.searchGlobal,
@@ -111,8 +111,7 @@ const sortPage = (data: KQLResponse): Page => {
 		level: result.level ? result.level : '',
 		categories: result.categories ? result.categories : '',
 		// headline: result.headline ? result.headline : '',
-		banner: result.banner,
-		intro: result.intro ? result.intro : ''
+		banner: result.banner
 	};
 
 	// Build content data

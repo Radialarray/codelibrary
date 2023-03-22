@@ -60,10 +60,15 @@ interface KQLResponse {
 		level?: string;
 		categories?: string;
 		// headline?: string;
-		banner?: string;
-		intro?: string;
-		modified?: string;
-		author?: string;
+		banner: {
+			id: string;
+			url: string;
+			width: number;
+			height: number;
+			filename: string;
+		};
+		modified: string;
+		author: string;
 		content: Page['content'];
 		images: Image[];
 		searchAll: [];
@@ -188,10 +193,12 @@ interface MetaInfo {
 	author: string;
 	modified: string;
 	banner: {
+		id: string;
 		url: string;
+		width: number;
+		height: number;
 		filename: string;
 	};
-	intro: string;
 }
 
 interface Layout {
