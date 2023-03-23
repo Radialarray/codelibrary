@@ -59,7 +59,6 @@ interface KQLResponse {
 		codelanguages?: string;
 		level?: string;
 		categories?: string;
-		// headline?: string;
 		banner: {
 			id: string;
 			url: string;
@@ -184,12 +183,11 @@ interface MetaInfo {
 		searchChildren: Array<SearchItem>;
 		searchGlobal: Array<SearchItem>;
 	};
-
+	summary: string;
 	courses: string;
 	codeLanguages: string;
 	level: string;
 	categories: string;
-	// headline: string;
 	author: string;
 	modified: string;
 	banner: {

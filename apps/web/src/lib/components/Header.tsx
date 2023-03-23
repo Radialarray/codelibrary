@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSnapshot} from 'valtio';
 import {searchStore, toggleSearchOverlay} from 'lib/stores/searchStore';
 import {Search as SearchIcon} from 'react-feather';
 import SearchOverlay from 'lib/components/SearchOverlay';
 import NextImage from 'next/image';
+import {MenuButton} from 'lib/components/BurgerMenu';
 
 interface Props {
 	meta: MetaInfo;
@@ -20,6 +21,7 @@ const checkNavId = (x: string) => {
 
 const Header = ({meta}: Props) => {
 	const snap = useSnapshot(searchStore);
+	const [menuState, setMenuState] = useState(false);
 
 	// Toggle the menu when ⌘K is pressed
 	useEffect(() => {
@@ -31,6 +33,8 @@ const Header = ({meta}: Props) => {
 		};
 
 		document.addEventListener('keydown', down);
+
+		// TODO: add eventlistener to srea not covered by nav -> tap to background closes it
 		return () => document.removeEventListener('keydown', down);
 	}, [snap.status]);
 
@@ -75,10 +79,15 @@ const Header = ({meta}: Props) => {
 	return (
 		<>
 			<header aria-label="Site Header" className="text-lg bg-white">
-				<div className="relative flex items-end h-16 gap-8 mx-auto px-4 z-50">
-					<Link href="/" className="font-normal flex gap-2">
+				<div
+					className={`${
+						menuState === true ? 'bg-white' : ''
+					} fixed h-2/3 md:relative flex flex-col md:flex-row md:items-end w-screen md:w-auto md:h-16 gap-8 mx-auto px-4 z-50  md:bg-none transition-all`}
+				>
+					<Link href="/" className="font-normal flex items-center gap-2 relative">
+						<div className="absolute top-0 left-0 bg-white w-screen h-24 -ml-4"></div>
 						<span className="sr-only">Home</span>
-						<div className="absolute top-1/4 mt-4">
+						<div className="md:absolute top-1/4 mt-4">
 							<NextImage
 								src="/hfg-icon.png"
 								alt="HfG Logo"
@@ -87,20 +96,29 @@ const Header = ({meta}: Props) => {
 								className="w-16 h-16"
 							></NextImage>
 						</div>
-						<p className="ml-16 pl-2 z-50">
+						<p className="md:ml-16 pl-2 z-50">
 							<b className="font-bold">Code</b>Lab
 						</p>
 					</Link>
 
-					<div className="flex items-end justify-end flex-1 mb-2">
-						<nav className="hidden md:block" aria-labelledby="header-navigation">
+					<div
+						className={`${
+							menuState === true ? 'h-2/3' : 'h-0 overflow-hidden'
+						} block md:flex flex-col w-full md:h-auto md:flex-row md:items-end md:justify-end md:flex-1 mb-2 justify-center transition-all`}
+					>
+						<nav
+							className={menuState === true ? 'md:block' : 'hidden md:block'}
+							aria-labelledby="header-navigation"
+						>
 							<h2 className="sr-only" id="header-navigation">
 								Header navigation
 							</h2>
 
-							<ul className="flex text-sm items-center gap-8">{navigationItems}</ul>
+							<ul className="flex flex-col md:flex-row text-sm md:items-center gap-8 justify-center align-center">
+								{navigationItems}
+							</ul>
 						</nav>
-						<span className="hidden md:block">
+						<span className=" md:block">
 							<button type="button" onClick={openOverlay} className="block px-6 pb-[2.5px]">
 								<span className="sr-only"> Search </span>
 								<SearchIcon className="object-contain w-[18px] h-[18px]"></SearchIcon>
@@ -109,19 +127,12 @@ const Header = ({meta}: Props) => {
 					</div>
 					<button
 						type="button"
-						className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+						aria-label="Burger Menu Toggle"
+						onClick={() => setMenuState(!menuState)}
+						className="block absolute right-0 p-8 md:static rounded bg-gray-100 md:p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
 					>
 						<span className="sr-only">Toggle menu</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							strokeWidth="2"
-						>
-							<path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-						</svg>
+						<MenuButton isOpen={menuState} />
 					</button>
 				</div>
 				<SearchOverlay

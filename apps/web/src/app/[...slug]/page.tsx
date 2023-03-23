@@ -194,7 +194,9 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 								<div className="absolute p-4 opacity-0 transition-opacity group-hover:relative group-hover:opacity-100 sm:p-6 lg:p-8">
 									<h3 className="mt-4 text-xl font-medium sm:text-2xl">{response.result.title}</h3>
 
-									<p className="mt-4 text-sm sm:text-base">{response.result.summary}</p>
+									<p className="mt-4 text-sm sm:text-base line-clamp-3">
+										{response.result.summary}
+									</p>
 
 									<p className="mt-8 font-bold">Read more</p>
 								</div>
@@ -239,7 +241,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 				<div className="relative">
 					<Banner></Banner>
 					<div className="relative mx-auto lg:max-w-5xl px-12 -mt-28">
-						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-min min-w-max sm:min-w-[500px] p-8 flex items-end">
+						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-full sm:w-min sm:min-w-[500px] p-8 flex items-end">
 							<div className="absolute top-0 left-0 w-full h-full bg-black shadow-md"></div>
 							<h1 className="relative text-white">
 								{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}
@@ -250,9 +252,12 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 
 				<div className="grid grid-cols-12">
 					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
-					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 mt-20 ">
-						<article key={'article'} className="flex flex-col">
-							<Breadcrumb uri={meta.uri}></Breadcrumb>
+					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 md:px-8 mt-4">
+						<Breadcrumb uri={meta.uri}></Breadcrumb>
+						<article key={'article'} className="flex flex-col mt-8">
+							{typeof data.meta === 'object' && data.meta.summary ? (
+								<p className="text-lg mb-8">{data.meta.summary}</p>
+							) : null}
 							<Content content={data.content}></Content>
 						</article>
 						{chapters.length ? (

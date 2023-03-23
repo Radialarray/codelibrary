@@ -15,14 +15,14 @@ Kirby::plugin('codelab/addImagePaths', [
               // $value = $file->srcset([300, 800, 1024]);
               // $value = $file->url();
 
-              class Image
+              class ImageData
               {
                 public $dimensions;
                 public $orientation;
                 public $url;
               }
 
-              $value = new Image();
+              $value = new ImageData;
               // $value = $file->dimensions();
               // $value = $file->orientation();
 

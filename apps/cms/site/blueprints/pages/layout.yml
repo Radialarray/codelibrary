@@ -19,6 +19,7 @@ columns:
           #   help: Leave empty to use the title as headline.
           summary:
             label: Summary
+            required: true
             type: textarea
             placeholder: 'Short article summary for previews.'
             help: Describe your article here in 2-3 sentences.

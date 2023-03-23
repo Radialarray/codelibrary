@@ -5,7 +5,7 @@
       ?> -->
 
 
-<h1>
+<!-- <h1>
   <?php
   if ($page->author()->exists()) {
     $user = $page->author()->toUser()->name();
@@ -13,9 +13,9 @@
     return 'hello';
   }
   ?>
-</h1>
+</h1> -->
 
-
+<h2>Hello</h2>
 <?php foreach ($page->main()->toLayouts() as $layout) : ?>
   <section class="6-column-grid" id="<?= $layout->id() ?>">
     <?php foreach ($layout->columns() as $column) : ?>
@@ -49,7 +49,7 @@
       var_dump($test);
       ?> -->
 
-<!-- <?php foreach ($page->main()->toLayouts() as $layout) : ?>
+<?php foreach ($page->main()->toLayouts() as $layout) : ?>
   <section class="6-column-grid" id="<?= $layout->id() ?>">
     <?php foreach ($layout->columns() as $column) : ?>
       <div class="column" style="--span:<?= $column->span(6) ?>">
@@ -63,4 +63,4 @@
       </div>
     <?php endforeach ?>
   </section>
-<?php endforeach ?> -->
+<?php endforeach ?>

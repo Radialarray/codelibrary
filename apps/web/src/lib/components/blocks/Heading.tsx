@@ -35,7 +35,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h2 key={x.id} className="mt-4 mb-6">
+					<h2 key={x.id} className="mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h2>
 				</InView>
