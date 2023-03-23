@@ -130,10 +130,6 @@ export const getPageContent = async (req: KQLRequestOptions): Promise<Page> => {
 	const response = await requestData(req);
 
 	const sortedResponse = sortPage(response);
-	// console.log(sortedResponse.content[0]);
-
-	// const augmentedContent = addImageSources(sortedResponse);
-	// const page = {...sortedResponse, content: augmentedContent as Block[] | Layout[]};
 	const page = {...sortedResponse};
 	return page;
 };
