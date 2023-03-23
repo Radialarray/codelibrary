@@ -2,6 +2,9 @@ title: Multi-Column Page
 
 options:
   preview: "{{ kirby.option('frontendUrl') }}/{{ page.uri }}"
+    # parent page templates where you can move this page
+  move:
+    - layout
 
 columns:
   main:
