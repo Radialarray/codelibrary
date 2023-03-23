@@ -3,7 +3,7 @@ import {Command} from 'cmdk';
 import {motion} from 'framer-motion';
 import Link from 'next/link';
 import {useSnapshot} from 'valtio';
-import {searchStore} from 'lib/stores/searchStore';
+import {closeSearchOverlay, searchStore} from 'lib/stores/searchStore';
 import NextImage from 'next/image';
 interface Props {
 	closeOverlay: MouseEventHandler;
@@ -20,6 +20,10 @@ interface Props {
 const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
 
+	const handleLinkClick = () => {
+		closeSearchOverlay();
+	};
+
 	const groupStyle = `select-none text-sm text-gray mt-4`;
 
 	const createSearchSection = (items: SearchItem[]): JSX.Element[] => {
@@ -30,7 +34,11 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 					key={item.id}
 					className="cursor-pointer h-10 text-base flex items-center gap-2 px-2 text-black select-none will-change-auto transition-all duration-150 rounded-sm hover:bg-light-gray aria-selected:bg-light-gray"
 				>
-					<Link href={url.pathname} className="flex items-center w-full h-full">
+					<Link
+						href={url.pathname}
+						className="flex items-center w-full h-full"
+						onClick={handleLinkClick}
+					>
 						<NextImage src="/document.svg" alt="Document Icon" width="24" height="24"></NextImage>
 						<div>
 							<span className="pl-2 text-slate-500">Go to </span>

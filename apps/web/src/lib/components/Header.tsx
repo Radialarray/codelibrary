@@ -74,9 +74,10 @@ const Header = ({meta}: Props) => {
 
 	return (
 		<>
-			<header className="text-lg bg-white">
+			<header aria-label="Site Header" className="text-lg bg-white">
 				<div className="relative flex items-end h-16 gap-8 mx-auto px-4 z-50">
 					<Link href="/" className="font-normal flex gap-2">
+						<span className="sr-only">Home</span>
 						<div className="absolute top-1/4 mt-4">
 							<NextImage
 								src="/hfg-icon.png"
@@ -99,17 +100,29 @@ const Header = ({meta}: Props) => {
 
 							<ul className="flex text-sm items-center gap-8">{navigationItems}</ul>
 						</nav>
-						<span className="hidden sm:block">
-							<button
-								type="button"
-								onClick={openOverlay}
-								className="block px-6 border-b-4 border-transparent"
-							>
+						<span className="hidden md:block">
+							<button type="button" onClick={openOverlay} className="block px-6 pb-[2.5px]">
 								<span className="sr-only"> Search </span>
 								<SearchIcon className="object-contain w-[18px] h-[18px]"></SearchIcon>
 							</button>
 						</span>
 					</div>
+					<button
+						type="button"
+						className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+					>
+						<span className="sr-only">Toggle menu</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-5 w-5"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							strokeWidth="2"
+						>
+							<path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+						</svg>
+					</button>
 				</div>
 				<SearchOverlay
 					closeOverlay={closeOverlay}

@@ -93,8 +93,8 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 								href={`/${uri}/#${slugify(element.content.text)}`}
 								className={
 									snap.currentElement === slugify(element.content.text)
-										? `transition-all`
-										: `-translate-x-2 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-500`
+										? `transition-all w-24 whitespace-nowrap overflow-hidden overflow-ellipsis`
+										: `-translate-x-2 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-500 w-24 whitespace-nowrap overflow-hidden overflow-ellipsis`
 								}
 								onClick={handleScroll}
 							>

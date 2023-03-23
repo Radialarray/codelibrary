@@ -32,12 +32,12 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 	};
 
 	return (
-		<aside className="hidden lg:block col-span-2 mt-36 ml-4 text-gray">
+		<aside className="hidden lg:block col-span-2 mt-20 ml-4 text-gray">
 			{/* TODO: Placeholder for search shortcut */}
 			{/* <Search></Search> */}
 
 			<ul>
-				{meta.author !== null ? (
+				{meta.author !== null && meta.author.length > 0 ? (
 					<li className="flex">
 						<span className="w-16">Autor:</span>
 						<span>{meta.author}</span>
