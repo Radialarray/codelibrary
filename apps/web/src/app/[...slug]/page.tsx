@@ -168,6 +168,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 						meta.searchInfo.searchChildren.length > 0 ? (
 							<nav className="mt-12">
 								<h3>Weitere Kapitel</h3>
+								{/* @ts-expect-error Async Server Component */}
 								<Chapters pageChildren={meta.searchInfo.searchChildren}></Chapters>
 							</nav>
 						) : null}
