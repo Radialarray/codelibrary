@@ -61,6 +61,7 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 
 	if (snap.status === 'open') {
 		return (
+			// TODO: Mobile size responsive
 			<div
 				className="z-40 fixed left-0 top-0  w-full h-full backdrop-blur-lg transition-all duration-150"
 				data-overlay-wrapper

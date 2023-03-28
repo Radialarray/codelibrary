@@ -8,12 +8,4 @@ module.exports = {
 	},
 	output: 'standalone',
 	experimental: {appDir: true}
-	// TODO: remove from production
-	// typescript: {
-	// 	// !! WARN !!
-	// 	// Dangerously allow production builds to successfully complete even if
-	// 	// your project has type errors.
-	// 	// !! WARN !!
-	// 	ignoreBuildErrors: true
-	// }
 };

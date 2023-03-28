@@ -34,7 +34,7 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 	};
 
 	return (
-		<aside className="hidden lg:block col-span-2 mt-20 ml-4 pr-2 text-gray">
+		<aside className="hidden lg:block col-span-2 mt-20 pr-4 text-sm text-gray">
 			<ul>
 				{meta.author !== null && meta.author.length > 0 ? (
 					<li className="flex">

@@ -1,14 +1,11 @@
 import Link from 'next/link';
 const Card = () => {
 	return (
-		<div className="col-span-4 p-1 shadow-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl">
-			<Link href="" className="block p-6 bg-white sm:p-8 rounded-xl">
-				<div className="mt-16 sm:pr-8">
-					<h5 className="text-xl font-bold text-gray-900">Science of Chemistry</h5>
-
-					<p className="mt-2 text-sm text-gray-500">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, adipisci.
-					</p>
+		<div className="p-1 hover:shadow-xl transition-shadow bg-gray  pt-12 rounded-sm aspect-video w-full">
+			<Link href="" className="relative p-4 flex items-end w-full">
+				<div className="aspect-square rounded-sm w-1/2 h-1/2 bg-highlight p-2 flex flex-col justify-between">
+					<p className="text-sm text-gray">Arduino</p>
+					<h5 className="text-base font-bold text-black">Keyboard for Shortcuts</h5>
 				</div>
 			</Link>
 		</div>

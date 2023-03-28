@@ -10,6 +10,8 @@ import Link from 'next/link';
 import NextImage from 'next/image';
 import SidebarMetadata from 'lib/components/SidebarMetadata';
 import Chapters from 'lib/components/Chapters';
+import Banner from 'lib/components/Banner';
+import Footer from 'lib/components/Footer';
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
@@ -64,7 +66,6 @@ const getData = async (slug: string): Promise<Page> => {
 					codelanguages: true,
 					level: true,
 					categories: true,
-					// headline: true,
 					id: true
 				}
 			},
@@ -77,7 +78,6 @@ const getData = async (slug: string): Promise<Page> => {
 					codelanguages: true,
 					level: true,
 					categories: true,
-					// headline: true,
 					id: true
 				}
 			}
@@ -113,36 +113,12 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 
 	const meta = data.meta as MetaInfo;
 
-	const Banner = () => {
-		if (meta.banner && meta.banner.url) {
-			return (
-				<div className="relative z-0 w-full h-[300px] md:h-[500px]">
-					<NextImage
-						src={meta.banner.url}
-						width={'1200'}
-						height={'200'}
-						alt={meta.banner.filename}
-						priority={true}
-						className="grayscale object-cover h-full w-full"
-					></NextImage>
-					<div className="absolute top-0 left-0 w-full h-full bg-highlight mix-blend-multiply"></div>
-				</div>
-			);
-		} else {
-			return (
-				<div className="relative w-full h-[500px]">
-					<div className="absolute top-0 left-0 w-full h-full bg-highlight mix-blend-multiply"></div>
-				</div>
-			);
-		}
-	};
-
 	return (
 		<>
 			<Container className="bg-light-gray min-h-full">
 				<Header meta={meta}></Header>
 				<div className="relative">
-					<Banner></Banner>
+					<Banner home={false} meta={meta}></Banner>
 					<div className="relative mx-auto lg:max-w-5xl px-12 -mt-28">
 						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-full sm:w-min sm:min-w-[500px] p-8 flex items-end">
 							<div className="absolute top-0 left-0 w-full h-full bg-black shadow-md"></div>
@@ -175,6 +151,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 					</div>
 					<SidebarMetadata meta={meta}></SidebarMetadata>
 				</div>
+				<Footer></Footer>
 			</Container>
 		</>
 	);
