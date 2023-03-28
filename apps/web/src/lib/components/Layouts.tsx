@@ -31,8 +31,6 @@ export const parseLayout = (x: Layout) => {
 };
 
 const decideLayoutBlock = (x: Layout | Block) => {
-	// console.log(x);
-
 	if (x && 'columns' in x) {
 		return parseLayout(x);
 	} else {

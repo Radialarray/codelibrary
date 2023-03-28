@@ -112,7 +112,6 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 	const data = await getData(slug);
 
 	const meta = data.meta as MetaInfo;
-	console.log(meta);
 
 	const Banner = () => {
 		if (meta.banner && meta.banner.url) {
@@ -157,7 +156,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 				<div className="grid grid-cols-12">
 					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
 					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 md:px-8 mt-4">
-						<Breadcrumb uri={meta.uri}></Breadcrumb>
+						{/* <Breadcrumb uri={meta.uri}></Breadcrumb> */}
 						<article key={'article'} className="flex flex-col mt-8">
 							{typeof data.meta === 'object' && data.meta.summary ? (
 								<p className="text-lg mb-8">{data.meta.summary}</p>
@@ -169,9 +168,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 						meta.searchInfo.searchChildren.length > 0 ? (
 							<nav className="mt-12">
 								<h3>Weitere Kapitel</h3>
-								<ol className="my-6 w-full flex flex-col sm:flex-row gap-4 sm:gap-2">
-									<Chapters pageChildren={meta.searchInfo.searchChildren}></Chapters>
-								</ol>
+								<Chapters pageChildren={meta.searchInfo.searchChildren}></Chapters>
 							</nav>
 						) : null}
 					</div>

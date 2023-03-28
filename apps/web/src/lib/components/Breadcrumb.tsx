@@ -33,6 +33,8 @@ const Breadcrumb = ({uri}: Props): JSX.Element => {
 		}
 	};
 
+	// console.log(crumbs);
+
 	return (
 		<nav aria-label="Breadcrumb">
 			<ol role="list" className="flex flex-row items-center gap-1 text-sm text-gray-600">

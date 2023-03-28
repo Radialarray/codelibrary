@@ -34,15 +34,11 @@ const Header = ({meta}: Props) => {
 
 		document.addEventListener('keydown', down);
 
-		// TODO: add eventlistener to srea not covered by nav -> tap to background closes it
 		return () => document.removeEventListener('keydown', down);
 	}, [snap.status]);
 
 	const closeOverlay = (e: React.MouseEvent) => {
-		// console.log(e);
-
 		if (e.target && e.target instanceof HTMLElement) {
-			// TODO: Find right type interface for this specific event!
 			if ('overlayWrapper' in e.target.dataset) {
 				toggleSearchOverlay('closed');
 			}
@@ -57,7 +53,6 @@ const Header = ({meta}: Props) => {
 	 * All navigation items will be passed to this component
 	 */
 	const pathname = usePathname();
-	// console.log(meta);
 
 	const navigationItems = () => {
 		if (meta.navigation) {

@@ -14,7 +14,6 @@ import Line from './blocks/Line';
  * Checks for block type and then calls the respective component.
  */
 export const parseBlock = (block: Block): JSX.Element => {
-	// console.log(block);
 	switch (block.type) {
 		case 'code':
 			return <Code key={block.id} {...block} />;

@@ -9,7 +9,6 @@ import 'swiper/swiper.css';
  * @returns {JSX.Element}
  */
 const Gallery = (props: Block): JSX.Element => {
-	// console.log(props.content);
 	const slides = (props.content as GalleryContent).images.map(image => {
 		return (
 			<SwiperSlide key={image}>

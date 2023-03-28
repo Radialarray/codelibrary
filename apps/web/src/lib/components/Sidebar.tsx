@@ -54,7 +54,6 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 
 	const filterHeadings = (content: Block[] | Layout[]) => {
 		return content.map(x => {
-			// console.log(x);
 			if (R.has('columns')(x)) {
 				const columns = x.columns.map(column => {
 					const blocks = R.filter(isHeading, column.blocks);
@@ -109,7 +108,6 @@ const Sidebar = ({content, uri}: Props): JSX.Element | null => {
 
 	const createHeadings = R.pipe(filterHeadings, R.flatten, createListElements);
 	const headings = createHeadings(content);
-	// console.log(headings);
 
 	return (
 		<aside className="hidden lg:block fixed top-0 left-0 h-full ml-6">
