@@ -9,7 +9,9 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 
 	const Courses = () => {
 		if (meta.courses && meta.courses.length > 0) {
-			const coursesSplit = meta.courses.split(',');
+			console.log(meta.courses);
+			const coursesSplit = meta.courses.split('course: ');
+			console.log(coursesSplit);
 
 			const courseNames = coursesSplit.map(course => {
 				const courseTrimmed = course.trim();
@@ -33,9 +35,6 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 
 	return (
 		<aside className="hidden lg:block col-span-2 mt-20 ml-4 pr-2 text-gray">
-			{/* TODO: Placeholder for search shortcut */}
-			{/* <Search></Search> */}
-
 			<ul>
 				{meta.author !== null && meta.author.length > 0 ? (
 					<li className="flex">
@@ -47,7 +46,8 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 					<span className="w-16">Datum:</span>
 					<span>{meta.modified}</span>
 				</li>
-				<Courses></Courses>
+				{/* TODO: Faulty string from kirby response */}
+				{/* <Courses></Courses> */}
 			</ul>
 		</aside>
 	);

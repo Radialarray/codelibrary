@@ -116,7 +116,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 	const Banner = () => {
 		if (meta.banner && meta.banner.url) {
 			return (
-				<div className="relative w-full h-[500px]">
+				<div className="relative z-0 w-full h-[300px] md:h-[500px]">
 					<NextImage
 						src={meta.banner.url}
 						width={'1200'}

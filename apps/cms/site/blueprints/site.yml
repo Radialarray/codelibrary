@@ -35,6 +35,3 @@ columns:
           course:
             label: Coursename
             type: text
-          url:
-            label: URL
-            type: url
