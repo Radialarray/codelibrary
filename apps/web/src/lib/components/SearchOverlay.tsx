@@ -95,7 +95,7 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 
 							<Command.Empty>No results found.</Command.Empty>
 
-							{searchItems.searchChildren.length > 0 ? (
+							{searchItems.searchChildren && searchItems.searchChildren.length > 0 ? (
 								<Command.Group heading="Auf dieser Seite" className={groupStyle}>
 									{createSearchSection(searchItems.searchChildren)}
 								</Command.Group>

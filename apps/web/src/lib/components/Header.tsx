@@ -59,22 +59,28 @@ const Header = ({meta}: Props) => {
 	const pathname = usePathname();
 	// console.log(meta);
 
-	const navigationItems = meta.navigation.map(item => {
-		// If route is active
-		if (pathname === `/${checkNavId(item.id)}`) {
-			return (
-				<li key={item.id} className="text-black">
-					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
-				</li>
-			);
+	const navigationItems = () => {
+		if (meta.navigation) {
+			meta.navigation.map(item => {
+				// If route is active
+				if (pathname === `/${checkNavId(item.id)}`) {
+					return (
+						<li key={item.id} className="text-black">
+							<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
+						</li>
+					);
+				} else {
+					return (
+						<li key={item.id} className="text-gray">
+							<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
+						</li>
+					);
+				}
+			});
 		} else {
-			return (
-				<li key={item.id} className="text-gray">
-					<Link href={`/${checkNavId(item.id)}`}>{item.text}</Link>
-				</li>
-			);
+			return null;
 		}
-	});
+	};
 
 	return (
 		<>

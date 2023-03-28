@@ -6,26 +6,32 @@ interface Props {
 }
 
 const Breadcrumb = ({uri}: Props): JSX.Element => {
-	const subPaths = uri.split('/');
+	const crumbs = (): JSX.Element[] | null => {
+		if (uri && uri.length > 0) {
+			const subPaths = uri ? uri.split('/') : [];
 
-	let lastItem = '';
-	const crumbs = subPaths.map(subPath => {
-		const path = lastItem + subPath + '/';
+			let lastItem = '';
 
-		lastItem = path;
-		const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
+			const paths = subPaths.map(subPath => {
+				const path = lastItem + subPath + '/';
 
-		return subPath.length ? (
-			<li className="min-w-max flex justify-between items-center" key={path.toString()}>
-				<ChevronRightIcon className="w-4 mx-1"></ChevronRightIcon>
-				<Link href={`/${path}`} className="block  transition hover:text-gray-700">
-					{linkText}
-				</Link>
-			</li>
-		) : (
-			''
-		);
-	});
+				lastItem = path;
+				const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
+
+				return (
+					<li className="min-w-max flex justify-between items-center" key={path.toString()}>
+						<ChevronRightIcon className="w-4 mx-1"></ChevronRightIcon>
+						<Link href={`/${path}`} className="block transition hover:text-gray-700">
+							{linkText}
+						</Link>
+					</li>
+				);
+			});
+			return paths;
+		} else {
+			return null;
+		}
+	};
 
 	return (
 		<nav aria-label="Breadcrumb">
