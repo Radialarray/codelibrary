@@ -39,9 +39,6 @@ interface KQLRequestBody {
 				alt: 'file.alt.kirbytext';
 			};
 		};
-		searchAll: object;
-		searchChildren: object;
-		searchGlobal: object;
 	};
 	pagination?: {limit: number};
 }
@@ -49,30 +46,9 @@ interface KQLRequestBody {
 interface KQLResponse {
 	code: number;
 	result: {
-		url: string;
-		uri: string;
-		title: string;
-		summary: string;
-		id: string;
-		navigation: NavItem[];
-		courses?: string;
-		codelanguages?: string;
-		level?: string;
-		categories?: string;
-		banner: {
-			id: string;
-			url: string;
-			width: number;
-			height: number;
-			filename: string;
-		};
-		modified: string;
-		author: string;
+		meta: MetaInfo;
 		content: Page['content'];
 		images: Image[];
-		searchAll: [];
-		searchChildren: [];
-		searchGlobal: [];
 	};
 	status: string;
 }
@@ -178,16 +154,17 @@ interface MetaInfo {
 	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
-	searchInfo: {
-		searchAll: Array<SearchItem>;
-		searchChildren: Array<SearchItem>;
-		searchGlobal: Array<SearchItem>;
+	search: {
+		children: Array<SearchItem>;
+		global: Array<SearchItem>;
+		all: Array<SearchItem>;
 	};
 	summary: string;
 	courses: string;
 	codeLanguages: string;
 	level: string;
 	categories: string;
+	id: string;
 	author: string;
 	modified: string;
 	banner: {
@@ -221,4 +198,18 @@ interface SearchItem {
 	categories: string;
 	// headline: string;
 	id: string;
+}
+
+interface Highlight {
+	uri: string;
+	title: string;
+	highlight: string;
+	banner: null | {
+		id: string;
+		url: string;
+		width: number;
+		height: number;
+	};
+	id: string;
+	categories: string;
 }

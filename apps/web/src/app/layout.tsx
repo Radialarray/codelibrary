@@ -16,12 +16,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	try {
 		const data = await requestData(requestOptions);
-		return {
-			title: {
-				default: data.result.title,
-				template: `%s | ${data.result.title}`
-			}
-		};
+		if ('title' in data.result && typeof data.result.title === 'string') {
+			return {
+				title: {
+					default: data.result.title,
+					template: `%s | ${data.result.title}`
+				}
+			};
+		} else {
+			throw new Error('Error in page title');
+		}
 	} catch (error) {
 		return {
 			title: {

@@ -72,64 +72,8 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 	}
 };
 
-const sortPage = (data: KQLResponse): Page => {
-	if (data.code !== 200 || data.code === undefined || !('result' in data)) {
-		console.error('server response has error');
-		console.error(data);
-		// throw new Error('server response has error');
-		const page = {
-			meta: 'Error',
-			content: null,
-			images: 'error'
-		};
-
-		return page;
-	}
-
-	const result = data.result;
-
-	if (!result) {
-		throw new Error();
-	}
-	// Build meta data
-	const meta = {
-		url: result.url,
-		uri: result.uri,
-		title: result.title,
-		summary: result.summary,
-		id: result.id,
-		navigation: result.navigation,
-		modified: result.modified ? result.modified : '',
-		author: result.author ? result.author : '',
-		searchInfo: {
-			searchChildren: result.searchChildren,
-			searchGlobal: result.searchGlobal,
-			searchAll: result.searchAll
-		},
-		courses: result.courses ? result.courses : '',
-		codeLanguages: result.codelanguages ? result.codelanguages : '',
-		level: result.level ? result.level : '',
-		categories: result.categories ? result.categories : '',
-		// headline: result.headline ? result.headline : '',
-		banner: result.banner
-	};
-
-	// Build content data
-	const content = result.content;
-
-	const page = {
-		meta: meta,
-		content: content,
-		images: result.images
-	};
-
-	return page;
-};
-
-export const getPageContent = async (req: KQLRequestOptions): Promise<Page> => {
+export const getPageContent = async (req: KQLRequestOptions): Promise<KQLResponse> => {
 	const response = await requestData(req);
 
-	const sortedResponse = sortPage(response);
-	const page = {...sortedResponse};
-	return page;
+	return response;
 };

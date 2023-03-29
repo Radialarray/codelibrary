@@ -44,6 +44,17 @@ COPY . .
 
 # RUN yarn build
 
+
+ARG API_IMAGE_HOST
+ENV API_IMAGE_HOST=$API_IMAGE_HOST
+ARG API_HOST
+ENV API_HOST=$API_HOST
+ARG API_USERNAME
+ENV API_USERNAME=$API_USERNAME
+ARG API_PASSWORD
+ENV API_PASSWORD=$API_PASSWORD
+# RUN echo "Oh dang look at that $API_HOST"
+
 # If using npm comment out above and use below instead
 RUN pnpm run build
 

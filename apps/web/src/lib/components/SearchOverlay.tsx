@@ -10,11 +10,11 @@ interface Props {
 	// searchItems: SearchItem[];
 	currentPage: string;
 	// searchItems: {
-	// 	searchChildren: [];
+	// 	children: [];
 	// 	searchGlobal: [];
 	// 	searchAll: [];
 	// };
-	searchItems: MetaInfo['searchInfo'];
+	searchItems: MetaInfo['search'];
 }
 
 const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Element => {
@@ -96,17 +96,17 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 
 							<Command.Empty>No results found.</Command.Empty>
 
-							{searchItems.searchChildren && searchItems.searchChildren.length > 0 ? (
+							{searchItems.children && searchItems.children.length > 0 ? (
 								<Command.Group heading="Auf dieser Seite" className={groupStyle}>
-									{createSearchSection(searchItems.searchChildren)}
+									{createSearchSection(searchItems.children)}
 								</Command.Group>
 							) : null}
 							<Command.Group heading="Global" className={groupStyle}>
-								{createSearchSection(searchItems.searchGlobal)}
+								{createSearchSection(searchItems.global)}
 							</Command.Group>
 
 							<Command.Group heading="Alle Seiten" className={groupStyle}>
-								{createSearchSection(searchItems.searchAll)}
+								{createSearchSection(searchItems.all)}
 							</Command.Group>
 
 							{/* <Command.Group heading="Kategorien" className={groupStyle}>

@@ -9,9 +9,7 @@ const SidebarMetadata = ({meta}: Props): JSX.Element | null => {
 
 	const Courses = () => {
 		if (meta.courses && meta.courses.length > 0) {
-			console.log(meta.courses);
 			const coursesSplit = meta.courses.split('course: ');
-			console.log(coursesSplit);
 
 			const courseNames = coursesSplit.map(course => {
 				const courseTrimmed = course.trim();

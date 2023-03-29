@@ -170,7 +170,7 @@ const Header = ({meta}: Props): JSX.Element => {
 			</nav>
 			<SearchOverlay
 				closeOverlay={closeOverlay}
-				searchItems={meta.searchInfo}
+				searchItems={meta.search}
 				currentPage={meta.title}
 			></SearchOverlay>
 		</header>

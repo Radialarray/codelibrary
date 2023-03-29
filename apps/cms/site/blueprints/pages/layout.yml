@@ -94,3 +94,9 @@ columns:
             type: users
             multiple: false
             required: true
+          highlight:
+            label: Highlight
+            type: toggle
+            text: 
+              - "no"
+              - "yes"

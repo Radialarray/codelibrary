@@ -9,20 +9,17 @@ interface Props {
 }
 
 const ButtonLink = ({href, children, dark, external}: Props) => {
+	const darkStyle =
+		'group h-16 w-72 min-w-fit flex flex-0 justify-between items-center px-5 py-6 gap-6 bg-black text-white border-2 border-solid border-black hover:border-gray transition-colors font-bold whitespace-nowrap';
+	const normalStyle =
+		'group h-16 w-72 min-w-fit flex flex-0 justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-light-gray hover:border-gray transition-colors font-bold whitespace-nowrap';
+
 	if (external) {
 		return (
-			<a
-				target="_blank"
-				className={
-					dark
-						? 'group h-16 w-72 min-w-fit flex flex-0  justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-gray hover:border-black transition-colors font-bold whitespace-nowrap'
-						: 'group h-16 w-72 min-w-fit flex flex-0  justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-light-gray hover:border-gray transition-colors font-bold whitespace-nowrap'
-				}
-				href={href}
-			>
+			<a target="_blank" className={dark ? darkStyle : normalStyle} href={href}>
 				{children}
 				<NextImage
-					src="/arrow.svg"
+					src={dark ? '/arrow-white.svg' : '/arrow.svg'}
 					alt="Arrow Icon"
 					width="18"
 					height="18"
@@ -32,17 +29,10 @@ const ButtonLink = ({href, children, dark, external}: Props) => {
 		);
 	} else {
 		return (
-			<Link
-				className={
-					dark
-						? 'group h-16 w-72 min-w-fit flex flex-0  justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-gray hover:border-black transition-colors font-bold whitespace-nowrap'
-						: 'group h-16 w-72 min-w-fit flex flex-0  justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-light-gray hover:border-gray transition-colors font-bold whitespace-nowrap'
-				}
-				href={href}
-			>
+			<Link className={dark ? darkStyle : normalStyle} href={href}>
 				{children}
 				<NextImage
-					src="/arrow.svg"
+					src={dark ? '/arrow-white.svg' : '/arrow.svg'}
 					alt="Arrow Icon"
 					width="18"
 					height="18"

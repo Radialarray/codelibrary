@@ -1,13 +1,10 @@
-import {useState, useEffect} from 'react';
 import type {Metadata} from 'next';
-import {getPageContent, requestData} from 'lib/api/api';
+import {requestData} from 'lib/api/api';
 import Container from 'lib/components/layouts/Container';
 import Header from 'lib/components/Header';
 import Breadcrumb from 'lib/components/Breadcrumb';
 import Sidebar from 'lib/components/Sidebar';
 import Content from 'lib/components/Content';
-import Link from 'next/link';
-import NextImage from 'next/image';
 import SidebarMetadata from 'lib/components/SidebarMetadata';
 import Chapters from 'lib/components/Chapters';
 import Banner from 'lib/components/Banner';
@@ -16,27 +13,69 @@ import Footer from 'lib/components/Footer';
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-const getData = async (slug: string): Promise<Page> => {
+const getData = async (slug: string): Promise<KQLResponse> => {
 	const pageToQuery = `page("${slug}")`;
 
 	const requestBody = {
 		query: pageToQuery,
 		select: {
-			url: true,
-			uri: true,
-			title: true,
-			summary: true,
-			id: true,
-			navigation: 'site.navigation.toNavigationArray',
-			courses: true,
-			codelanguages: true,
-			level: true,
-			categories: true,
-			// headline: true,
-			banner: 'page.content.banner.addImagePath',
-			intro: true,
-			modified: "page.modified('d.m.Y')",
-			author: 'page.author.getAuthorName',
+			meta: {
+				query: 'page',
+				select: {
+					url: true,
+					uri: true,
+					title: true,
+					summary: true,
+					id: true,
+					navigation: 'site.navigation.toNavigationArray',
+					courses: true,
+					codelanguages: true,
+					level: true,
+					categories: true,
+					banner: 'page.content.banner.addImagePath',
+					modified: "page.modified('d.m.Y')",
+					author: 'page.author.getAuthorName',
+					search: {
+						query: 'page',
+						select: {
+							children: {
+								query: 'page.children',
+								select: {
+									url: true,
+									uri: true,
+									slug: true,
+									id: true,
+									title: 'page.title'
+								}
+							},
+							global: {
+								query: 'site.children',
+								select: {
+									url: true,
+									title: true,
+									courses: true,
+									codelanguages: true,
+									level: true,
+									categories: true,
+									id: true
+								}
+							},
+							all: {
+								query: 'site.index',
+								select: {
+									url: true,
+									title: true,
+									courses: true,
+									codelanguages: true,
+									level: true,
+									categories: true,
+									id: true
+								}
+							}
+						}
+					}
+				}
+			},
 			content: 'page.content.main.addImagePathsToLayout',
 			images: {
 				query: 'page.images',
@@ -45,40 +84,6 @@ const getData = async (slug: string): Promise<Page> => {
 					filename: true,
 					dimensions: true,
 					alt: 'file.alt.kirbytext'
-				}
-			},
-			searchChildren: {
-				query: 'page.children',
-				select: {
-					url: true,
-					uri: true,
-					slug: true,
-					id: true,
-					title: 'page.title'
-				}
-			},
-			searchGlobal: {
-				query: 'site.children',
-				select: {
-					url: true,
-					title: true,
-					courses: true,
-					codelanguages: true,
-					level: true,
-					categories: true,
-					id: true
-				}
-			},
-			searchAll: {
-				query: 'site.index',
-				select: {
-					url: true,
-					title: true,
-					courses: true,
-					codelanguages: true,
-					level: true,
-					categories: true,
-					id: true
 				}
 			}
 		},
@@ -91,7 +96,7 @@ const getData = async (slug: string): Promise<Page> => {
 		redirect: 'follow'
 	};
 
-	const response = await getPageContent(requestOptions);
+	const response = await requestData(requestOptions);
 
 	return {...response};
 };
@@ -101,8 +106,8 @@ export const generateMetadata = async ({params}: {params: {slug: string[]}}): Pr
 
 	const data = await getData(slug);
 
-	if (typeof data.meta !== 'string') {
-		return {title: data.meta.title};
+	if (typeof data.result.meta !== 'string') {
+		return {title: data.result.meta.title};
 	}
 	return {title: ''};
 };
@@ -111,7 +116,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 	const slug = params.slug.join('/');
 	const data = await getData(slug);
 
-	const meta = data.meta as MetaInfo;
+	const meta = data.result.meta;
 
 	return (
 		<>
@@ -123,29 +128,27 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-full sm:w-min sm:min-w-[500px] p-8 flex items-end">
 							<div className="absolute top-0 left-0 w-full h-full bg-black shadow-md"></div>
 							<h1 className="relative text-white">
-								{typeof data.meta === 'object' ? data.meta.title : 'Missing title'}
+								{typeof meta === 'object' ? meta.title : 'Missing title'}
 							</h1>
 						</div>
 					</div>
 				</div>
 
 				<div className="grid grid-cols-12">
-					<Sidebar content={data.content} uri={meta.uri}></Sidebar>
+					<Sidebar content={data.result.content} uri={meta.uri}></Sidebar>
 					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 md:px-8 mt-4">
 						<Breadcrumb uri={meta.uri}></Breadcrumb>
 						<article key={'article'} className="flex flex-col mt-8">
-							{typeof data.meta === 'object' && data.meta.summary ? (
-								<p className="text-lg mb-8">{data.meta.summary}</p>
+							{typeof meta === 'object' && meta.summary ? (
+								<p className="text-lg mb-8">{meta.summary}</p>
 							) : null}
-							<Content content={data.content}></Content>
+							<Content content={data.result.content}></Content>
 						</article>
-						{meta.searchInfo &&
-						meta.searchInfo.searchChildren &&
-						meta.searchInfo.searchChildren.length > 0 ? (
+						{meta.search && meta.search.children && meta.search.children.length > 0 ? (
 							<nav className="mt-12">
 								<h3>Weitere Kapitel</h3>
 								{/* @ts-expect-error Async Server Component */}
-								<Chapters pageChildren={meta.searchInfo.searchChildren}></Chapters>
+								<Chapters pageChildren={meta.search.children}></Chapters>
 							</nav>
 						) : null}
 					</div>
