@@ -1,6 +1,7 @@
 import {requestData} from 'lib/api/api';
 import Link from 'next/link';
 import NextImage from 'next/image';
+import {findElementByValue, splitString} from 'lib/helper/helper';
 
 interface Props {
 	pageChildren: SearchItem[];
@@ -13,7 +14,6 @@ const Chapters = async ({pageChildren}: Props): Promise<JSX.Element | null> => {
 			const data = await Promise.all(
 				pageChildren.map(async (item: SearchItem) => {
 					const pageToQuery = `page("${item.uri}")`;
-
 					const requestBody = {
 						query: pageToQuery,
 						select: {
@@ -33,6 +33,14 @@ const Chapters = async ({pageChildren}: Props): Promise<JSX.Element | null> => {
 									modified: "page.modified('d.m.Y')",
 									author: 'page.author.getAuthorName'
 								}
+							},
+							categories: {
+								query: 'site.categories.toStructure',
+								select: {
+									description: true,
+									id: true,
+									title: true
+								}
 							}
 						}
 					};
@@ -43,22 +51,8 @@ const Chapters = async ({pageChildren}: Props): Promise<JSX.Element | null> => {
 						redirect: 'follow'
 					};
 					const response = await requestData(requestOptions);
-					const categories = () => {
-						if (response.result.meta.categories && response.result.meta.categories.length > 0) {
-							const categoriesSplit = response.result.meta.categories.split(',');
-							return categoriesSplit.map(item => item.trim());
-						} else {
-							return null;
-						}
-					};
 
-					return {
-						...response,
-						result: {
-							...response.result,
-							categories: categories()
-						}
-					};
+					return response;
 				})
 			);
 
@@ -75,6 +69,8 @@ const Chapters = async ({pageChildren}: Props): Promise<JSX.Element | null> => {
 		return (
 			<ol className="my-6 w-full flex flex-col flex-wrap sm:flex-row gap-4 sm:gap-2">
 				{data.map(item => {
+					const categories = splitString(item.result.meta.categories);
+
 					return (
 						<li className="block shrink-0 grow sm:w-80" key={item.result.meta.id}>
 							<Link
@@ -104,15 +100,24 @@ const Chapters = async ({pageChildren}: Props): Promise<JSX.Element | null> => {
 												{item.result.meta.title}
 											</h2>
 											<div className="flex flex-wrap gap-2">
-												{item.result.categories?.map(category => {
-													return (
-														<span
-															key={category}
-															className="inline-flex items-center justify-center rounded-sm bg-black px-3 py-1 text-white"
-														>
-															<p className="whitespace-nowrap text-sm">{category}</p>
-														</span>
-													);
+												{categories?.map(category => {
+													if (
+														'categories' in item.result &&
+														Array.isArray(item.result.categories)
+													) {
+														const categoryVal = findElementByValue(
+															item.result.categories,
+															category
+														);
+														return (
+															<span
+																key={categoryVal.id}
+																className="inline-flex items-center justify-center rounded-sm bg-black px-3 py-1 text-white"
+															>
+																<p className="whitespace-nowrap text-sm">{categoryVal.title}</p>
+															</span>
+														);
+													}
 												})}
 											</div>
 										</div>

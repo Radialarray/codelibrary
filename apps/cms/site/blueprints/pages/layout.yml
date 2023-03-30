@@ -13,10 +13,6 @@ columns:
       fields:
         type: fields
         fields:
-          # headline:
-          #   type: text
-          #   placeholder: '{{ page.title }}'
-          #   help: Leave empty to use the title as headline.
           summary:
             label: Summary
             required: true
@@ -46,9 +42,6 @@ columns:
               - code
               - line
               - callout
-            
-
-
   sidebar:
     width: 1/3
     sections:
@@ -60,15 +53,13 @@ columns:
       meta:
         type: fields
         fields:
-          courses:
-            label: Kurse
+          categories:
+            required: true
+            label: Kategorien
             type: multiselect
+            accept: options
             options: query
-            query: site.courses.split('- ')
-            # TODO: split courses here
-            text: '{{ arrayItem.split('course:') }}'
-            value: '{{ course }}'
-            search: false
+            query: site.categories.toStructure
           codeLanguages:
             type: multiselect
             label: Sprache
@@ -84,12 +75,6 @@ columns:
               - medium
               - high
             default: low
-          categories:
-            label: Kategorien
-            type: multiselect
-            accept: options
-            options: query
-            query: site.tags.split
           author:
             type: users
             multiple: false
@@ -100,3 +85,12 @@ columns:
             text: 
               - "no"
               - "yes"
+          courses:
+            label: Kurse
+            type: multiselect
+            options: query
+            query: site.courses.split('- ')
+            # TODO: split courses here (toStructure probably)
+            text: '{{ arrayItem.split('course:') }}'
+            value: '{{ course }}'
+            search: false

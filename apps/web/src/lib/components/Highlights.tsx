@@ -2,14 +2,17 @@ import Card from 'lib/components/Card';
 
 interface Props {
 	highlights: Highlight[];
+	categories: [];
 }
 
-const Highlights = ({highlights}: Props): JSX.Element | null => {
+const Highlights = ({categories, highlights}: Props): JSX.Element | null => {
 	if (highlights && highlights.length > 0) {
 		const cards = highlights.map(content => {
-			return content.highlight === 'true' && content.banner !== null ? (
-				<Card key={content.id} content={content}></Card>
-			) : null;
+			if (content.highlight === 'true' && content.banner !== null) {
+				return <Card key={content.id} categories={categories} content={content}></Card>;
+			} else {
+				return null;
+			}
 		});
 
 		return (

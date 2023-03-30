@@ -10,9 +10,9 @@ interface Props {
 
 const ButtonLink = ({href, children, dark, external}: Props) => {
 	const darkStyle =
-		'group h-16 w-72 min-w-fit flex flex-0 justify-between items-center px-5 py-6 gap-6 bg-black text-white border-2 border-solid border-black hover:border-gray transition-colors font-bold whitespace-nowrap';
+		'group h-16 w-72 min-w-[240px] flex flex-0 justify-between items-center px-5 py-6 gap-6 bg-black text-white border-2 border-solid border-black hover:border-gray transition-colors font-bold whitespace-nowrap';
 	const normalStyle =
-		'group h-16 w-72 min-w-fit flex flex-0 justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-light-gray hover:border-gray transition-colors font-bold whitespace-nowrap';
+		'group h-16 w-72 min-w-[240px] flex flex-0 justify-between items-center px-5 py-6 gap-6 border-2 border-solid border-light-gray hover:border-gray transition-colors font-bold whitespace-nowrap';
 
 	if (external) {
 		return (

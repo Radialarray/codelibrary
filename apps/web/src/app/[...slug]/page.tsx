@@ -8,7 +8,6 @@ import Content from 'lib/components/Content';
 import SidebarMetadata from 'lib/components/SidebarMetadata';
 import Chapters from 'lib/components/Chapters';
 import Banner from 'lib/components/Banner';
-import Footer from 'lib/components/Footer';
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
@@ -117,7 +116,6 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 	const data = await getData(slug);
 
 	const meta = data.result.meta;
-
 	return (
 		<>
 			<Container className="bg-light-gray min-h-full">
@@ -154,7 +152,6 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 					</div>
 					<SidebarMetadata meta={meta}></SidebarMetadata>
 				</div>
-				<Footer></Footer>
 			</Container>
 		</>
 	);

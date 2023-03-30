@@ -144,8 +144,8 @@ interface NavItem {
 	url: string;
 	text: string;
 	title: string;
-	popup: string;
-	isOpen: string;
+	popup: boolean;
+	isOpen: boolean;
 	children: array<object>;
 }
 
@@ -154,6 +154,7 @@ interface MetaInfo {
 	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
+	footer: Array<NavItem>;
 	search: {
 		children: Array<SearchItem>;
 		global: Array<SearchItem>;

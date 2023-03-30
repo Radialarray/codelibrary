@@ -1,14 +1,13 @@
 import type {Metadata} from 'next';
 import {getPageContent} from 'lib/api/api';
-
 import Container from 'lib/components/layouts/Container';
 import Header from 'lib/components/Header';
 import Content from 'lib/components/Content';
 import Banner from 'lib/components/Banner';
 import Sidebar from 'lib/components/Sidebar';
-import Footer from 'lib/components/Footer';
 import ButtonLink from 'lib/components/ButtonLink';
 import Highlights from 'lib/components/Highlights';
+import slugify from '@sindresorhus/slugify';
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
@@ -95,6 +94,16 @@ const getData = async (): Promise<KQLResponse> => {
 					id: true,
 					categories: true
 				}
+			},
+			categories: {
+				query: 'site.categories.toStructure'
+			},
+			articles: {
+				query: 'site.index',
+				select: {
+					title: true,
+					categories: true
+				}
 			}
 		},
 		pagination: {limit: 10}
@@ -124,6 +133,69 @@ const Page = async (): Promise<JSX.Element> => {
 	const data = await getData();
 
 	const meta = data.result.meta;
+
+	const categories = data.result.categories;
+
+	const articles = data.result.articles;
+	// console.log(categories);
+	// console.log(articles);
+
+	interface Item {
+		title: string;
+		categories: string;
+	}
+
+	const sortByFrequency = (items: Item[]) => {
+		const categoryCounts = new Map<string, number>();
+
+		// Count the frequency of each category
+		items.forEach(item => {
+			const categories = item.categories.split(', ');
+			categories.forEach(category => {
+				const count = categoryCounts.get(category) || 0;
+				categoryCounts.set(category, count + 1);
+			});
+		});
+		return categoryCounts;
+	};
+
+	const sortMapDescending = (map: Map<string, number>): Map<string, number> => {
+		const sortedEntries = Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
+		return new Map(sortedEntries);
+	};
+
+	const sortCategories = (items: Item[]): Array<{id: string; frequency: number}> => {
+		const byFrequency = sortByFrequency(items);
+		const byDescending = sortMapDescending(byFrequency);
+		const asArray = Array.from(byDescending, ([id, frequency]) => ({id, frequency}));
+		return asArray;
+	};
+
+	const sortedArticlesByCategory = sortCategories(articles);
+
+	const createCategorySections = (
+		categories: Array<{description: string; id: string; title: string}>,
+		sortedCategories: Array<{id: string; frequency: number}>
+	) => {
+		const categorySections = sortedCategories.map(category => {
+			const existingCategories = categories.find(element => {
+				if (category.id === element.id) {
+					return element;
+				} else {
+					return null;
+				}
+			});
+
+			if (existingCategories === undefined) {
+				return null;
+			} else {
+				return existingCategories;
+			}
+		});
+		return categorySections;
+	};
+
+	const categorySection = createCategorySections(categories, sortedArticlesByCategory);
 
 	const divStyle = {
 		backgroundImage:
@@ -155,40 +227,49 @@ const Page = async (): Promise<JSX.Element> => {
 				<div className="grid grid-cols-12">
 					<Sidebar content={data.result.content} uri={meta.uri}></Sidebar>
 					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 md:px-8 mt-4">
-						<article key={'article'} className="flex flex-col mt-8 gap-12">
+						<article key={'article'} className="flex flex-col mt-8 gap-16">
 							{'highlightArticles' in data.result &&
 							Array.isArray(data.result.highlightArticles) ? (
-								<Highlights highlights={data.result.highlightArticles}></Highlights>
+								<Highlights
+									categories={categories}
+									highlights={data.result.highlightArticles}
+								></Highlights>
 							) : null}
 							<section>
-								<div>
-									<h2 className="mb-6">Kategorien</h2>
-									<div>
-										<p>Suche nach interessanten Artikeln: </p>
-										<div>Search</div>
-									</div>
-								</div>
-								<div>
-									<h3>Arduino</h3>
-									<p>
-										Arduino wird für Projekte mit Hardware genutzt. Du kannst in kurzer Zeit viele
-										Ideen prototypisch umsetzen und Dinge zum Anfassen bauen.
-									</p>
-									<ButtonLink href="">
-										<p>Zu Arduino</p>
-									</ButtonLink>
-								</div>
+								<h2 className="mb-6">Kategorien</h2>
+								{categorySection.map(category => {
+									if (category !== null) {
+										return (
+											<div key={category.id}>
+												<div className="flex flex-col gap-6 md:flex-row justify-between py-8">
+													<div className="flex flex-col gap-2">
+														<h3>{category.title}</h3>
+														<p>{category.description}</p>
+													</div>
+													<ButtonLink href={`/category/${slugify(category.title)}`}>
+														<p>{category.title}</p>
+													</ButtonLink>
+												</div>
+												<hr className="w-full border-light-gray" />
+											</div>
+										);
+									}
+								})}
 							</section>
 							<section>
-								<div className="mb-4 bg-light-gray px-5 py-8" style={divStyle}>
-									<h3 className="text-xl mb-2">Interesse an der HfG zu studieren?</h3>
-									<div className="flex flex-col md:flex-row justify-between gap-6">
+								<div className="flex flex-col gap-4 mb-4 px-5 py-8 bg-light-gray " style={divStyle}>
+									<h3 className="text-xl">Interesse an der HfG zu studieren?</h3>
+									<div className="flex flex-col lg:flex-row justify-between gap-6 lg:gap-16">
 										<p>
-											Arduino wird für Projekte mit Hardware genutzt. Du kannst in kurzer Zeit viele
-											Ideen prototypisch umsetzen und Dinge zum Anfassen bauen.
+											Du möchtest Design studieren? Dann findest du hier alle Infos rund um die
+											Bewerbung.
 										</p>
-										<ButtonLink href="" dark={true} external={true}>
-											<p>Zur HfG Website</p>
+										<ButtonLink
+											href="https://www.hfg-gmuend.de/bewerben"
+											dark={true}
+											external={true}
+										>
+											<p>Bewerben</p>
 										</ButtonLink>
 									</div>
 								</div>
@@ -197,7 +278,7 @@ const Page = async (): Promise<JSX.Element> => {
 						</article>
 					</div>
 				</div>
-				<Footer></Footer>
+				{/* <Footer></Footer> */}
 			</Container>
 		</>
 	);
