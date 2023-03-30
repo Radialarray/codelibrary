@@ -236,14 +236,14 @@ const Page = async (): Promise<JSX.Element> => {
 								></Highlights>
 							) : null}
 							<section>
-								<h2 className="mb-6">Kategorien</h2>
+								<h2 className="text-3xl mb-6">Kategorien</h2>
 								{categorySection.map(category => {
 									if (category !== null) {
 										return (
 											<div key={category.id}>
 												<div className="flex flex-col gap-6 md:flex-row justify-between py-8">
 													<div className="flex flex-col gap-2">
-														<h3>{category.title}</h3>
+														<h3 className="text-2xl">{category.title}</h3>
 														<p>{category.description}</p>
 													</div>
 													<ButtonLink href={`/category/${slugify(category.title)}`}>

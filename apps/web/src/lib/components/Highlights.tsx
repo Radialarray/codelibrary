@@ -17,7 +17,7 @@ const Highlights = ({categories, highlights}: Props): JSX.Element | null => {
 
 		return (
 			<section>
-				<h2 className="mb-6">Highlights</h2>
+				<h2 className="text-3xl mb-6">Highlights</h2>
 				<div className="flex flex-wrap gap-6 w-full">{cards}</div>
 			</section>
 		);
