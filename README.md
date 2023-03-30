@@ -10,7 +10,7 @@
    2. Docker + Docker-compose
 5. DevChain
    1. TailwindCSS + Postcss
-   2. Turbo Monorepo
+   2. Typescript
    3. Commitlint & Commitizen
    4. Prettier
    5. Changelog
@@ -52,10 +52,6 @@ The backend is a standard kirby instance, which could be hosted on a server with
 
 The frontend is a static webapp which could be hosted nearly everywhere. Right now there is some stuff set up for hosting on [vercel](vercel.com).
 
-### //Turbocache (not used anymore)
-
-The whole repository is equipped with turbocache caching for faster build times. So please use it. By using the root level package.json commands, everything will work out of the box.
-
 ### PNPM
 
 Using this package manager for faster install times and cached packages.
@@ -65,7 +61,7 @@ How to use? `pnpm run <YOUR_COMMAND>`.
 ## Features
 
 - [x] TailwindCSS
-  - [ ] Global styles
+  - [x] Global styles
 - [x] PostCSS
 - [x] React & NextJS
 - [ ] Git branches for
@@ -73,10 +69,10 @@ How to use? `pnpm run <YOUR_COMMAND>`.
   - [ ] Staging (Main?)
   - [ ] Production
 - [ ] Github Actions Autodeploy
-- [ ] Static hosting
+- [x] Static hosting
 - [ ] KirbyCMS
-  - [ ] As headless CMS
-  - [ ] Visual Block editor
+  - [x] As headless CMS
+  - [x] Visual Block editor
     - [ ] Different blocks for entry types
 - [x] Commitizen & commitlint commit enforcement
 - [x] Environment variables via .env config
@@ -99,10 +95,4 @@ How to use? `pnpm run <YOUR_COMMAND>`.
 - [ ] Motion One for animations
 - [ ] Realtime comments via Yjs CRDT (is this possible?)
 - [ ] Testing → Jest or something else
-- [ ] Global search with command-k
-
-## Additional tools and build setup
-
-- [ ] Remote Production Server
-- [ ] Automatic image size optimization
-  - [ ] Maybe something like _imgproxy_
+- [x] Global search with command-k
