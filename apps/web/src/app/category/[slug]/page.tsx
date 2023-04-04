@@ -170,11 +170,12 @@ const Page = async ({
 	) {
 		const findings = findElementByValue(categories.result, searchParams.categoryid);
 
-		const categoryDescription: {description: string; id: string; title: string} = findings as {
-			description: string;
-			id: string;
-			title: string;
-		};
+		const categoryDescription: {description: string; id: string; title: string} =
+			findings as unknown as {
+				description: string;
+				id: string;
+				title: string;
+			};
 
 		const articles = data.result?.data.filter(article => {
 			if (article.categories === searchParams.categoryid) {

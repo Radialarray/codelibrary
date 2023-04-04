@@ -14,7 +14,7 @@ const Card = ({categories, content}: Props) => {
 		category && Array.isArray(category) ? findElementByValue(categories, category[0]) : null;
 
 	return (
-		<div className="relative block p-1 hover:shadow-xl transition-shadow bg-black pt-12 rounded-sm aspect-video w-72">
+		<div className="relative block p-1 outline outline-2 outline-light-gray hover:shadow-xl transition-shadow bg-black pt-12 rounded-sm aspect-video w-72">
 			{content.banner ? (
 				<div className="absolute top-0 left-0 w-full h-full z-0">
 					<NextImage

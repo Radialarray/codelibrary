@@ -21,7 +21,7 @@ export const sanitize = (dirty: string, options?: object) => ({
  * @param value
  * @returns
  */
-export const findElementByValue = (arr: unknown[], value: unknown) => {
+export const findElementByValue = (arr: any, value: any) => {
 	if (!Array.isArray(arr)) return null;
 	for (let i = 0; i < arr.length; i++) {
 		const objValues = Object.values(arr[i]);

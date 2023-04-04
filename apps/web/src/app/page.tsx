@@ -136,7 +136,7 @@ const Page = async (): Promise<JSX.Element> => {
 
 	const categories = 'categories' in data.result ? data.result.categories : {};
 
-	const articles = 'articles' in data.result ? data.result.articles : {};
+	const articles = 'articles' in data.result ? data.result.articles : [];
 
 	interface Item {
 		title: string;
@@ -169,7 +169,7 @@ const Page = async (): Promise<JSX.Element> => {
 		return asArray;
 	};
 
-	const sortedArticlesByCategory = sortCategories(articles);
+	const sortedArticlesByCategory = sortCategories(articles as Item[]);
 
 	const createCategorySections = (
 		categories: Array<{description: string; id: string; title: string}>,
@@ -193,7 +193,10 @@ const Page = async (): Promise<JSX.Element> => {
 		return categorySections;
 	};
 
-	const categorySection = createCategorySections(categories, sortedArticlesByCategory);
+	const categorySection = createCategorySections(
+		categories as Array<{description: string; id: string; title: string}>,
+		sortedArticlesByCategory
+	);
 
 	const divStyle = {
 		backgroundImage:
@@ -229,7 +232,7 @@ const Page = async (): Promise<JSX.Element> => {
 							{'highlightArticles' in data.result &&
 							Array.isArray(data.result.highlightArticles) ? (
 								<Highlights
-									categories={categories}
+									categories={categories as []}
 									highlights={data.result.highlightArticles}
 								></Highlights>
 							) : null}
