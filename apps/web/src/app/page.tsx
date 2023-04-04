@@ -246,7 +246,9 @@ const Page = async (): Promise<JSX.Element> => {
 														<h3 className="text-2xl">{category.title}</h3>
 														<p>{category.description}</p>
 													</div>
-													<ButtonLink href={`/category/${slugify(category.title)}`}>
+													<ButtonLink
+														href={`/category/${slugify(category.title)}/?categoryid=${category.id}`}
+													>
 														<p>{category.title}</p>
 													</ButtonLink>
 												</div>
