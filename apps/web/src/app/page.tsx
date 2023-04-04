@@ -134,11 +134,9 @@ const Page = async (): Promise<JSX.Element> => {
 
 	const meta = data.result.meta;
 
-	const categories = data.result.categories;
+	const categories = 'categories' in data.result ? data.result.categories : {};
 
-	const articles = data.result.articles;
-	// console.log(categories);
-	// console.log(articles);
+	const articles = 'articles' in data.result ? data.result.articles : {};
 
 	interface Item {
 		title: string;
