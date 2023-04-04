@@ -73,7 +73,7 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
 			<head></head>
 			<body>
 				{children}
-				{'footer' in data.result && data.result?.footer ? (
+				{data.result && 'footer' in data.result && data.result?.footer ? (
 					<Footer items={data.result.footer}></Footer>
 				) : null}
 			</body>
