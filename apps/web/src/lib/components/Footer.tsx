@@ -21,7 +21,7 @@ const Footer = ({items}: Props) => {
 										);
 									} else {
 										return (
-											<Link key={item.id} href={item.url}>
+											<Link key={item.id} href={new URL(item.url).pathname}>
 												{item.text}
 											</Link>
 										);
