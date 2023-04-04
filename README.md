@@ -32,6 +32,21 @@ This project is stored as a monorepo. In the apps folder are two different folde
 6. Run `docker-compose build`.
 7. Go to `apps/web/` and run `npm i`.
 
+---
+
+### Then copy the `.env` files and change the values:
+
+#### CMS (Kirby): Copy `.env.example` to `.env`
+
+`BACKEND_URL` -> the complete url to your cms (e.g. <https://cms.dev>)
+`FRONTEND_URL` -> the url to your frontend application.
+
+#### Web (Next): Copy `.env.local.example` to `.env.local`
+
+`API_IMAGE_HOST` -> Used from nextjs to get your images (e.g. <cms.dev>). Don't add _https_
+`API_HOST` -> The link to the api endpoint. (e.g. <cms.dev/api/query>)
+`API_USERNAME` & `API_PASSWORD` -> A valid kirby username with password.
+
 ## Development
 
 ### Backend
@@ -46,11 +61,11 @@ Run `npm run dev` and open the devserver on [localhost:3000](localhost:3000).
 
 ### Backend
 
-The backend is a standard kirby instance, which could be hosted on a server with php support. Or one could use the docker-compose setup + the custom dockerimage and deploy it on a container environment.
+The backend is a standard kirby instance, which could be hosted on a server with php support. Or one could use the docker-compose setup + the custom dockerimage and deploy it in a container environment.
 
 ### Frontend
 
-The frontend is a static webapp which could be hosted nearly everywhere. Right now there is some stuff set up for hosting on [vercel](vercel.com).
+The frontend is a NodeJS webapp. Right now there is some stuff set up for hosting on [vercel](vercel.com) and as a docker container.
 
 ### PNPM
 
@@ -70,17 +85,16 @@ How to use? `pnpm run <YOUR_COMMAND>`.
   - [ ] Production
 - [ ] Github Actions Autodeploy
 - [x] Static hosting
-- [ ] KirbyCMS
+- [x] KirbyCMS
   - [x] As headless CMS
   - [x] Visual Block editor
-    - [ ] Different blocks for entry types
 - [x] Commitizen & commitlint commit enforcement
 - [x] Environment variables via .env config
 - [x] Code formatting via Prettier
   - For enforced coding style
 - [x] JS linting via ESlint
 - [x] Githooks via Husky
-  - [ ] Pre-commit
+  - [x] Pre-commit
     - [x] Prettier
     - [x] Commitizen commit style enforcement
 - [ ] Automatic Sitemap generation
@@ -88,11 +102,4 @@ How to use? `pnpm run <YOUR_COMMAND>`.
 - [ ] Example content in repository
   - [ ] Production environment exchanges the API endpoints
 - [ ] Gzip Compression
-
-## Backlog (Maybe)
-
-- [ ] Semantic Releases
-- [ ] Motion One for animations
-- [ ] Realtime comments via Yjs CRDT (is this possible?)
-- [ ] Testing → Jest or something else
 - [x] Global search with command-k
