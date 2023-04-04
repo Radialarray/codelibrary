@@ -13,7 +13,7 @@ Copy plugin files to your plugin's directory. Use the following blueprint anywhe
 ## Kirby compatibility table
 
 | Kirby version | Compatible plugin version |
-| :------------ | :------------------------ |
+|:--------------|:--------------------------|
 | ^3.7          | ^3.0                      |
 | ^3.6          | ^2.0                      |
 | ^3.5          | ^1.0                      |
@@ -42,17 +42,17 @@ If using the site as a headless CMS or would like to consume your menu in JS you
 
 ```php
 <?php $site->navigation()->toNavigationArray(); ?>
-```
+ ```
 
 Or when using Kirby Query language
 
 ```json
 {
-	"query": "site",
-	"select": {
-		"title": "site.title",
-		"navigation": "site.navigation.toNavigationArray"
-	}
+  "query": "site",
+  "select": {
+    "title": "site.title",
+    "navigation": "site.navigation.toNavigationArray"
+  }
 }
 ```
 

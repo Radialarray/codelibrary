@@ -7,9 +7,7 @@ interface Props {
 }
 
 function Container({children, className}: Props) {
-	return (
-		<main className={`container mx-auto mb-12 ${className ? className : ''}`}>{children}</main>
-	);
+	return <main className={`mx-auto pb-12 relative ${className ? className : ''}`}>{children}</main>;
 }
 
 export default Container;

@@ -1,41 +1,67 @@
 import {MouseEventHandler} from 'react';
 import {Command} from 'cmdk';
 import {motion} from 'framer-motion';
-import {MagnifyingGlassIcon, FileTextIcon} from '@radix-ui/react-icons';
 import Link from 'next/link';
 import {useSnapshot} from 'valtio';
-import {searchStore} from 'lib/stores/searchStore';
-
+import {closeSearchOverlay, searchStore} from 'lib/stores/searchStore';
+import NextImage from 'next/image';
 interface Props {
 	closeOverlay: MouseEventHandler;
-	searchItems: SearchItem[];
+	// searchItems: SearchItem[];
+	currentPage: string;
+	// searchItems: {
+	// 	children: [];
+	// 	searchGlobal: [];
+	// 	searchAll: [];
+	// };
+	searchItems: MetaInfo['search'];
 }
 
-const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
+const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Element => {
 	const snap = useSnapshot(searchStore);
-	console.log(snap);
 
-	const groupStyle = `select-none text-sm text-slate-400 mt-4`;
-	const itemStyle = `cursor-pointer h-10 text-md flex items-center gap-2 px-2  text-black select-none will-change-auto transition-all duration-150 rounded-md`;
+	const handleLinkClick = () => {
+		closeSearchOverlay();
+	};
 
-	// console.log(searchItems);
-	const listItems = searchItems.map(item => {
-		const url = new URL(item.url);
+	const groupStyle = `select-none text-sm text-gray mt-4`;
+
+	const createSearchSection = (items: SearchItem[]): JSX.Element[] => {
+		const list = items.map(item => {
+			const url = new URL(item.url);
+			return (
+				<Command.Item
+					key={item.id}
+					className="cursor-pointer h-10 text-base flex items-center gap-2 px-2 text-black select-none will-change-auto transition-all duration-150 rounded-sm hover:bg-light-gray aria-selected:bg-light-gray"
+				>
+					<Link
+						href={url.pathname}
+						className="flex items-center w-full h-full"
+						onClick={handleLinkClick}
+					>
+						<NextImage src="/document.svg" alt="Document Icon" width="24" height="24"></NextImage>
+						<div>
+							<span className="pl-2 text-slate-500">Go to </span>
+							<span className="text-black">{item.title}</span>
+						</div>
+						<NextImage
+							src="/arrow.svg"
+							alt="Arrow Icon"
+							width="18"
+							height="18"
+							className="ml-2"
+						></NextImage>
+					</Link>
+				</Command.Item>
+			);
+		});
+
+		return list;
+	};
+
+	if (snap.status === 'open') {
 		return (
-			<Command.Item key={item.id} className={itemStyle}>
-				<Link href={url.pathname} className="flex items-center">
-					<FileTextIcon></FileTextIcon>
-					<div>
-						<span className="pl-2 text-slate-500">Go to </span>
-						<span className="text-blue-500">{item.title}</span>
-					</div>
-				</Link>
-			</Command.Item>
-		);
-	});
-
-	if (searchStore.status === 'open') {
-		return (
+			// TODO: Mobile size responsive
 			<div
 				className="z-40 fixed left-0 top-0  w-full h-full backdrop-blur-lg transition-all duration-150"
 				data-overlay-wrapper
@@ -51,32 +77,46 @@ const SearchOverlay = ({closeOverlay, searchItems}: Props): JSX.Element => {
 					exit={{opacity: 0}}
 					transition={{duration: 0.3}}
 					data-overlay-wrapper
-					className="fixed left-0 top-0 w-full h-full grid grid-cols-3 grid-rows-3 items-center"
+					className="fixed left-0 top-0 w-full h-full mx-auto flex flex-col justify-center"
 				>
-					<Command className="relative z-50 m-auto w-full max-w-2xl bg-white rounded-xl  shadow-2xl px-2 col-start-2 col-span-1 row-start-2 row-span-1 ">
+					<Command className="relative z-50 m-auto w-full max-w-2xl bg-white rounded-sm  shadow-2xl p-4 col-start-2 col-span-1 row-start-2 row-span-1 outline outline-1 outline-black">
+						<div className="bg-light-gray w-min px-3 py-1 text-sm text-gray">{currentPage}</div>
 						<div className="flex items-center">
-							<MagnifyingGlassIcon></MagnifyingGlassIcon>
+							{/* <SearchIcon></SearchIcon> */}
 							<Command.Input
-								className="border-none w-full text-lg px-2 py-4 outline-none bg-transparent text-slate-600 placeholder:text-slate-400"
+								className="border-none w-full text-lg px-2 pt-4 pb-2 outline-none bg-transparent text-black placeholder:text-gray"
 								autoFocus
 								placeholder="Type a command or search..."
 							/>
 						</div>
-						<hr className="w-full border border-slate-300 mb-3" />
+						<hr className="w-full border border-light-gray mb-3" />
 
 						<Command.List className="pb-4 h-64 overflow-y-scroll">
 							{/* {loading && <Command.Loading>Hang on…</Command.Loading>} */}
 
 							<Command.Empty>No results found.</Command.Empty>
 
-							<Command.Group heading="Kategorien" className={groupStyle}>
+							{searchItems.children && searchItems.children.length > 0 ? (
+								<Command.Group heading="Auf dieser Seite" className={groupStyle}>
+									{createSearchSection(searchItems.children)}
+								</Command.Group>
+							) : null}
+							<Command.Group heading="Global" className={groupStyle}>
+								{createSearchSection(searchItems.global)}
+							</Command.Group>
+
+							<Command.Group heading="Alle Seiten" className={groupStyle}>
+								{createSearchSection(searchItems.all)}
+							</Command.Group>
+
+							{/* <Command.Group heading="Kategorien" className={groupStyle}>
 								<Command.Item className={itemStyle}>
 									<FileTextIcon></FileTextIcon>Apple
 								</Command.Item>
-							</Command.Group>
-							<Command.Group heading="Links" className={groupStyle}>
+							</Command.Group> */}
+							{/* <Command.Group heading="Links" className={groupStyle}>
 								{listItems}
-							</Command.Group>
+							</Command.Group> */}
 						</Command.List>
 					</Command>
 				</motion.div>

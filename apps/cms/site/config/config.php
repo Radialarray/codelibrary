@@ -16,12 +16,11 @@ loadenv([
 ]);
 
 
-
 return [
   // 'url' => ['https://' . env('BACKEND_HOST')],
-  'url' => '*',
-  'debug' => filter_var(env('KIRBY_DEBUG', false), FILTER_VALIDATE_BOOLEAN),
-
+  'url' => env('BACKEND_URL'),
+  'frontendUrl' => env('FRONTEND_URL'),
+  'debug' => filter_var(env('KIRBY_DEBUG', true), FILTER_VALIDATE_BOOLEAN),
   //------------ Panel ------------
   'panel' => [
     'language' => 'en',

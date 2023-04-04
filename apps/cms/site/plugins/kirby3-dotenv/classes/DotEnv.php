@@ -7,6 +7,7 @@ namespace Bnomei;
 use Dotenv\Exception\InvalidPathException;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\F;
+
 use function getenv;
 use function option;
 
@@ -91,11 +92,11 @@ final class DotEnv
         return self::$singleton->isLoaded();
     }
 
-    public static function getenv(string $env)
+    public static function getenv(string $env, mixed $default = null)
     {
         if (! self::$singleton) {
             self::load();
         }
-        return A::get($_ENV, $env, null);
+        return A::get($_ENV, $env, $default);
     }
 }

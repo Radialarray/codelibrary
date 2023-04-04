@@ -1,0 +1,10 @@
+name: Callout
+icon: wand
+wysiwyg: true
+preview: callout
+fields:
+  text:
+    label: Callout Text
+    type: writer
+    inline: true
+    placeholder: your tip goes here …

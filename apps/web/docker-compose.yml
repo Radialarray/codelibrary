@@ -1,14 +1,18 @@
-version: '3.7'
-
+version: '3.8'
 services:
+  # Frontend NextJS
   web:
-    container_name: web
+    container_name: codelibrary_web
     build:
       context: .
-      dockerfile: ./Dockerfile
-    volumes:
-      - .:/app
-      - /app/node_modules
-    restart: always
+      dockerfile: Dockerfile
+      args:
+        API_IMAGE_HOST: ${API_IMAGE_HOST}
+        API_HOST: ${API_HOST}
+        API_USERNAME: ${API_USERNAME}
+        API_PASSWORD: ${API_PASSWORD}
+    env_file:
+      - .env
+    restart: unless-stopped
     ports:
       - 3000:3000

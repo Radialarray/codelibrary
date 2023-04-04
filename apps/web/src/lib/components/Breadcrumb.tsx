@@ -1,48 +1,83 @@
-import {HomeIcon, CaretRightIcon} from '@radix-ui/react-icons';
+import {Home as HomeIcon, ChevronRight as ChevronRightIcon} from 'react-feather';
 import Link from 'next/link';
+import {ReactNode} from 'react';
 
 interface Props {
-	url: string;
+	uri: string;
 }
 
-const Breadcrumb = ({url}: Props): JSX.Element => {
-	const urlDecomposed = new URL(url);
+const Breadcrumb = ({uri}: Props): JSX.Element => {
+	// 	const createCrumbs = (uri:String) => {
+	// 		if (uri && uri.length > 0) {
+	// 			const subPaths = uri.split('/');
+	// 			let lastItem = '';
 
-	const subPaths = urlDecomposed.pathname.split('/');
+	// 			const paths = subPaths.map(subPath => {
+	// 				const path = lastItem + subPath + '/';
+	// 				lastItem = path;
+	// 				const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
+	// // 				const pathItem = {
+	// // link: path,
+	// // 					linkText: linkText
+	// // 				}
+	// 				// return  pathItem;
+	// 			}
 
-	let lastItem = '';
-	const crumbs = subPaths.map(subPath => {
-		const path = lastItem + subPath + '/';
-		lastItem = path;
-		const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
+	// 				return paths;
+	// 		} else {
+	// 			return null;
+	// 		}
+	// 	};
 
-		return subPath.length ? (
-			<>
-				<li key={`caret${path}`}>
-					<CaretRightIcon></CaretRightIcon>
-				</li>
-				<li key={path.toString()}>
-					<Link href={path} className="block transition hover:text-gray-700">
-						{linkText}
-					</Link>
-				</li>
-			</>
-		) : (
-			''
-		);
-	});
+	const createCrumbs = () => {
+		if (uri && uri.length > 0) {
+			const subPaths = uri.split('/');
+			let lastItem = '';
+
+			const paths = subPaths.map(subPath => {
+				const path = lastItem + subPath + '/';
+				lastItem = path;
+
+				const linkText = subPath.charAt(0).toUpperCase() + subPath.slice(1);
+				const pathItem = {
+					link: path,
+					linkText: linkText
+				};
+				return pathItem;
+			});
+			return paths;
+		} else {
+			return null;
+		}
+	};
+
+	const crumbs = createCrumbs();
 
 	return (
 		<nav aria-label="Breadcrumb">
-			<ol key={'breadcrumb'} role="list" className="flex items-center gap-1 text-sm text-gray-600">
-				<li key={'pathhome'}>
-					<Link href="/" className="block transition hover:text-gray-700">
+			<ul role="list" className="flex flex-row items-center gap-1 text-sm text-gray-600">
+				<li className="w-4" key={'home'}>
+					<Link href="/" className="block transition hover:text-gray-700 min-w-fit">
 						<span className="sr-only"> Home </span>
-						<HomeIcon></HomeIcon>
+						<HomeIcon className="w-4"></HomeIcon>
 					</Link>
 				</li>
-				{crumbs}
-			</ol>
+				{crumbs
+					? crumbs.map(crumb => {
+							return (
+								<li
+									className="min-w-max flex justify-between items-center"
+									key={crumb.link.toString()}
+								>
+									<ChevronRightIcon className="w-4 mx-1"></ChevronRightIcon>
+									<Link href={`/${crumb.link}`} className="block transition hover:text-gray-700">
+										{crumb.linkText}
+									</Link>
+								</li>
+							);
+					  })
+					: null}
+			</ul>
 		</nav>
 	);
 };

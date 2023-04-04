@@ -10,43 +10,33 @@ interface KQLRequest {
 }
 
 interface KQLRequestOptions {
-	method: 'post';
-	data: KQLRequestBody;
+	method: 'POST';
+	body: KQLRequestBody | object;
 	redirect: 'follow';
 }
 
 interface KQLRequestBody {
 	query: string;
-	select: {
+	select?: {
 		url: true;
+		uri: true;
 		title: true;
+		id: true;
 		navigation: 'site.navigation.toNavigationArray';
 		courses?: boolean;
 		codelanguages?: boolean;
 		level?: boolean;
 		categories?: boolean;
-		headline?: boolean;
+		// headline?: boolean;
 		intro?: boolean;
-		content: 'page.content.main';
+		content: 'page.content.main.addImagePathsToLayout';
 		images: {
 			query: 'page.images';
 			select: {
 				url: true;
 				filename: true;
 				dimensions: true;
-			};
-		};
-		search: {
-			query: 'site.children';
-			select: {
-				url: true;
-				title: true;
-				courses: true;
-				codelanguages: true;
-				level: true;
-				categories: true;
-				headline: true;
-				id: true;
+				alt: 'file.alt.kirbytext';
 			};
 		};
 	};
@@ -56,25 +46,16 @@ interface KQLRequestBody {
 interface KQLResponse {
 	code: number;
 	result: {
-		url: string;
-		title: string;
-		navigation: NavItem[];
-		courses?: string;
-		codelanguages?: string;
-		level?: string;
-		categories?: string;
-		headline?: string;
-		intro?: string;
-		content: string;
+		meta: MetaInfo;
+		content: Page['content'];
 		images: Image[];
-		search: [];
 	};
 	status: string;
 }
 
 interface Page {
 	meta: MetaInfo | string;
-	content: Block[] | Layout[] | string;
+	content: Block[] | Layout[] | null;
 	images: Image[] | string;
 }
 
@@ -139,7 +120,8 @@ interface VideoContent {
 }
 
 interface GalleryContent {
-	images: Block[];
+	// images: Block[];
+	images: string[];
 }
 
 interface KQLGalleryBlock {
@@ -162,22 +144,37 @@ interface NavItem {
 	url: string;
 	text: string;
 	title: string;
-	popup: string;
-	isOpen: string;
+	popup: boolean;
+	isOpen: boolean;
 	children: array<object>;
 }
 
 interface MetaInfo {
 	url: string;
+	uri: string;
 	title: string;
 	navigation: Array<NavItem>;
-	search: Array;
+	footer: Array<NavItem>;
+	search: {
+		children: Array<SearchItem>;
+		global: Array<SearchItem>;
+		all: Array<SearchItem>;
+	};
+	summary: string;
 	courses: string;
 	codeLanguages: string;
 	level: string;
 	categories: string;
-	headline: string;
-	intro: string;
+	id: string;
+	author: string;
+	modified: string;
+	banner: {
+		id: string;
+		url: string;
+		width: number;
+		height: number;
+		filename: string;
+	};
 }
 
 interface Layout {
@@ -194,11 +191,26 @@ interface Layout {
 
 interface SearchItem {
 	url: URL;
+	uri: string;
 	title: string;
 	courses: string;
 	codelanguages: string;
 	level: string;
 	categories: string;
-	headline: string;
+	// headline: string;
 	id: string;
+}
+
+interface Highlight {
+	uri: string;
+	title: string;
+	highlight: string;
+	banner: null | {
+		id: string;
+		url: string;
+		width: number;
+		height: number;
+	};
+	id: string;
+	categories: string;
 }

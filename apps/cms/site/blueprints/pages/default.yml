@@ -1,5 +1,9 @@
 title: Default Page
 
+options:
+  preview: "{{ kirby.option('frontendUrl') }}/{{ page.uri }}"
+
+
 columns:
   main:
     width: 2/3
@@ -15,7 +19,7 @@ columns:
     sections:
       pages:
         type: pages
-        template: default
+        template: layout
       files:
         type: files
 

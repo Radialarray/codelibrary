@@ -1,5 +1,7 @@
-import dynamic from 'next/dynamic';
+'use client';
 
+import dynamic from 'next/dynamic';
+// import ReactPlayer from 'react-player/lazy';
 // Dynamic import so that no render mismatch happens, because reactplayer uses window right now, so no serverside rendering for this component.
 const ReactPlayer = dynamic(() => import('react-player/lazy'), {ssr: false});
 

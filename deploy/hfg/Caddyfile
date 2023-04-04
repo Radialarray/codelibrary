@@ -1,7 +1,0 @@
-:80 {
-	root * /srv
-  encode gzip
-  tls internal
-  file_server
-  php_fastcgi cms_php_fpm:9000
-}

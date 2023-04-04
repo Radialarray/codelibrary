@@ -1,7 +1,0 @@
-localhost, {$BACKEND_HOST} {
-	root * /srv
-  encode gzip
-  tls internal
-  file_server
-  php_fastcgi php-fpm:9000
-}

@@ -9,3 +9,7 @@ export const searchStore = proxy<{status: Status}>({
 export const toggleSearchOverlay = (nextStatus: Status) => {
 	searchStore.status = nextStatus;
 };
+
+export const closeSearchOverlay = () => {
+	searchStore.status = 'closed';
+};

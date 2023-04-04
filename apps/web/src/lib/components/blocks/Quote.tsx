@@ -2,17 +2,17 @@ import {sanitize} from '../../helper/helper';
 
 /**
  * Creates a JSX.Element from a quote block.
- * @param {Block} x
+ * @param {Block} props
  * @returns {JSX.Element}
  */
-const Quote = (x: Block): JSX.Element => {
+const Quote = (props: Block): JSX.Element => {
 	return (
-		<figure key={x.id}>
+		<figure key={props.id}>
 			<blockquote
-				cite={(x.content as QuoteContent).citation}
-				dangerouslySetInnerHTML={sanitize((x.content as QuoteContent).text)}
+				cite={(props.content as QuoteContent).citation}
+				dangerouslySetInnerHTML={sanitize((props.content as QuoteContent).text)}
 			></blockquote>
-			<figcaption>{(x.content as QuoteContent).citation}</figcaption>
+			<figcaption>{(props.content as QuoteContent).citation}</figcaption>
 		</figure>
 	);
 };

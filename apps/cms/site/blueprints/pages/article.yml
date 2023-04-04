@@ -2,7 +2,7 @@ title: Single-Column Page
 
 
 options:
-  preview: "{{ page.frontendUrl }}"
+  preview: "{{ kirby.option('frontendUrl') }}/{{ page.uri }}"
 
 
 columns:
@@ -12,10 +12,10 @@ columns:
       content:
         type: fields
         fields:
-          headline:
-            type: text
-            placeholder: '{{ page.title }}'
-            help: Leave empty to use the title as headline.
+          # headline:
+          #   type: text
+          #   placeholder: '{{ page.title }}'
+          #   help: Leave empty to use the title as headline.
           intro:
             type: text
             help: Insert your intro paragraph here.

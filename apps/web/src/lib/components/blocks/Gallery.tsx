@@ -1,6 +1,7 @@
+'use client';
+import NextImage from 'next/image';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import Image from './Image';
-import 'swiper/css';
+import 'swiper/swiper.css';
 
 /**
  * Creates a JSX.Element from a gallery block.
@@ -10,17 +11,14 @@ import 'swiper/css';
 const Gallery = (props: Block): JSX.Element => {
 	const slides = (props.content as GalleryContent).images.map(image => {
 		return (
-			<SwiperSlide key={image.id}>
-				{
-					// eslint-disable-next-line jsx-a11y/alt-text
-					<Image {...image}></Image>
-				}
+			<SwiperSlide key={image}>
+				<NextImage src={image} alt={image} width="300" height="300" />
 			</SwiperSlide>
 		);
 	});
 
 	return (
-		<Swiper key={props.id} spaceBetween={50} slidesPerView={3}>
+		<Swiper key={props.id} spaceBetween={10} slidesPerView={5}>
 			{slides}
 		</Swiper>
 	);

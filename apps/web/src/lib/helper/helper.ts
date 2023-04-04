@@ -1,14 +1,10 @@
-import * as R from 'ramda';
-import DOMPurify from 'isomorphic-dompurify';
-
-export const pipeWhileNotNil = R.pipeWith((f, res) => (R.isNil(res) ? res : f(res)));
+import sanitizeHtml from 'sanitize-html';
 
 // Dompurify Options
-const dompurifyDefaultOptions = {
-	ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'code', 'li', 'br', 'p'],
-	ALLOWED_ATTR: ['href']
+const sanitizeDefaultOptions = {
+	allowedTags: ['b', 'i', 'em', 'strong', 'a', 'code', 'li', 'br', 'p'],
+	allowedAttributes: {a: ['href']}
 };
-
 /**
  * Given dirty html, returns sanitized html.
  * @param dirty
@@ -16,14 +12,36 @@ const dompurifyDefaultOptions = {
  * @returns
  */
 export const sanitize = (dirty: string, options?: object) => ({
-	__html: DOMPurify.sanitize(dirty, {...dompurifyDefaultOptions, ...options})
+	__html: sanitizeHtml(dirty, {...sanitizeDefaultOptions, ...options})
 });
 
 /**
- * Checks if value empty, if yes, make it null, else take the given value.
+ * Finds elements in an array and returns them.
+ * @param arr
+ * @param value
+ * @returns
  */
-export const ifEmpty = R.ifElse(
-	R.isEmpty,
-	() => null,
-	x => x
-);
+export const findElementByValue = (arr: unknown[], value: unknown) => {
+	if (!Array.isArray(arr)) return null;
+	for (let i = 0; i < arr.length; i++) {
+		const objValues = Object.values(arr[i]);
+		if (objValues.includes(value)) {
+			return arr[i];
+		}
+	}
+	return null; // return null if element is not found
+};
+
+/**
+ *
+ * @param stringToSplit
+ * @returns
+ */
+export const splitString = (stringToSplit: string): string[] | null => {
+	if (stringToSplit && stringToSplit.length > 0) {
+		const splitString = stringToSplit.split(',');
+		return splitString.map(item => item.trim());
+	} else {
+		return null;
+	}
+};
