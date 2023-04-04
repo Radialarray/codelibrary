@@ -103,3 +103,8 @@ How to use? `pnpm run <YOUR_COMMAND>`.
   - [ ] Production environment exchanges the API endpoints
 - [ ] Gzip Compression
 - [x] Global search with command-k
+
+## Future
+
+- [ ] Markdown Block (already implemented, but outcommented)
+- [ ] Codeblock with interactive playground for JS code (already implemented, but outcommented)

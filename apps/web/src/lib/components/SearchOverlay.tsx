@@ -77,7 +77,7 @@ const SearchOverlay = ({closeOverlay, currentPage, searchItems}: Props): JSX.Ele
 					exit={{opacity: 0}}
 					transition={{duration: 0.3}}
 					data-overlay-wrapper
-					className="fixed left-0 top-0 w-full h-full mx-auto flex flex-col justify-center"
+					className="fixed left-0 top-0 w-full px-8 h-full mx-auto flex flex-col justify-center"
 				>
 					<Command className="relative z-50 m-auto w-full max-w-2xl bg-white rounded-sm  shadow-2xl p-4 col-start-2 col-span-1 row-start-2 row-span-1 outline outline-1 outline-black">
 						<div className="bg-light-gray w-min px-3 py-1 text-sm text-gray">{currentPage}</div>
