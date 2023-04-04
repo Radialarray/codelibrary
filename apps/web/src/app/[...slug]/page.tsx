@@ -123,9 +123,9 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 				<div className="relative">
 					<Banner home={false} meta={meta}></Banner>
 					<div className="relative mx-auto lg:max-w-5xl px-12 -mt-28">
-						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-full sm:w-min sm:min-w-[500px] p-8 flex items-end">
+						<div className="relative -ml-8 sm:-ml-16 min-h-[174px] w-fit sm:w-min sm:min-w-[500px] p-8 flex items-end">
 							<div className="absolute top-0 left-0 w-full h-full bg-black shadow-md"></div>
-							<h1 className="relative text-white">
+							<h1 className="text-5xl relative text-white">
 								{typeof meta === 'object' ? meta.title : 'Missing title'}
 							</h1>
 						</div>

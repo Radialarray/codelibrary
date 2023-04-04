@@ -22,7 +22,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h1 key={x.id} className="mt-12 mb-6">
+					<h1 key={x.id} className="text-5xl mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h1>
 				</InView>
@@ -35,7 +35,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h2 key={x.id} className="mt-12 mb-6">
+					<h2 key={x.id} className="text-3xl mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h2>
 				</InView>
@@ -48,7 +48,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h3 key={x.id} className="mt-12 mb-6">
+					<h3 key={x.id} className="text-xl mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h3>
 				</InView>
@@ -61,7 +61,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h4 key={x.id} className="mt-12 mb-6">
+					<h4 key={x.id} className="text-lg mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h4>
 				</InView>
@@ -74,7 +74,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h5 key={x.id} className="mt-12 mb-6">
+					<h5 key={x.id} className="text-base mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h5>
 				</InView>
@@ -87,7 +87,7 @@ const Heading = (x: Block): JSX.Element | null => {
 					onChange={(inView, entry) => handleInView(entry.target.id)}
 					threshold={0.5}
 				>
-					<h6 key={x.id} className="mt-12 mb-6">
+					<h6 key={x.id} className="text-base mt-12 mb-6">
 						{(x.content as TextContent).text}
 					</h6>
 				</InView>

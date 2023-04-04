@@ -35,7 +35,7 @@ const Banner = ({meta, home}: Props): JSX.Element => {
 		);
 	} else {
 		return (
-			<div className="relative w-full h-[500px]">
+			<div className="relative w-full h-[300px] md:h-[500px]">
 				<div className="absolute top-0 left-0 w-full h-full bg-highlight mix-blend-multiply"></div>
 			</div>
 		);

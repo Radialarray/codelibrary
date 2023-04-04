@@ -131,7 +131,7 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 				</div>
 
 				<div className="grid grid-cols-12">
-					<Sidebar content={data.result.content} uri={meta.uri}></Sidebar>
+					{/* <Sidebar content={data.result.content} uri={meta.uri}></Sidebar> */}
 					<div className="col-start-2 md:col-start-3 col-span-10 md:col-span-8 md:px-8 mt-4">
 						<Breadcrumb uri={meta.uri}></Breadcrumb>
 						<article key={'article'} className="flex flex-col mt-8">
@@ -142,13 +142,13 @@ const Page = async ({params}: {params: {slug: string[]}}): Promise<JSX.Element> 
 						</article>
 						{meta.search && meta.search.children && meta.search.children.length > 0 ? (
 							<nav className="mt-12">
-								<h3>Alle Kategorien</h3>
+								<h2 className="text-3xl">Alle Kategorien</h2>
 								{/* @ts-expect-error Async Server Component */}
 								<Chapters pageChildren={meta.search.children}></Chapters>
 							</nav>
 						) : null}
 					</div>
-					<SidebarMetadata meta={meta}></SidebarMetadata>
+					{/* <SidebarMetadata meta={meta}></SidebarMetadata> */}
 				</div>
 			</Container>
 		</>
