@@ -20,7 +20,7 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 	const config =
 		process.env.NODE_ENV === 'development'
 			? {
-					url: `https://${envVars.API_HOST}`,
+					url: `${envVars.API_HOST}`,
 					auth: {
 						username: envVars.API_USERNAME,
 						password: envVars.API_PASSWORD
@@ -31,7 +31,7 @@ export const requestData = async (req: KQLRequestOptions): Promise<KQLResponse> 
 					...req
 			  }
 			: {
-					url: `https://${envVars.API_HOST}`,
+					url: `${envVars.API_HOST}`,
 					auth: {
 						username: envVars.API_USERNAME,
 						password: envVars.API_PASSWORD
