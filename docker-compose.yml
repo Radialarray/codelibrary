@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  # CMS Kirby
+  php:
+    container_name: 'codelibrary_php'
+    build:
+      dockerfile: ./Dockerfile-Cms
+    restart: unless-stopped
+    volumes:
+      - ./apps/cms/assets:/srv/assets/
+      - ./apps/cms/media:/srv/media/
+      - ./apps/cms/site:/srv/site/
+      - ./apps/cms/storage:/srv/storage/
+      - ./apps/cms/index.php:/srv/index.php:ro
+      - ./apps/cms/.env:/srv/.env:ro
+    env_file:
+      - ./apps/cms/.env
+    networks:
+      - internal
+
+  codelibrary:
+    container_name: 'codelibrary_cms'
+    image: caddy:2.6.2
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - php
+    volumes:
+      - ./apps/cms/assets:/srv/assets/
+      - ./apps/cms/media:/srv/media/
+      - ./apps/cms/site:/srv/site/
+      - ./apps/cms/storage:/srv/storage/
+      - ./apps/cms/index.php:/srv/index.php:ro
+      - ./apps/cms/.env:/srv/.env:ro
+      - ./apps/cms/Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - internal
+    env_file:
+      - ./apps/cms/.env
+  # Frontend NextJS
+  web:
+    container_name: 'codelibrary_web'
+    build:
+      dockerfile: ./Dockerfile-Web
+      args:
+        API_IMAGE_HOST: ${API_IMAGE_HOST}
+        API_HOST: ${API_HOST}
+        API_USERNAME: ${API_USERNAME}
+        API_PASSWORD: ${API_PASSWORD}
+    env_file:
+      - ./apps/web/.env
+    networks:
+      - internal
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+
+networks:
+  internal:
