@@ -19,7 +19,7 @@
 	respond @blocked 403
 }
 
-{$BACKEND_URL} {
+{$BACKEND_URL}, * {
 	import common
 	import kirby
 	root * /srv

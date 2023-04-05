@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+// // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 import type {Metadata} from 'next';
 import {requestData} from 'lib/api/api';
 import Container from 'lib/components/layouts/Container';
