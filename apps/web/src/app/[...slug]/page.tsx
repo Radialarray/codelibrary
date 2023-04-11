@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 10; // revalidate this page every 10 seconds
 import type {Metadata} from 'next';
 import {requestData} from 'lib/api/api';
 import Container from 'lib/components/layouts/Container';

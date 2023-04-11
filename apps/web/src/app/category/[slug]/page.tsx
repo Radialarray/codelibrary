@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import {requestData} from 'lib/api/api';
 import Banner from 'lib/components/Banner';
 import Breadcrumb from 'lib/components/Breadcrumb';
