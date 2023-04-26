@@ -4,9 +4,9 @@
 	"description": "",
 	"private": true,
 	"scripts": {
-		"build": "pnpm --stream -r run build",
-		"dev": "pnpm --stream -r run dev",
-		"lint": "pnpm --stream -r run lint",
+		"build": "npm --stream -r run build",
+		"dev": "npm --stream -r run dev",
+		"lint": "npm --stream -r run lint",
 		"format": "prettier --write \"**/*.{css,html,json,js,jsx,ts,tsx,md}\"",
 		"prepare": "husky install"
 	},

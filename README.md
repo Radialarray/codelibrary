@@ -67,11 +67,11 @@ The backend is a standard kirby instance, which could be hosted on a server with
 
 The frontend is a NodeJS webapp. Right now there is some stuff set up for hosting on [vercel](vercel.com) and as a docker container.
 
-### PNPM
+### NPM
 
 Using this package manager for faster install times and cached packages.
 
-How to use? `pnpm run <YOUR_COMMAND>`.
+How to use? `npm run <YOUR_COMMAND>`.
 
 ## Features
 
