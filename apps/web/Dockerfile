@@ -36,11 +36,14 @@ ENV API_USERNAME=$API_USERNAME
 ARG API_PASSWORD
 ENV API_PASSWORD=$API_PASSWORD
 
-
-RUN yarn build
+# If using yarn comment out above and use below instead
+# RUN yarn build
 
 # If using npm comment out above and use below instead
 # RUN npm run build
+
+# If using pnpm comment out above and use below instead
+RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
