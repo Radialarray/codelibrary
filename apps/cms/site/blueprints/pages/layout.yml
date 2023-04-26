@@ -54,7 +54,7 @@ columns:
         type: fields
         fields:
           categories:
-            required: true
+            # required: true
             label: Kategorien
             type: multiselect
             accept: options
