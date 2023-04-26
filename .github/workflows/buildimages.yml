@@ -25,9 +25,9 @@ jobs:
       matrix:
         include:
           - dockerfile: ./apps/cms/Dockerfile
-            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            image: ghcr.io/hfg-gmuend/codelibrary-cms
           - dockerfile: ./apps/web/Dockerfile
-            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            image: ghcr.io/hfg-gmuend/codelibrary-web
     permissions:
       contents: read
       packages: write
