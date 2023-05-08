@@ -28,10 +28,10 @@ RUN echo 'pm = dynamic' >> /usr/local/etc/php-fpm.d/zz-docker.conf && \
 
 WORKDIR /srv
 
-COPY composer.json composer.lock ./
+COPY ./apps/cms/composer.json ./apps/cms/composer.lock ./
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 
 
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-plugins --prefer-dist --no-progress --no-interaction
 
-COPY . .
+COPY ./apps/cms/ .
